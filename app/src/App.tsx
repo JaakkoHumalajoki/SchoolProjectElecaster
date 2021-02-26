@@ -1,18 +1,9 @@
 import React from "react"
+import { useRoutes } from "react-router-dom"
+import routes from "./routes"
 
-// Example typescript props usage
+export default function App(): JSX.Element {
+  const routing = useRoutes(routes())
 
-export interface IAppProps {
-  id: string
-  name: string
-}
-
-export default function App(props: IAppProps): JSX.Element {
-  const { id, name } = props
-
-  return (
-    <div>
-      {id} {name}
-    </div>
-  )
+  return <div>{routing}</div>
 }
