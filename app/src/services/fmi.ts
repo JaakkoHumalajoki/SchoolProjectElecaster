@@ -1,8 +1,8 @@
 import axios, { AxiosResponse } from "axios"
 import { FmiForecastResponse, FmiLocation } from "./fmi-types"
 
-const getForecastUrl = (city = "tampere") =>
-  `https://www.ilmatieteenlaitos.fi/api/weather/forecasts?area=&place=${city}`
+const getForecastUrl = (city = "Tampere") =>
+  `https://www.ilmatieteenlaitos.fi/api/weather/forecasts?area=&place=${city.toLowerCase()}`
 
 const parseFmiDate = (rawdate: string): Date => {
   // Fmi date is formatted like this 20210316T020000
