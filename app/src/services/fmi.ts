@@ -27,7 +27,7 @@ export interface WeatherDataPoint {
   windSpeed?: number
   windDirection?: number
   description?: string
-  pericipation1h?: number
+  precipitation1h?: number
 }
 
 export interface WeatherData {
@@ -54,7 +54,7 @@ const getWeatherData = async (city?: string): Promise<WeatherData> => {
         temperature: rawWeatherData.forecastDecimalValues[index].Temperature,
         windSpeed: item.WindSpeedMS ?? undefined,
         windDirection: item.WindDirection ?? undefined,
-        pericipation1h: item.Precipitation1h ?? undefined,
+        precipitation1h: item.Precipitation1h ?? undefined,
         // TODO: Parse rest of the optional fields
       }
     }
