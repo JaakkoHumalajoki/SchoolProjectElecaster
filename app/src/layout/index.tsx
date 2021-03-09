@@ -1,20 +1,16 @@
 import React from "react"
-import { Link, Outlet } from "react-router-dom"
+import { Outlet } from "react-router-dom"
+import Header from "./Header/Header"
+import Footer from "./Footer/Footer"
 
 export default (): JSX.Element => {
   return (
-    <div>
-      {/* Here would be Header */}
-      <Link to="/">Home</Link>
-      <Link to="weather">Weather</Link>
-      <Link to="electricity">Electricity</Link>
-      <Link to="analysis">Analysis</Link>
-      <main>
-        {/* This is the the Content */}
+    <div className="min-h-screen mx-auto flex flex-col h-screen">
+      <Header />
+      <main className="w-full max-w-6xl mx-auto flex-grow">
         <Outlet />
       </main>
-      {/* Here would be Footer */}
-      Footer
+      <Footer />
     </div>
   )
 }
