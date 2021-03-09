@@ -52,6 +52,8 @@ const getWeatherData = async (city?: string): Promise<WeatherData> => {
         time: parseFmiDate(item.localtime),
         modifiedAt: parseFmiDate(item.modtime),
         temperature: rawWeatherData.forecastDecimalValues[index].Temperature,
+        windSpeed: item.WindSpeedMS ?? undefined,
+        windDirection: item.WindDirection ?? undefined,
         // TODO: Parse rest of the optional fields
       }
     }
