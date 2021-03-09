@@ -54,6 +54,7 @@ const getWeatherData = async (city?: string): Promise<WeatherData> => {
         temperature: rawWeatherData.forecastDecimalValues[index].Temperature,
         windSpeed: item.WindSpeedMS ?? undefined,
         windDirection: item.WindDirection ?? undefined,
+        pericipation1h: item.Precipitation1h ?? undefined,
         // TODO: Parse rest of the optional fields
       }
     }
