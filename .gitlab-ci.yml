@@ -11,6 +11,10 @@ cache:
   paths:
     - $HOME/.npm/cache
 
+default:
+  before_script:
+    - npm config set cache $HOME/.npm/cache --global
+
 run tests:
   stage: test
   script:
