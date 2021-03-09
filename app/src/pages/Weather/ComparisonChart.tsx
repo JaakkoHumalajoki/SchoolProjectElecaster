@@ -12,7 +12,7 @@ export default (props: Props): JSX.Element => {
 
   const options: Highcharts.Options = {
     title: {
-      text: "Energy type comparison",
+      text: "Weather forecast",
     },
     navigator: {
       enabled: true,

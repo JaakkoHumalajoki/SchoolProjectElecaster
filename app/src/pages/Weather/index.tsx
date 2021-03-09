@@ -17,7 +17,7 @@ export default (): JSX.Element => {
 
   return (
     <div>
-      <h1>Electricity</h1>
+      <h1>Weather</h1>
       <ComparisonChart weatherData={data} />
     </div>
   )
