@@ -3,26 +3,29 @@
 # https://hub.docker.com/r/library/node/tags/
 image: node:latest
 
-# Pick zero or more services to be used on all builds.
-# Only needed when using a docker container to run your tests in.
-# Check out: http://docs.gitlab.com/ee/ci/docker/using_docker_images.html#what-is-a-service
-#services:
-# - mysql:latest
-# - redis:latest
-# - postgres:latest
+stages:
+  - test
+  - deploy
 
-# This folder is cached between builds
-# http://docs.gitlab.com/ee/ci/yaml/README.html#cache
 cache:
   paths:
-    - node_modules/
+    - $HOME/.npm/cache
 
-#test_async:
-#  script:
-#    - npm install
-#    - node ./specs/start.js ./specs/async.spec.js
-
-test_db:
+run tests:
+  stage: test
   script:
-    - sleep 10
+    - echo "Run tests here"
+    - sleep 3
     - echo "SUCCESS"
+
+deploy to production:
+  stage: deploy
+  only:
+    - master
+  script:
+    - npm install -g netlify-cli
+    - cd ./app
+    - npm ci
+    - npm run build
+    - netlify deploy --prod --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./build
+
