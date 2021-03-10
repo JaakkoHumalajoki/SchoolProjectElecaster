@@ -8,12 +8,9 @@ stages:
   - deploy
 
 cache:
+  key: ${CI_COMMIT_REF_SLUG}
   paths:
-    - $HOME/.npm/cache
-
-default:
-  before_script:
-    - npm config set cache $HOME/.npm/cache --global
+    - ${CI_BUILDS_DIR}/app/npm/
 
 run tests:
   stage: test
@@ -33,7 +30,7 @@ deploy to production:
   script:
     - npm install -g netlify-cli
     - cd ./app
-    - npm ci
+    - npm ci --cache ${CI_BUILDS_DIR}/app/npm --prefer-offline
     - npm run build
     - netlify deploy --prod --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./build
 
