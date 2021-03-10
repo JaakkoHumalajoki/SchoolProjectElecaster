@@ -1,0 +1,2 @@
+# Netlify will use this file to support react-router, since SPA lives only at /index.html
+/*  /index.html  200
