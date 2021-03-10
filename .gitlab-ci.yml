@@ -17,8 +17,6 @@ default:
 
 run tests:
   stage: test
-  variables:
-    NODE_ENV: "test"
   script:
     - echo "Run tests here"
     - sleep 3
@@ -28,8 +26,6 @@ deploy to production:
   stage: deploy
   only:
     - master
-  variables:
-    NODE_ENV: "production"
   script:
     - npm install -g netlify-cli
     - cd ./app
