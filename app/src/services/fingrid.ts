@@ -7,7 +7,7 @@ export interface EletricityDataPoint {
   value: number
 }
 export interface EletricityData {
-  data: FingridDatapoint[]
+  data: EletricityDataPoint[]
 }
 
 const formatFingridDate = (date: Date): string =>
@@ -33,7 +33,14 @@ const getElectricityData = async (
       },
     }
   )
-  return { data: response.data }
+  return {
+    data: response.data.map((item) => {
+      return {
+        time: new Date(item.start_time),
+        value: item.value,
+      }
+    }),
+  }
 }
 
 export default { getElectricityData }
