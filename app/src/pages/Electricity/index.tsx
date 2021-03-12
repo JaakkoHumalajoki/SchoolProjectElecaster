@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import ComparisonChart from "./ComparisonChart"
 import fingridService, { ElectricityDataPoint } from "../../services/fingrid"
 import { variables } from "../../services/fingrid-types"
+import HistoryChart from "./HistoryChart"
 
 export default (): JSX.Element => {
   const [consumptionData, setConsumptionData] = useState<
@@ -13,13 +14,21 @@ export default (): JSX.Element => {
   const [nuclearData, setNuclearData] = useState<ElectricityDataPoint[]>([])
   const [hydroData, setHydroData] = useState<ElectricityDataPoint[]>([])
   const [windData, setWindData] = useState<ElectricityDataPoint[]>([])
-  // const [forecastWindData, setForecastWindData] = useState<
-  //   ElectricityDataPoint[]
-  // >([])
+  const [forecastConsumptionData, setForecastConsumptionData] = useState<
+    ElectricityDataPoint[]
+  >([])
+  const [forecastProductionData, setForecastProductionData] = useState<
+    ElectricityDataPoint[]
+  >([])
+  const [forecastWindData, setForecastWindData] = useState<
+    ElectricityDataPoint[]
+  >([])
 
   const today: Date = new Date()
   const tenDaysPast: Date = new Date()
   tenDaysPast.setDate(today.getDate() - 10)
+  const weekFromNow: Date = new Date()
+  weekFromNow.setDate(today.getDate() + 7)
 
   useEffect(() => {
     fingridService
@@ -66,6 +75,33 @@ export default (): JSX.Element => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  useEffect(() => {
+    fingridService
+      .getElectricityData(variables.consumptionForecast, today, weekFromNow)
+      .then((electricityData) => {
+        setForecastConsumptionData(electricityData.data)
+      })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    fingridService
+      .getElectricityData(variables.productionForecastTotal, today, weekFromNow)
+      .then((electricityData) => {
+        setForecastProductionData(electricityData.data)
+      })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    fingridService
+      .getElectricityData(variables.productionForecastWind, today, weekFromNow)
+      .then((electricityData) => {
+        setForecastWindData(electricityData.data)
+      })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <div>
       <ComparisonChart
@@ -74,6 +110,11 @@ export default (): JSX.Element => {
         nuclearData={nuclearData}
         hydroData={hydroData}
         windData={windData}
+      />
+      <HistoryChart
+        consumptionForecast={forecastConsumptionData}
+        productionForecast={forecastProductionData}
+        windForecast={forecastWindData}
       />
     </div>
   )
