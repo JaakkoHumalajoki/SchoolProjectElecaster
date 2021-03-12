@@ -5,13 +5,20 @@ import { ElectricityDataPoint } from "../../services/fingrid"
 
 interface Props {
   consumptionData: ElectricityDataPoint[]
+  productionData: ElectricityDataPoint[]
   nuclearData: ElectricityDataPoint[]
   hydroData: ElectricityDataPoint[]
   windData: ElectricityDataPoint[]
 }
 
 export default (props: Props): JSX.Element => {
-  const { consumptionData, nuclearData, hydroData, windData } = props
+  const {
+    consumptionData,
+    productionData,
+    nuclearData,
+    hydroData,
+    windData,
+  } = props
 
   const options: Highcharts.Options = {
     title: {
@@ -68,14 +75,26 @@ export default (props: Props): JSX.Element => {
       },
     ],
     tooltip: {
-      shared: true,
+      shared: false,
     },
     series: [
       {
         type: "line",
-        name: "Total consumption",
+        name: "Total Consumption",
         showInNavigator: true,
         data: consumptionData.map((point) => [
+          point.time.getTime(),
+          point.value,
+        ]),
+        tooltip: {
+          valueSuffix: " MW",
+        },
+      },
+      {
+        type: "line",
+        name: "Total Production",
+        showInNavigator: true,
+        data: productionData.map((point) => [
           point.time.getTime(),
           point.value,
         ]),
