@@ -2,12 +2,12 @@ import axios, { AxiosResponse } from "axios"
 
 import { FingridDatapoint } from "./fingrid-types"
 
-export interface EletricityDataPoint {
+export interface ElectricityDataPoint {
   time: Date
   value: number
 }
-export interface EletricityData {
-  data: EletricityDataPoint[]
+export interface ElectricityData {
+  data: ElectricityDataPoint[]
 }
 
 const formatFingridDate = (date: Date): string =>
@@ -21,7 +21,7 @@ const getElectricityData = async (
     new Date().getMonth(),
     new Date().getDay() + 10
   )
-): Promise<EletricityData> => {
+): Promise<ElectricityData> => {
   const response: AxiosResponse<FingridDatapoint[]> = await axios.get(
     `https://api.fingrid.fi/v1/variable/${variable}/events/json?` +
       `start_time=${encodeURIComponent(
