@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react"
-import ComparisonChart from "./ComparisonChart"
 import fingridService, { ElectricityDataPoint } from "../../services/fingrid"
 import { variables } from "../../services/fingrid-types"
+import ComparisonChart from "./ComparisonChart"
 import HistoryChart from "./HistoryChart"
+import PieChart from "./PieChart"
 
 export default (): JSX.Element => {
   const [consumptionData, setConsumptionData] = useState<
@@ -115,6 +116,11 @@ export default (): JSX.Element => {
         consumptionForecast={forecastConsumptionData}
         productionForecast={forecastProductionData}
         windForecast={forecastWindData}
+      />
+      <PieChart
+        nuclearData={nuclearData}
+        hydroData={hydroData}
+        windData={windData}
       />
     </div>
   )
