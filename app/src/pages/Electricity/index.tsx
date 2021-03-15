@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react"
-import fingridService, { ElectricityDataPoint } from "../../services/fingrid"
+import fingridService, {
+  ElectricityData,
+  ElectricityDataPoint,
+} from "../../services/fingrid"
 import { variables } from "../../services/fingrid-types"
 import ComparisonChart from "./ComparisonChart"
 import HistoryChart from "./HistoryChart"
@@ -32,74 +35,95 @@ export default (): JSX.Element => {
   weekFromNow.setDate(today.getDate() + 7)
 
   useEffect(() => {
-    fingridService
-      .getElectricityData(variables.consumptionTotal, tenDaysPast, today)
-      .then((electricityData) => {
-        setConsumptionData(electricityData.data)
-      })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    const fetchData = async () => {
+      const dataPromises: Promise<ElectricityData>[] = []
 
-  useEffect(() => {
-    fingridService
-      .getElectricityData(variables.productionTotal, tenDaysPast, today)
-      .then((electricityData) => {
-        setProductionData(electricityData.data)
-      })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+      dataPromises.push(
+        fingridService.getElectricityData(
+          variables.consumptionTotal,
+          tenDaysPast,
+          today
+        )
+      )
+      dataPromises.push(
+        fingridService.getElectricityData(
+          variables.productionTotal,
+          tenDaysPast,
+          today
+        )
+      )
+      dataPromises.push(
+        fingridService.getElectricityData(
+          variables.productionNuclear,
+          tenDaysPast,
+          today
+        )
+      )
+      dataPromises.push(
+        fingridService.getElectricityData(
+          variables.productionHydro,
+          tenDaysPast,
+          today
+        )
+      )
+      dataPromises.push(
+        fingridService.getElectricityData(
+          variables.productionWind,
+          tenDaysPast,
+          today
+        )
+      )
+      dataPromises.push(
+        fingridService.getElectricityData(
+          variables.consumptionForecast,
+          today,
+          weekFromNow
+        )
+      )
+      dataPromises.push(
+        fingridService.getElectricityData(
+          variables.productionForecastTotal,
+          today,
+          weekFromNow
+        )
+      )
+      dataPromises.push(
+        fingridService.getElectricityData(
+          variables.productionForecastWind,
+          today,
+          weekFromNow
+        )
+      )
 
-  useEffect(() => {
-    fingridService
-      .getElectricityData(variables.productionNuclear, tenDaysPast, today)
-      .then((electricityData) => {
-        setNuclearData(electricityData.data)
-      })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+      await Promise.all(dataPromises)
 
-  useEffect(() => {
-    fingridService
-      .getElectricityData(variables.productionHydro, tenDaysPast, today)
-      .then((electricityData) => {
-        setHydroData(electricityData.data)
+      dataPromises[0].then((data) => {
+        setConsumptionData(data.data)
       })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+      dataPromises[1].then((data) => {
+        setProductionData(data.data)
+      })
+      dataPromises[2].then((data) => {
+        setNuclearData(data.data)
+      })
+      dataPromises[3].then((data) => {
+        setHydroData(data.data)
+      })
+      dataPromises[4].then((data) => {
+        setWindData(data.data)
+      })
+      dataPromises[5].then((data) => {
+        setForecastConsumptionData(data.data)
+      })
+      dataPromises[6].then((data) => {
+        setForecastProductionData(data.data)
+      })
+      dataPromises[7].then((data) => {
+        setForecastWindData(data.data)
+      })
+    }
 
-  useEffect(() => {
-    fingridService
-      .getElectricityData(variables.productionWind, tenDaysPast, today)
-      .then((electricityData) => {
-        setWindData(electricityData.data)
-      })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  useEffect(() => {
-    fingridService
-      .getElectricityData(variables.consumptionForecast, today, weekFromNow)
-      .then((electricityData) => {
-        setForecastConsumptionData(electricityData.data)
-      })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  useEffect(() => {
-    fingridService
-      .getElectricityData(variables.productionForecastTotal, today, weekFromNow)
-      .then((electricityData) => {
-        setForecastProductionData(electricityData.data)
-      })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  useEffect(() => {
-    fingridService
-      .getElectricityData(variables.productionForecastWind, today, weekFromNow)
-      .then((electricityData) => {
-        setForecastWindData(electricityData.data)
-      })
+    fetchData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
