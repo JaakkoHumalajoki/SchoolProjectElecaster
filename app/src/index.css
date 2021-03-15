@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .card {
-  @apply m-4 p-4 bg-white rounded-lg flex mx-auto space-x-4 shadow-md;
+  @apply m-4 p-4 bg-white rounded-lg;
 }
 
 .navlink {
