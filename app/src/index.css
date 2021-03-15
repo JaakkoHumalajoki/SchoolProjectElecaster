@@ -6,6 +6,18 @@
   @apply m-4 p-4 bg-white rounded-lg;
 }
 
+.card-sm {
+  @apply card shadow-sm;
+}
+
+.card-md {
+  @apply card shadow-md;
+}
+
+.card-lg {
+  @apply card shadow-lg;
+}
+
 .navlink {
   @apply transition duration-100 ease-in-out px-4 py-2 text-xl rounded-b-none hover:bg-gray-300 rounded-lg;
 }
