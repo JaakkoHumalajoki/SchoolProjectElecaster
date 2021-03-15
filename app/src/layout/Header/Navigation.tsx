@@ -23,10 +23,12 @@ const StyledNavLink = ({
 )
 
 export default (): JSX.Element => (
-  <nav className="flex-auto flex items-center justify-end space-x-2">
-    <StyledNavLink to="/">Home</StyledNavLink>
-    <StyledNavLink to="weather">Weather</StyledNavLink>
-    <StyledNavLink to="electricity">Electricity</StyledNavLink>
-    <StyledNavLink to="analysis">Analysis</StyledNavLink>
+  <nav className="flex-auto flex justify-end">
+    <ul className="flex items-center space-x-2">
+      <StyledNavLink to="/">Home</StyledNavLink>
+      <StyledNavLink to="weather">Weather</StyledNavLink>
+      <StyledNavLink to="electricity">Electricity</StyledNavLink>
+      <StyledNavLink to="analysis">Analysis</StyledNavLink>
+    </ul>
   </nav>
 )
