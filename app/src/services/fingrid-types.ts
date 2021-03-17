@@ -1,4 +1,4 @@
-export const variables = Object.freeze({
+export const fingridVariables = Object.freeze({
   // Forecasts
   consumptionForecast: 166,
   productionForecastTotal: 242,
