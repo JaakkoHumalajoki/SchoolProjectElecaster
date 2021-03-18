@@ -53,7 +53,11 @@ export default (props: Props): JSX.Element => {
 
   return (
     <div>
-      <HighchartsReact highcharts={Highcharts} options={options} />
+      <HighchartsReact
+        highcharts={Highcharts}
+        options={options}
+        containerProps={{ className: "chartContainer" }}
+      />
     </div>
   )
 }

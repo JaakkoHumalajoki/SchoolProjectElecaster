@@ -29,3 +29,7 @@
 .btn-rounded-lg {
   @apply m-2 p-4 w-52 text-lg rounded-md ring-2 ring-inset ring-gray-600 ring-opacity-50;
 }
+
+.chartContainer {
+  @apply card-lg;
+}
