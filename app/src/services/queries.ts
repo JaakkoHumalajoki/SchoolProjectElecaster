@@ -95,14 +95,14 @@ export class ElectricityPageData implements ElectricityPageDataInterface {
   /**
    * Getter for forecsast data. Exposes class data read-only
    */
-  public get forecast() {
+  public get forecast(): ElectricityPageDataInterface["forecast"] {
     return this.electricityData.forecast
   }
 
   /**
    * Getter for history data. Exposes class data read-only
    */
-  public get history() {
+  public get history(): ElectricityPageDataInterface["history"] {
     return this.electricityData.history
   }
 
