@@ -9,6 +9,12 @@ import ComparisonChart from "./ComparisonChart"
 import HistoryChart from "./HistoryChart"
 import PieChart from "./PieChart"
 
+const today: Date = new Date()
+const tenDaysPast: Date = new Date()
+tenDaysPast.setDate(today.getDate() - 10)
+const weekFromNow: Date = new Date()
+weekFromNow.setDate(today.getDate() + 7)
+
 export default (): JSX.Element => {
   const [consumptionData, setConsumptionData] = useState<
     ElectricityDataPoint[]
@@ -28,22 +34,45 @@ export default (): JSX.Element => {
   const [forecastWindData, setForecastWindData] = useState<
     ElectricityDataPoint[]
   >([])
+  const [startTime, setStartTime] = useState<Date>(tenDaysPast)
+  const [endTime, setEndTime] = useState<Date>(weekFromNow)
 
-  const today: Date = new Date()
-  const tenDaysPast: Date = new Date()
-  tenDaysPast.setDate(today.getDate() - 10)
-  const weekFromNow: Date = new Date()
-  weekFromNow.setDate(today.getDate() + 7)
+  const startTimeString = startTime.toISOString().slice(0, 10)
+  const endTimeString = endTime.toISOString().slice(0, 10)
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleStartTimeChange = (event: any) => {
+    if (event.target.valueAsDate === null) {
+      setStartTime(today)
+      return
+    }
+    setStartTime(event.target.valueAsDate)
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleEndTimeChange = (event: any) => {
+    if (event.target.valueAsDate === null) {
+      setEndTime(today)
+      return
+    }
+    setEndTime(event.target.valueAsDate)
+  }
 
   const pastRange: TimeRange = {
-    startTime: tenDaysPast,
+    startTime,
     endTime: today,
   }
 
   const futureRange: TimeRange = {
     startTime: today,
-    endTime: weekFromNow,
+    endTime,
   }
+
+  if (endTime < today) {
+    pastRange.endTime = endTime
+    futureRange.startTime = today
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       const dataPromises: Promise<ElectricityDataPoint[]>[] = []
@@ -109,10 +138,22 @@ export default (): JSX.Element => {
 
     fetchData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [startTime, endTime])
 
   return (
     <div>
+      Search range start:{" "}
+      <input
+        type="date"
+        defaultValue={startTimeString}
+        onChange={handleStartTimeChange}
+      />
+      End:{" "}
+      <input
+        type="date"
+        defaultValue={endTimeString}
+        onChange={handleEndTimeChange}
+      />
       <ComparisonChart
         consumptionData={consumptionData}
         productionData={productionData}
