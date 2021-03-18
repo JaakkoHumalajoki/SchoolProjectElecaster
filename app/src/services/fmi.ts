@@ -46,6 +46,13 @@ const getWeatherData = async (city?: string): Promise<WeatherData> => {
     data: [],
   }
 
+  const descriptions: any = {}
+  rawWeatherData.symbolDescriptions.map((item) => {
+    descriptions[item.id.toString()] = item.text_en
+    // eslint-disable-next-line no-useless-return
+    return
+  })
+
   weatherData.data = rawWeatherData.forecastValues.map(
     (item, index): WeatherDataPoint => {
       return {
@@ -55,7 +62,9 @@ const getWeatherData = async (city?: string): Promise<WeatherData> => {
         windSpeed: item.WindSpeedMS ?? undefined,
         windDirection: item.WindDirection ?? undefined,
         precipitation1h: item.Precipitation1h ?? undefined,
-        // TODO: Parse rest of the optional fields
+        description: item.SmartSymbol
+          ? descriptions[item.SmartSymbol.toString()]
+          : undefined,
       }
     }
   )
