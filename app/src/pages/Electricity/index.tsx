@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react"
-import fingridService, {
-  ElectricityData,
+import {
+  fetchElectricityData,
   ElectricityDataPoint,
 } from "../../services/fingrid"
-import { variables } from "../../services/fingrid-types"
+import { fingridVariables } from "../../services/fingrid-types"
+import { TimeRange } from "../../common"
 import ComparisonChart from "./ComparisonChart"
 import HistoryChart from "./HistoryChart"
 import PieChart from "./PieChart"
@@ -34,92 +35,75 @@ export default (): JSX.Element => {
   const weekFromNow: Date = new Date()
   weekFromNow.setDate(today.getDate() + 7)
 
+  const pastRange: TimeRange = {
+    startTime: tenDaysPast,
+    endTime: today,
+  }
+
+  const futureRange: TimeRange = {
+    startTime: today,
+    endTime: weekFromNow,
+  }
   useEffect(() => {
     const fetchData = async () => {
-      const dataPromises: Promise<ElectricityData>[] = []
+      const dataPromises: Promise<ElectricityDataPoint[]>[] = []
 
       dataPromises.push(
-        fingridService.getElectricityData(
-          variables.consumptionTotal,
-          tenDaysPast,
-          today
+        fetchElectricityData(fingridVariables.consumptionTotal, pastRange)
+      )
+      dataPromises.push(
+        fetchElectricityData(fingridVariables.productionTotal, pastRange)
+      )
+      dataPromises.push(
+        fetchElectricityData(fingridVariables.productionNuclear, pastRange)
+      )
+      dataPromises.push(
+        fetchElectricityData(fingridVariables.productionHydro, pastRange)
+      )
+      dataPromises.push(
+        fetchElectricityData(fingridVariables.productionWind, pastRange)
+      )
+      dataPromises.push(
+        fetchElectricityData(fingridVariables.consumptionForecast, futureRange)
+      )
+      dataPromises.push(
+        fetchElectricityData(
+          fingridVariables.productionForecastTotal,
+          futureRange
         )
       )
       dataPromises.push(
-        fingridService.getElectricityData(
-          variables.productionTotal,
-          tenDaysPast,
-          today
-        )
-      )
-      dataPromises.push(
-        fingridService.getElectricityData(
-          variables.productionNuclear,
-          tenDaysPast,
-          today
-        )
-      )
-      dataPromises.push(
-        fingridService.getElectricityData(
-          variables.productionHydro,
-          tenDaysPast,
-          today
-        )
-      )
-      dataPromises.push(
-        fingridService.getElectricityData(
-          variables.productionWind,
-          tenDaysPast,
-          today
-        )
-      )
-      dataPromises.push(
-        fingridService.getElectricityData(
-          variables.consumptionForecast,
-          today,
-          weekFromNow
-        )
-      )
-      dataPromises.push(
-        fingridService.getElectricityData(
-          variables.productionForecastTotal,
-          today,
-          weekFromNow
-        )
-      )
-      dataPromises.push(
-        fingridService.getElectricityData(
-          variables.productionForecastWind,
-          today,
-          weekFromNow
+        fetchElectricityData(
+          fingridVariables.productionForecastWind,
+          futureRange
         )
       )
 
       await Promise.all(dataPromises)
 
       dataPromises[0].then((data) => {
-        setConsumptionData(data.data)
+        setConsumptionData(data)
       })
       dataPromises[1].then((data) => {
-        setProductionData(data.data)
+        setProductionData(data)
       })
       dataPromises[2].then((data) => {
-        setNuclearData(data.data)
+        setNuclearData(data)
       })
       dataPromises[3].then((data) => {
-        setHydroData(data.data)
+        setHydroData(data)
       })
       dataPromises[4].then((data) => {
-        setWindData(data.data)
+        setWindData(data)
       })
       dataPromises[5].then((data) => {
-        setForecastConsumptionData(data.data)
+        setForecastConsumptionData(data)
       })
       dataPromises[6].then((data) => {
-        setForecastProductionData(data.data)
+        setForecastProductionData(data)
       })
       dataPromises[7].then((data) => {
-        setForecastWindData(data.data)
+        setForecastWindData(data)
       })
     }
 

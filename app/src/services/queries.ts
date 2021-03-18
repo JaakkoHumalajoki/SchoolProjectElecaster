@@ -158,7 +158,7 @@ export class ElectricityPageData implements ElectricityPageDataInterface {
   }
 }
 
-export const getElectricityData = (): ElectricityData => {
-  // Calls Findgird endpoints and parses them
-  return { data: "dataa", megawatts: 10 }
-}
+// export const getElectricityData = (): ElectricityData => {
+//   // Calls Findgird endpoints and parses them
+//   return { data: "dataa", megawatts: 10 }
+// }
