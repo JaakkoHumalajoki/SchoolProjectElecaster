@@ -23,7 +23,7 @@ const parseFmiDate = (rawdate: string): Date => {
 export interface WeatherDataPoint {
   time: Date
   modifiedAt: Date
-  temperature: number | null
+  temperature: number
   windSpeed?: number
   windDirection?: number
   description?: string
@@ -46,6 +46,7 @@ const getWeatherData = async (city?: string): Promise<WeatherData> => {
     data: [],
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const descriptions: any = {}
   rawWeatherData.symbolDescriptions.map((item) => {
     descriptions[item.id.toString()] = item.text_en
@@ -53,21 +54,28 @@ const getWeatherData = async (city?: string): Promise<WeatherData> => {
     return
   })
 
-  weatherData.data = rawWeatherData.forecastValues.map(
-    (item, index): WeatherDataPoint => {
-      return {
-        time: parseFmiDate(item.localtime),
-        modifiedAt: parseFmiDate(item.modtime),
-        temperature: rawWeatherData.forecastDecimalValues[index].Temperature,
-        windSpeed: item.WindSpeedMS ?? undefined,
-        windDirection: item.WindDirection ?? undefined,
-        precipitation1h: item.Precipitation1h ?? undefined,
-        description: item.SmartSymbol
-          ? descriptions[item.SmartSymbol.toString()]
-          : undefined,
+  weatherData.data = rawWeatherData.forecastValues
+    .filter(
+      (value, index) =>
+        // Ensure there are no null value temperatures
+        rawWeatherData.forecastDecimalValues[index].Temperature !== null
+    )
+    .map(
+      (item, index): WeatherDataPoint => {
+        return {
+          time: parseFmiDate(item.localtime),
+          modifiedAt: parseFmiDate(item.modtime),
+          temperature: rawWeatherData.forecastDecimalValues[index]
+            .Temperature as number,
+          windSpeed: item.WindSpeedMS ?? undefined,
+          windDirection: item.WindDirection ?? undefined,
+          precipitation1h: item.Precipitation1h ?? undefined,
+          description: item.SmartSymbol
+            ? descriptions[item.SmartSymbol.toString()]
+            : undefined,
+        }
       }
-    }
-  )
+    )
 
   return weatherData
 }
