@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react"
 import {
-  fetchElectricityData,
-  ElectricityDataPoint,
-} from "../../services/fingrid"
-import { fingridVariables } from "../../services/fingrid-types"
+  ElectricityPageDataInterface,
+  ElectricityPageData,
+} from "../../services/queries"
 import { TimeRange } from "../../common"
 import ComparisonChart from "./ComparisonChart"
 import HistoryChart from "./HistoryChart"
@@ -15,130 +14,50 @@ tenDaysPast.setDate(today.getDate() - 10)
 const weekFromNow: Date = new Date()
 weekFromNow.setDate(today.getDate() + 7)
 
-export default (): JSX.Element => {
-  const [consumptionData, setConsumptionData] = useState<
-    ElectricityDataPoint[]
-  >([])
-  const [productionData, setProductionData] = useState<ElectricityDataPoint[]>(
-    []
-  )
-  const [nuclearData, setNuclearData] = useState<ElectricityDataPoint[]>([])
-  const [hydroData, setHydroData] = useState<ElectricityDataPoint[]>([])
-  const [windData, setWindData] = useState<ElectricityDataPoint[]>([])
-  const [forecastConsumptionData, setForecastConsumptionData] = useState<
-    ElectricityDataPoint[]
-  >([])
-  const [forecastProductionData, setForecastProductionData] = useState<
-    ElectricityDataPoint[]
-  >([])
-  const [forecastWindData, setForecastWindData] = useState<
-    ElectricityDataPoint[]
-  >([])
-  const [startTime, setStartTime] = useState<Date>(tenDaysPast)
-  const [endTime, setEndTime] = useState<Date>(weekFromNow)
+const emptyData: ElectricityPageDataInterface = {} as ElectricityPageDataInterface
 
-  const startTimeString = startTime.toISOString().slice(0, 10)
-  const endTimeString = endTime.toISOString().slice(0, 10)
+export default (): JSX.Element => {
+  const [data, setData] = useState<ElectricityPageDataInterface>(emptyData)
+  const [timeRange, setTimeRange] = useState<TimeRange>({
+    startTime: tenDaysPast,
+    endTime: weekFromNow,
+  })
+
+  useEffect(() => {
+    const dataSource = new ElectricityPageData(timeRange)
+    dataSource.fetch().then(() => {
+      const newData: ElectricityPageDataInterface = {
+        forecast: dataSource.forecast,
+        history: dataSource.history,
+      }
+      setData(newData)
+    })
+  }, [timeRange])
+
+  const startTimeString = timeRange.startTime.toISOString().slice(0, 10)
+  const endTimeString = timeRange.endTime.toISOString().slice(0, 10)
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleStartTimeChange = (event: any) => {
     if (event.target.valueAsDate === null) {
-      setStartTime(today)
+      setTimeRange({ ...timeRange, startTime: today })
       return
     }
-    setStartTime(event.target.valueAsDate)
+    setTimeRange({ ...timeRange, startTime: event.target.valueAsDate })
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleEndTimeChange = (event: any) => {
     if (event.target.valueAsDate === null) {
-      setEndTime(today)
+      setTimeRange({ ...timeRange, endTime: today })
       return
     }
-    setEndTime(event.target.valueAsDate)
+    setTimeRange({ ...timeRange, endTime: event.target.valueAsDate })
   }
 
-  const pastRange: TimeRange = {
-    startTime,
-    endTime: today,
+  if (data === emptyData) {
+    return <div>Loading...</div>
   }
-
-  const futureRange: TimeRange = {
-    startTime: today,
-    endTime,
-  }
-
-  if (endTime < today) {
-    pastRange.endTime = endTime
-    futureRange.startTime = today
-  }
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const dataPromises: Promise<ElectricityDataPoint[]>[] = []
-
-      dataPromises.push(
-        fetchElectricityData(fingridVariables.consumptionTotal, pastRange)
-      )
-      dataPromises.push(
-        fetchElectricityData(fingridVariables.productionTotal, pastRange)
-      )
-      dataPromises.push(
-        fetchElectricityData(fingridVariables.productionNuclear, pastRange)
-      )
-      dataPromises.push(
-        fetchElectricityData(fingridVariables.productionHydro, pastRange)
-      )
-      dataPromises.push(
-        fetchElectricityData(fingridVariables.productionWind, pastRange)
-      )
-      dataPromises.push(
-        fetchElectricityData(fingridVariables.consumptionForecast, futureRange)
-      )
-      dataPromises.push(
-        fetchElectricityData(
-          fingridVariables.productionForecastTotal,
-          futureRange
-        )
-      )
-      dataPromises.push(
-        fetchElectricityData(
-          fingridVariables.productionForecastWind,
-          futureRange
-        )
-      )
-
-      await Promise.all(dataPromises)
-
-      dataPromises[0].then((data) => {
-        setConsumptionData(data)
-      })
-      dataPromises[1].then((data) => {
-        setProductionData(data)
-      })
-      dataPromises[2].then((data) => {
-        setNuclearData(data)
-      })
-      dataPromises[3].then((data) => {
-        setHydroData(data)
-      })
-      dataPromises[4].then((data) => {
-        setWindData(data)
-      })
-      dataPromises[5].then((data) => {
-        setForecastConsumptionData(data)
-      })
-      dataPromises[6].then((data) => {
-        setForecastProductionData(data)
-      })
-      dataPromises[7].then((data) => {
-        setForecastWindData(data)
-      })
-    }
-
-    fetchData()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [startTime, endTime])
 
   return (
     <div>
@@ -155,21 +74,21 @@ export default (): JSX.Element => {
         onChange={handleEndTimeChange}
       />
       <ComparisonChart
-        consumptionData={consumptionData}
-        productionData={productionData}
-        nuclearData={nuclearData}
-        hydroData={hydroData}
-        windData={windData}
+        consumptionData={data.history.consumption.total}
+        productionData={data.history.production.total}
+        nuclearData={data.history.production.nuclear}
+        hydroData={data.history.production.hydro}
+        windData={data.history.production.wind}
       />
       <HistoryChart
-        consumptionForecast={forecastConsumptionData}
-        productionForecast={forecastProductionData}
-        windForecast={forecastWindData}
+        consumptionForecast={data.forecast.consumption.total}
+        productionForecast={data.forecast.production.total}
+        windForecast={data.forecast.production.wind}
       />
       <PieChart
-        nuclearData={nuclearData}
-        hydroData={hydroData}
-        windData={windData}
+        nuclearData={data.history.production.nuclear}
+        hydroData={data.history.production.hydro}
+        windData={data.history.production.wind}
       />
     </div>
   )
