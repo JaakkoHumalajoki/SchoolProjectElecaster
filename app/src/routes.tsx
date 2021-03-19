@@ -5,12 +5,15 @@ import Electricity from "./pages/Electricity"
 import Home from "./pages/Home"
 import Weather from "./pages/Weather"
 import { WeatherDataPoint } from "./services/fmi"
+import { TimeRange } from "./common"
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const routes = (
   city: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onCityChange: (event: any) => void,
+  timeRange: TimeRange,
+  onTimeChange: (newRange: TimeRange) => void,
   weatherData: WeatherDataPoint[]
 ) => [
   {
@@ -33,7 +36,9 @@ const routes = (
       },
       {
         path: "electricity",
-        element: <Electricity />,
+        element: (
+          <Electricity timeRange={timeRange} onTimeChange={onTimeChange} />
+        ),
       },
       {
         path: "analysis",

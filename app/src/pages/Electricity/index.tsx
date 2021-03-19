@@ -4,22 +4,19 @@ import {
   ElectricityPageData,
 } from "../../services/queries"
 import { TimeRange } from "../../common"
+import TimeSelection from "../../components/TimeSelection"
 import ComparisonChart from "./ComparisonChart"
 import ForecastChart from "./ForecastChart"
 import PieChart from "./PieChart"
 
-const today: Date = new Date()
-const tenDaysPast: Date = new Date()
-tenDaysPast.setDate(today.getDate() - 10)
-const weekFromNow: Date = new Date()
-weekFromNow.setDate(today.getDate() + 7)
+interface Props {
+  timeRange: TimeRange
+  onTimeChange(newRange: TimeRange): void
+}
 
-export default (): JSX.Element => {
+export default (props: Props): JSX.Element => {
+  const { timeRange, onTimeChange } = props
   const [data, setData] = useState<ElectricityPageDataInterface | null>(null)
-  const [timeRange, setTimeRange] = useState<TimeRange>({
-    startTime: tenDaysPast,
-    endTime: weekFromNow,
-  })
 
   useEffect(() => {
     const dataSource = new ElectricityPageData(timeRange)
@@ -32,45 +29,13 @@ export default (): JSX.Element => {
     })
   }, [timeRange])
 
-  const startTimeString = timeRange.startTime.toISOString().slice(0, 10)
-  const endTimeString = timeRange.endTime.toISOString().slice(0, 10)
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleStartTimeChange = (event: any) => {
-    if (event.target.valueAsDate === null) {
-      setTimeRange({ ...timeRange, startTime: today })
-      return
-    }
-    setTimeRange({ ...timeRange, startTime: event.target.valueAsDate })
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleEndTimeChange = (event: any) => {
-    if (event.target.valueAsDate === null) {
-      setTimeRange({ ...timeRange, endTime: today })
-      return
-    }
-    setTimeRange({ ...timeRange, endTime: event.target.valueAsDate })
-  }
-
   if (data === null) {
     return <div>Loading...</div>
   }
 
   return (
     <div>
-      Search range start:{" "}
-      <input
-        type="date"
-        defaultValue={startTimeString}
-        onChange={handleStartTimeChange}
-      />
-      End:{" "}
-      <input
-        type="date"
-        defaultValue={endTimeString}
-        onChange={handleEndTimeChange}
-      />
+      <TimeSelection timeRange={timeRange} onTimeChange={onTimeChange} />
       <ComparisonChart
         consumptionData={data.history.consumption.total}
         productionData={data.history.production.total}
