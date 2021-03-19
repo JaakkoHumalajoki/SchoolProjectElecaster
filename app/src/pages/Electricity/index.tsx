@@ -5,7 +5,7 @@ import {
 } from "../../services/queries"
 import { TimeRange } from "../../common"
 import ComparisonChart from "./ComparisonChart"
-import HistoryChart from "./HistoryChart"
+import ForecastChart from "./ForecastChart"
 import PieChart from "./PieChart"
 
 const today: Date = new Date()
@@ -80,7 +80,7 @@ export default (): JSX.Element => {
         hydroData={data.history.production.hydro}
         windData={data.history.production.wind}
       />
-      <HistoryChart
+      <ForecastChart
         consumptionForecast={data.forecast.consumption.total}
         productionForecast={data.forecast.production.total}
         windForecast={data.forecast.production.wind}
