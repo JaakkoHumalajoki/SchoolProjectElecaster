@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from "react"
-import ComparisonChart from "./ComparisonChart"
 import weatherService, {
   WeatherData,
   WeatherDataPoint,
 } from "../../services/fmi"
+import ComparisonChart from "./ComparisonChart"
+import CitySelection from "../../components/CitySelection"
 
-export default (): JSX.Element => {
+interface Props {
+  city: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onCityChange(event: any): void
+}
+
+export default (props: Props): JSX.Element => {
+  const { city, onCityChange } = props
   const [data, setData] = useState<WeatherDataPoint[]>([])
-  const [city, setCity] = useState<string>("Tampere")
 
   useEffect(() => {
     weatherService.getWeatherData(city).then((weatherData: WeatherData) => {
@@ -15,18 +22,9 @@ export default (): JSX.Element => {
     })
   }, [city])
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleCityChange = (event: any) => {
-    setCity(event.target.value)
-  }
-
   return (
     <div>
-      <select name="city" onChange={handleCityChange}>
-        <option value="tampere">Tampere</option>
-        <option value="helsinki">Helsinki</option>
-        <option value="jyväskylä">Jyväskylä</option>
-      </select>
+      <CitySelection city={city} onCityChange={onCityChange} />
       <ComparisonChart weatherData={data} />
     </div>
   )

@@ -5,8 +5,8 @@ import Electricity from "./pages/Electricity"
 import Home from "./pages/Home"
 import Weather from "./pages/Weather"
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const routes = () => [
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+const routes = (city: string, onCityChange: (event: any) => void) => [
   {
     path: "/",
     element: <Layout />,
@@ -17,7 +17,7 @@ const routes = () => [
       },
       {
         path: "weather",
-        element: <Weather />,
+        element: <Weather city={city} onCityChange={onCityChange} />,
       },
       {
         path: "electricity",
