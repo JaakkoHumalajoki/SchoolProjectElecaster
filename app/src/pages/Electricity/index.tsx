@@ -14,10 +14,8 @@ tenDaysPast.setDate(today.getDate() - 10)
 const weekFromNow: Date = new Date()
 weekFromNow.setDate(today.getDate() + 7)
 
-const emptyData: ElectricityPageDataInterface = {} as ElectricityPageDataInterface
-
 export default (): JSX.Element => {
-  const [data, setData] = useState<ElectricityPageDataInterface>(emptyData)
+  const [data, setData] = useState<ElectricityPageDataInterface | null>(null)
   const [timeRange, setTimeRange] = useState<TimeRange>({
     startTime: tenDaysPast,
     endTime: weekFromNow,
@@ -55,7 +53,7 @@ export default (): JSX.Element => {
     setTimeRange({ ...timeRange, endTime: event.target.valueAsDate })
   }
 
-  if (data === emptyData) {
+  if (data === null) {
     return <div>Loading...</div>
   }
 
