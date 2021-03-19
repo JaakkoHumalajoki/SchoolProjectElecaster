@@ -12,21 +12,22 @@ import PieChart from "./PieChart"
 interface Props {
   timeRange: TimeRange
   onTimeChange(newRange: TimeRange): void
+  electricityData: ElectricityPageData
 }
 
 export default (props: Props): JSX.Element => {
-  const { timeRange, onTimeChange } = props
+  const { timeRange, onTimeChange, electricityData } = props
   const [data, setData] = useState<ElectricityPageDataInterface | null>(null)
 
   useEffect(() => {
-    const dataSource = new ElectricityPageData(timeRange)
-    dataSource.fetch().then(() => {
+    electricityData.fetch().then(() => {
       const newData: ElectricityPageDataInterface = {
-        forecast: dataSource.forecast,
-        history: dataSource.history,
+        forecast: electricityData.forecast,
+        history: electricityData.history,
       }
       setData(newData)
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeRange])
 
   if (data === null) {
