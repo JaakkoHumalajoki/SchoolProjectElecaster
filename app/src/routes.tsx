@@ -10,8 +10,7 @@ import { TimeRange } from "./common"
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const routes = (
   city: string,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onCityChange: (event: any) => void,
+  onCityChange: (newCity: string) => void,
   timeRange: TimeRange,
   onTimeChange: (newRange: TimeRange) => void,
   weatherData: WeatherDataPoint[]

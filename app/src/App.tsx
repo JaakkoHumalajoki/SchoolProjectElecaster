@@ -24,9 +24,9 @@ export default function App(): JSX.Element {
     })
   }, [city])
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleCityChange = (event: any) => {
-    setCity(event.target.value)
+  const handleCityChange = (newCity: string) => {
+    console.log(newCity)
+    setCity(newCity)
   }
 
   const handleTimeChange = (newRange: TimeRange) => {

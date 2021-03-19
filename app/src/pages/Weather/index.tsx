@@ -5,8 +5,7 @@ import CitySelection from "../../components/CitySelection"
 
 interface Props {
   city: string
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onCityChange(event: any): void
+  onCityChange(newCity: string): void
   weatherData: WeatherDataPoint[]
 }
 
