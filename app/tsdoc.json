@@ -1,0 +1,8 @@
+{
+  "entryPoints": [
+    "src/"
+  ],
+  "out": "../docs/html",
+  "exclude": ["node_modules", "src/**/*.test.ts", "react-app-env.d.ts"],
+  "name": "Elecaster documentation"
+}
