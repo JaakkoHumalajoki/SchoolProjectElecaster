@@ -1,10 +1,26 @@
 import React from "react"
 
-interface Props {
+/**
+ * Expected props for the CitySelection component
+ */
+export interface Props {
+  /**
+   * Currently selected city in App state
+   */
   city: string
+  /**
+   * Callback function for when user selects a new city
+   * @param newCity city name as string
+   */
   onCityChange(newCity: string): void
 }
 
+/**
+ * A reusable CitySelection component that gives users control over
+ * which city is currently selected for data fetching.
+ * @param props Props
+ * @returns React element
+ */
 const CitySelection = (props: Props): JSX.Element => {
   const { city, onCityChange } = props
 

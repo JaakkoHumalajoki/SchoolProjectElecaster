@@ -11,6 +11,11 @@ tenDaysPast.setDate(today.getDate() - 10)
 const weekFromNow: Date = new Date()
 weekFromNow.setDate(today.getDate() + 7)
 
+/**
+ * App is the main component of the application, handling the shared state
+ * and data for all pages of the website.
+ * @returns React element
+ */
 export default function App(): JSX.Element {
   const [city, setCity] = useState<string>("tampere")
   const [timeRange, setTimeRange] = useState<TimeRange>({
@@ -18,7 +23,7 @@ export default function App(): JSX.Element {
     endTime: weekFromNow,
   })
   const [weatherData, setWeatherData] = useState<WeatherDataPoint[]>([])
-  const electricityData = new ElectricityPageData(timeRange)
+  const electricityService = new ElectricityPageData(timeRange)
 
   useEffect(() => {
     weatherService.getWeatherData(city).then((data: WeatherData) => {
@@ -37,7 +42,7 @@ export default function App(): JSX.Element {
       return
     }
     setTimeRange(newRange)
-    electricityData.setTimeRange(newRange)
+    electricityService.setTimeRange(newRange)
   }
 
   const routing = useRoutes(
@@ -47,7 +52,7 @@ export default function App(): JSX.Element {
       timeRange,
       handleTimeChange,
       weatherData,
-      electricityData
+      electricityService
     )
   )
 

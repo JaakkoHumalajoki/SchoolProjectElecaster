@@ -3,13 +3,31 @@ import Highcharts from "highcharts/highstock"
 import HighchartsReact from "highcharts-react-official"
 import { ElectricityDataPoint } from "../../services/fingrid"
 
-interface Props {
+/**
+ * Props interface for ForecastChart component
+ */
+export interface Props {
+  /**
+   * Forecast data for total consumption in Finland
+   */
   consumptionForecast: ElectricityDataPoint[]
+  /**
+   * Forecast data for total production in Finland
+   */
   productionForecast: ElectricityDataPoint[]
+  /**
+   * Forecast data for wind energy production in Finland
+   */
   windForecast: ElectricityDataPoint[]
 }
 
-export default (props: Props): JSX.Element => {
+/**
+ * Displays a Highcharts graph comparing the forecast data
+ * between production, consumption and wind energy production.
+ * @param props Props
+ * @returns React element
+ */
+const ForecastChart = (props: Props): JSX.Element => {
   const { consumptionForecast, productionForecast, windForecast } = props
 
   const options: Highcharts.Options = {
@@ -116,3 +134,5 @@ export default (props: Props): JSX.Element => {
     </div>
   )
 }
+
+export default ForecastChart

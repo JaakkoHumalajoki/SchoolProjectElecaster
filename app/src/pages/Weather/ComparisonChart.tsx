@@ -3,11 +3,23 @@ import Highcharts from "highcharts/highstock"
 import HighchartsReact from "highcharts-react-official"
 import { WeatherDataPoint } from "../../services/fmi"
 
-interface Props {
+/**
+ * Props interface for ComparisonChart
+ */
+export interface Props {
+  /**
+   * All weather data for currently selected city
+   */
   weatherData: WeatherDataPoint[]
 }
 
-export default (props: Props): JSX.Element => {
+/**
+ * Displays a Highcharts graph to display weather data for
+ * selected city
+ * @param props Props
+ * @returns React element
+ */
+const ComparisonChart = (props: Props): JSX.Element => {
   const { weatherData } = props
 
   const options: Highcharts.Options = {
@@ -127,3 +139,5 @@ export default (props: Props): JSX.Element => {
     </div>
   )
 }
+
+export default ComparisonChart

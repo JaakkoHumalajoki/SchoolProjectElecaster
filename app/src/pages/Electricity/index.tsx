@@ -9,21 +9,41 @@ import ComparisonChart from "./ComparisonChart"
 import ForecastChart from "./ForecastChart"
 import PieChart from "./PieChart"
 
-interface Props {
+/**
+ * Props interface for ElectricityPage component
+ */
+export interface Props {
+  /**
+   * Currently selected TimeRange in App state
+   */
   timeRange: TimeRange
+  /**
+   * Callback function for when user changes TimeRange
+   * @param newRange changed TimeRange
+   */
   onTimeChange(newRange: TimeRange): void
-  electricityData: ElectricityPageData
+  /**
+   * ElectricityPageData service from which electricity data can be fetched
+   */
+  electricityService: ElectricityPageData
 }
 
-export default (props: Props): JSX.Element => {
-  const { timeRange, onTimeChange, electricityData } = props
+/**
+ * ElectricityPage component is responsible for displaying all the content
+ * shown on Electricity page. Holds electricity data in state and updates it
+ * whenever timeRange changes.
+ * @param props Props
+ * @returns React element
+ */
+const ElectricityPage = (props: Props): JSX.Element => {
+  const { timeRange, onTimeChange, electricityService } = props
   const [data, setData] = useState<ElectricityPageDataInterface | null>(null)
 
   useEffect(() => {
-    electricityData.fetch().then(() => {
+    electricityService.fetch().then(() => {
       const newData: ElectricityPageDataInterface = {
-        forecast: electricityData.forecast,
-        history: electricityData.history,
+        forecast: electricityService.forecast,
+        history: electricityService.history,
       }
       setData(newData)
     })
@@ -57,3 +77,5 @@ export default (props: Props): JSX.Element => {
     </div>
   )
 }
+
+export default ElectricityPage

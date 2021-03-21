@@ -3,15 +3,39 @@ import Highcharts from "highcharts/highstock"
 import HighchartsReact from "highcharts-react-official"
 import { ElectricityDataPoint } from "../../services/fingrid"
 
-interface Props {
+/**
+ * Props interface for ComparisonChart component
+ */
+export interface Props {
+  /**
+   * Total consumption data for all of Finland
+   */
   consumptionData: ElectricityDataPoint[]
+  /**
+   * Total production data for all of Finland
+   */
   productionData: ElectricityDataPoint[]
+  /**
+   * Total nuclear production data for all of Finland
+   */
   nuclearData: ElectricityDataPoint[]
+  /**
+   * Total hydro production data for all of Finland
+   */
   hydroData: ElectricityDataPoint[]
+  /**
+   * Total wind production data for all of Finland
+   */
   windData: ElectricityDataPoint[]
 }
 
-export default (props: Props): JSX.Element => {
+/**
+ * Displays a Highcharts graph to compare energy consumption and
+ * production values.
+ * @param props Props
+ * @returns React element
+ */
+const ComparisonChart = (props: Props): JSX.Element => {
   const {
     consumptionData,
     productionData,
@@ -142,3 +166,5 @@ export default (props: Props): JSX.Element => {
     </div>
   )
 }
+
+export default ComparisonChart

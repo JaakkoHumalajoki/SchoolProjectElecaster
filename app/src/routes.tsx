@@ -8,14 +8,39 @@ import { WeatherDataPoint } from "./services/fmi"
 import { TimeRange } from "./common"
 import { ElectricityPageData } from "./services/queries"
 
+/**
+ * Routes is responsible for giving page-url:s to each view tab within the app
+ * while still remaining as a single page app. Routes also passes props down from
+ * App to each subcomponent.
+ */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const routes = (
+  /**
+   * Currently selected city in App state
+   */
   city: string,
+  /**
+   * Callback function for when user selects a new city
+   * @param newCity city name as string
+   */
   onCityChange: (newCity: string) => void,
+  /**
+   * Currently selected TimeRange in App state
+   */
   timeRange: TimeRange,
+  /**
+   * Callback function for when user changes TimeRange
+   * @param newRange changed TimeRange
+   */
   onTimeChange: (newRange: TimeRange) => void,
+  /**
+   * Weather data held in App state to be shown in subcomponents
+   */
   weatherData: WeatherDataPoint[],
-  electricityData: ElectricityPageData
+  /**
+   * ElectricityPageData service from which electricity data can be fetched
+   */
+  electricityService: ElectricityPageData
 ) => [
   {
     path: "/",
@@ -41,7 +66,7 @@ const routes = (
           <Electricity
             timeRange={timeRange}
             onTimeChange={onTimeChange}
-            electricityData={electricityData}
+            electricityService={electricityService}
           />
         ),
       },

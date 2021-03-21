@@ -1,11 +1,27 @@
 import React from "react"
 import { TimeRange } from "../common"
 
-interface Props {
+/**
+ * Expected props for the TimeSelection component
+ */
+export interface Props {
+  /**
+   * Currently selected TimeRange in App state
+   */
   timeRange: TimeRange
+  /**
+   * Callback function for when user changes TimeRange
+   * @param newRange changed TimeRange
+   */
   onTimeChange(newRange: TimeRange): void
 }
 
+/**
+ * Reusable TimeSelection component that gives user control over
+ * the start and end dates for fetching data.
+ * @param props Props
+ * @returns React element
+ */
 const TimeSelection = (props: Props): JSX.Element => {
   const { timeRange, onTimeChange } = props
   const startTimeString = timeRange.startTime.toISOString().slice(0, 10)

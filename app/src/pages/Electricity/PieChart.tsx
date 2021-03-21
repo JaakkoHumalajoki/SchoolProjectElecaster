@@ -3,9 +3,21 @@ import Highcharts from "highcharts"
 import HighchartsReact from "highcharts-react-official"
 import { ElectricityDataPoint } from "../../services/fingrid"
 
-interface Props {
+/**
+ * Props interface for PieChart component
+ */
+export interface Props {
+  /**
+   * Total nuclear production data for all of Finland
+   */
   nuclearData: ElectricityDataPoint[]
+  /**
+   * Total hydro production data for all of Finland
+   */
   hydroData: ElectricityDataPoint[]
+  /**
+   * Total wind production data for all of Finland
+   */
   windData: ElectricityDataPoint[]
 }
 
@@ -15,7 +27,13 @@ const calculateAvg = (data: ElectricityDataPoint[]): number => {
   return Math.round(total / data.length)
 }
 
-export default (props: Props): JSX.Element => {
+/**
+ * Displays a Highcharts pie graph to compare energy percentages
+ * by type as an average from all given data.
+ * @param props Props
+ * @returns React element
+ */
+const PieChart = (props: Props): JSX.Element => {
   const { nuclearData, hydroData, windData } = props
 
   const nuclearAvg = calculateAvg(nuclearData)
@@ -61,3 +79,5 @@ export default (props: Props): JSX.Element => {
     </div>
   )
 }
+
+export default PieChart

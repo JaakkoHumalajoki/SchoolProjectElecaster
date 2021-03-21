@@ -3,13 +3,31 @@ import { WeatherDataPoint } from "../../services/fmi"
 import ComparisonChart from "./ComparisonChart"
 import CitySelection from "../../components/CitySelection"
 
-interface Props {
+/**
+ * Props interface for WeatherPage component
+ */
+export interface Props {
+  /**
+   * Currently selected city in App state
+   */
   city: string
+  /**
+   * Callback function for when user selects a new city
+   * @param newCity city name as string
+   */
   onCityChange(newCity: string): void
+  /**
+   * Weather data held in App state to be shown in subcomponents
+   */
   weatherData: WeatherDataPoint[]
 }
 
-export default (props: Props): JSX.Element => {
+/**
+ * WeatherPage is responsible for showing all content for the weather tab.
+ * @param props Props
+ * @returns React element
+ */
+const WeatherPage = (props: Props): JSX.Element => {
   const { city, onCityChange, weatherData } = props
 
   return (
@@ -19,3 +37,5 @@ export default (props: Props): JSX.Element => {
     </div>
   )
 }
+
+export default WeatherPage
