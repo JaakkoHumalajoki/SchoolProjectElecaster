@@ -1,6 +1,10 @@
 # *Elecaster* - 0xc0ff3e software design project 
 
-This is Tampere University course COMP.SE.110-2020-2021-1 Software Design course repository.
+This is Tampere University course COMP.SE.110-2020-2021-1 Software Design course repository. 
+
+## View the app
+
+Latest version of the application is deployed automatically by CI/CD pipeline. See it here [https://elecaster.netlify.app/](https://elecaster.netlify.app/)
 
 ## The assignment
 
@@ -10,7 +14,9 @@ The assignment is defined as follows:
 
 ## Documentation
 
-All documentation is stored under [docs-folder](docs/)
+Documentation built for every commit is stored at [https://docs--elecaster.netlify.app/](https://docs--elecaster.netlify.app/)
+
+All other documentation is stored under [docs-folder](docs/)
 
 ### Prototypes
 
