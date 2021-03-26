@@ -5,7 +5,10 @@ import Footer from "./Footer/Footer"
 
 export default (): JSX.Element => {
   return (
-    <div className="min-h-screen mx-auto flex flex-col h-screen">
+    <div
+      className="min-h-screen mx-auto flex flex-col h-screen"
+      style={{ width: "100vw" }}
+    >
       <Header />
       <main className="w-full max-w-6xl mx-auto flex-grow">
         <Outlet />

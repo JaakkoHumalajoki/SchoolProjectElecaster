@@ -33,3 +33,7 @@
 .chartContainer {
   @apply card-lg;
 }
+
+body {
+  overflow-x: hidden;
+}
