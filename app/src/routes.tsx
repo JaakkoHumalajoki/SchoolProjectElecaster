@@ -72,7 +72,16 @@ const routes = (
       },
       {
         path: "analysis",
-        element: <Analysis />,
+        element: (
+        <Analysis 
+          timeRange={timeRange}
+          onTimeChange={onTimeChange}
+          electricityService={electricityService}
+          city={city}
+          onCityChange={onCityChange}
+          weatherData={weatherData}
+        />
+        )
       },
     ],
   },
