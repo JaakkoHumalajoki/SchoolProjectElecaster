@@ -27,20 +27,27 @@ export interface Props {
   /**
    * Currently selected city in App state
    */
-   city: string
-   /**
-    * Callback function for when user selects a new city
-    * @param newCity city name as string
-    */
-   onCityChange(newCity: string): void
-   /**
-    * Weather data held in App state to be shown in subcomponents
-    */
-   weatherData: WeatherDataPoint[]
+  city: string
+  /**
+   * Callback function for when user selects a new city
+   * @param newCity city name as string
+   */
+  onCityChange(newCity: string): void
+  /**
+   * Weather data held in App state to be shown in subcomponents
+   */
+  weatherData: WeatherDataPoint[]
 }
 
 const AnalysisPage = (props: Props): JSX.Element => {
-  const { timeRange, onTimeChange, electricityService, city, onCityChange, weatherData } = props
+  const {
+    timeRange,
+    onTimeChange,
+    electricityService,
+    city,
+    onCityChange,
+    weatherData,
+  } = props
   const [data, setData] = useState<ElectricityPageDataInterface | null>(null)
 
   useEffect(() => {
@@ -74,4 +81,4 @@ const AnalysisPage = (props: Props): JSX.Element => {
   )
 }
 
-export default AnalysisPage;
+export default AnalysisPage
