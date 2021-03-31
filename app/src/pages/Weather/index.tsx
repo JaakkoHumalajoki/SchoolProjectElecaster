@@ -1,5 +1,4 @@
 import React from "react"
-import { WeatherDataPoint } from "../../services/fmi"
 import ComparisonChart from "./ComparisonChart"
 import CitySelection from "../../components/CitySelection"
 

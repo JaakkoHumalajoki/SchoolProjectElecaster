@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react"
-import {
-  ElectricityPageDataInterface,
-  ElectricityPageData,
-} from "../../services/queries"
-import { TimeRange } from "../../common"
+import { ElectricityPageData } from "../../services/queries"
 import TimeSelection from "../../components/TimeSelection"
 import ComparisonChart from "./ComparisonChart"
 import ForecastChart from "./ForecastChart"

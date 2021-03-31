@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { WeatherDataPoint } from "../../services/fmi"
-import { TimeRange } from "../../common"
-import {
-  ElectricityPageDataInterface,
-  ElectricityPageData,
-} from "../../services/queries"
+import { ElectricityPageData } from "../../services/queries"
 import TimeSelection from "../../components/TimeSelection"
 import CitySelection from "../../components/CitySelection"
 import ComparisonChart from "../Electricity/ComparisonChart"

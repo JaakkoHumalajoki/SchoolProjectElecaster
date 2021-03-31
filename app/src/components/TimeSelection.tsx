@@ -1,5 +1,4 @@
 import React from "react"
-import { TimeRange } from "../common"
 
 /**
  * Expected props for the TimeSelection component

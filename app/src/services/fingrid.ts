@@ -1,21 +1,10 @@
 import axios, { AxiosResponse } from "axios"
-import { TimeRange } from "../common"
 import { FingridDatapoint } from "./fingrid-types"
-
-export interface ElectricityDataPoint {
-  /**
-   * Time the point repsresents
-   */
-  time: Date
-  /**
-   * Value of electricity in megawatts
-   */
-  value: number
-}
 
 const formatFingridDate = (date: Date): string =>
   `${date.toISOString().slice(0, 19)}+0000`
 
+// eslint-disable-next-line import/prefer-default-export
 export const fetchElectricityData = async (
   variable = 166, // Finland hourly consumption forecast
   timeRange: TimeRange

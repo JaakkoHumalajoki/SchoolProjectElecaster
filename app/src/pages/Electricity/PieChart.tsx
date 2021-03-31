@@ -1,7 +1,6 @@
 import React from "react"
 import Highcharts from "highcharts"
 import HighchartsReact from "highcharts-react-official"
-import { ElectricityDataPoint } from "../../services/fingrid"
 
 /**
  * Props interface for PieChart component

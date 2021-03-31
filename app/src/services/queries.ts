@@ -1,63 +1,7 @@
 // Here would be queries that we could use in frontend.
 // Idea is that these queries collects the data from different endpoints
-import { fetchElectricityData, ElectricityDataPoint } from "./fingrid"
-import { TimeRange } from "../common"
+import { fetchElectricityData } from "./fingrid"
 import { fingridVariables as fvars } from "./fingrid-types"
-
-/**
- * Interface defining data to be fetched for the
- * Electricitypage
- */
-export interface ElectricityPageDataInterface {
-  forecast: {
-    production: {
-      /**
-       * Total production in Finland
-       */
-      total: ElectricityDataPoint[]
-      /**
-       * Wind production forecast
-       */
-      wind: ElectricityDataPoint[]
-      /**
-       * Solar production forecast
-       */
-      solar: ElectricityDataPoint[]
-    }
-    consumption: {
-      /**
-       * Total consumption in Finland
-       */
-      total: ElectricityDataPoint[]
-    }
-  }
-  history: {
-    production: {
-      /**
-       * Total production in Finland
-       */
-      total: ElectricityDataPoint[]
-      /**
-       * Nuclear production history
-       */
-      nuclear: ElectricityDataPoint[]
-      /**
-       * Hydro production history
-       */
-      hydro: ElectricityDataPoint[]
-      /**
-       * Wind production history
-       */
-      wind: ElectricityDataPoint[]
-    }
-    consumption: {
-      /**
-       * Total consumption history in Finland
-       */
-      total: ElectricityDataPoint[]
-    }
-  }
-}
 
 /**
  * @class ElectricityPageData holds all data related to the Electricity page
@@ -66,6 +10,8 @@ export interface ElectricityPageDataInterface {
  * @method fetchAll refreshes all data with the current timerange
  * @method setTimeRange sets timerange to hold
  */
+
+// eslint-disable-next-line import/prefer-default-export
 export class ElectricityPageData implements ElectricityPageDataInterface {
   private electricityData: ElectricityPageDataInterface
 
