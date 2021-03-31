@@ -26,6 +26,9 @@ const ComparisonChart = (props: Props): JSX.Element => {
     title: {
       text: "Weather forecast",
     },
+    chart: {
+      height: "600px",
+    },
     navigator: {
       enabled: true,
       maskFill: "rgba(0, 82, 156, 0.3)",
@@ -70,11 +73,17 @@ const ComparisonChart = (props: Props): JSX.Element => {
         title: {
           text: "Temperature",
         },
-        height: "75%",
+        height: "50%",
         lineWidth: 2,
-        resize: {
-          enabled: true,
+      },
+      {
+        title: {
+          text: "Wind speed",
         },
+        top: "55%",
+        height: "20%",
+        offset: 0,
+        lineWidth: 2,
       },
       {
         title: {
@@ -83,8 +92,8 @@ const ComparisonChart = (props: Props): JSX.Element => {
         top: "80%",
         height: "20%",
         offset: 0,
+        softMax: 10,
         lineWidth: 2,
-        softMax: 5,
       },
     ],
     tooltip: {
@@ -106,6 +115,7 @@ const ComparisonChart = (props: Props): JSX.Element => {
       {
         type: "line",
         name: "Wind",
+        yAxis: 1,
         data: weatherData.map((value) => [
           value.time.getTime(),
           value.windSpeed,
@@ -117,11 +127,24 @@ const ComparisonChart = (props: Props): JSX.Element => {
       {
         type: "column",
         name: "Precipitation",
-        yAxis: 1,
+        yAxis: 2,
         data: weatherData.map((value) => [
           value.time.getTime(),
           value.precipitation1h,
         ]),
+        dataGrouping: {
+          approximation: (valueArray: number[]) => {
+            const total = valueArray.reduce(
+              (sum: number, value: number) => sum + value,
+              0
+            )
+            return Math.round(total)
+          },
+          enabled: true,
+          forced: true,
+          units: [["day", [1]]],
+        },
+        pointWidth: 20,
         tooltip: {
           valueSuffix: " mm",
         },
