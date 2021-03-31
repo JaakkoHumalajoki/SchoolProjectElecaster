@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import Highcharts from "highcharts/highstock"
 import HighchartsReact from "highcharts-react-official"
 import { WeatherDataPoint } from "../../services/fmi"
@@ -22,23 +22,37 @@ export interface Props {
 const ComparisonChart = (props: Props): JSX.Element => {
   const { weatherData } = props
 
+  const [selectedRangeMin, setSelectedRangeMin] = useState(0) // 1st January, 1970
+  const [selectedRangeMax, setSelectedRangeMax] = useState(10000000000000) // 266 years into future
+
   let tempAvg = 0
   let tempMin = 0
   let tempMax = 0
   let windMax = 0
-  if (weatherData && weatherData.length >= 1) {
-    const tempSum = weatherData.reduce(
+
+  const selectedWeatherData = weatherData.filter((dataPoint) => {
+    if (
+      dataPoint.time.getTime() >= selectedRangeMin &&
+      dataPoint.time.getTime() <= selectedRangeMax
+    ) {
+      return true
+    }
+    return false
+  })
+
+  if (selectedWeatherData.length >= 1) {
+    const tempSum = selectedWeatherData.reduce(
       (sum, dataPoint) => sum + dataPoint.temperature,
       0
     )
-    tempAvg = Math.round((tempSum / weatherData.length) * 10) / 10
-    tempMin = weatherData.reduce((min, dataPoint) => {
+    tempAvg = Math.round((tempSum / selectedWeatherData.length) * 10) / 10
+    tempMin = selectedWeatherData.reduce((min, dataPoint) => {
       return dataPoint.temperature < min ? dataPoint.temperature : min
-    }, weatherData[0].temperature)
-    tempMax = weatherData.reduce((max, dataPoint) => {
+    }, selectedWeatherData[0].temperature)
+    tempMax = selectedWeatherData.reduce((max, dataPoint) => {
       return dataPoint.temperature > max ? dataPoint.temperature : max
-    }, weatherData[0].temperature)
-    windMax = weatherData.reduce((max, dataPoint) => {
+    }, selectedWeatherData[0].temperature)
+    windMax = selectedWeatherData.reduce((max, dataPoint) => {
       if (!dataPoint.windSpeed) {
         return max
       }
@@ -65,6 +79,12 @@ const ComparisonChart = (props: Props): JSX.Element => {
     xAxis: {
       type: "datetime",
       crosshair: true,
+      events: {
+        setExtremes(e) {
+          setSelectedRangeMin(e.min)
+          setSelectedRangeMax(e.max)
+        },
+      },
     },
     yAxis: [
       {
@@ -157,8 +177,9 @@ const ComparisonChart = (props: Props): JSX.Element => {
       <HighchartsReact highcharts={Highcharts} options={options} />
       <br />
       <p>Average temperature: {tempAvg} °C</p>
-      <p>Minimum temperature: {tempMin} °C</p>
       <p>maximum temperature: {tempMax} °C</p>
+      <p>Minimum temperature: {tempMin} °C</p>
+      <br />
       <p>Maximum wind speed: {windMax} m/s</p>
     </div>
   )
