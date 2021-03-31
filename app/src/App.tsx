@@ -17,7 +17,7 @@ weekFromNow.setDate(today.getDate() + 7)
  * @returns React element
  */
 export default function App(): JSX.Element {
-  const [city, setCity] = useState<string>("tampere")
+  const [city, setCity] = useState<string>("Tampere")
   const [timeRange, setTimeRange] = useState<TimeRange>({
     startTime: tenDaysPast,
     endTime: weekFromNow,
