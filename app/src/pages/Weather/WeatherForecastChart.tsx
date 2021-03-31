@@ -22,6 +22,30 @@ export interface Props {
 const ComparisonChart = (props: Props): JSX.Element => {
   const { weatherData } = props
 
+  let tempAvg = 0
+  let tempMin = 0
+  let tempMax = 0
+  let windMax = 0
+  if (weatherData && weatherData.length >= 1) {
+    const tempSum = weatherData.reduce(
+      (sum, dataPoint) => sum + dataPoint.temperature,
+      0
+    )
+    tempAvg = Math.round((tempSum / weatherData.length) * 10) / 10
+    tempMin = weatherData.reduce((min, dataPoint) => {
+      return dataPoint.temperature < min ? dataPoint.temperature : min
+    }, weatherData[0].temperature)
+    tempMax = weatherData.reduce((max, dataPoint) => {
+      return dataPoint.temperature > max ? dataPoint.temperature : max
+    }, weatherData[0].temperature)
+    windMax = weatherData.reduce((max, dataPoint) => {
+      if (!dataPoint.windSpeed) {
+        return max
+      }
+      return dataPoint.windSpeed > max ? dataPoint.windSpeed : max
+    }, 0)
+  }
+
   const options: Highcharts.Options = {
     title: {
       text: "10 day weather forecast",
@@ -129,12 +153,13 @@ const ComparisonChart = (props: Props): JSX.Element => {
   }
 
   return (
-    <div>
-      <HighchartsReact
-        highcharts={Highcharts}
-        options={options}
-        containerProps={{ className: "chartContainer" }}
-      />
+    <div className="chartContainer">
+      <HighchartsReact highcharts={Highcharts} options={options} />
+      <br />
+      <p>Average temperature: {tempAvg} °C</p>
+      <p>Minimum temperature: {tempMin} °C</p>
+      <p>maximum temperature: {tempMax} °C</p>
+      <p>Maximum wind speed: {windMax} m/s</p>
     </div>
   )
 }
