@@ -24,10 +24,10 @@ const ComparisonChart = (props: Props): JSX.Element => {
 
   const options: Highcharts.Options = {
     title: {
-      text: "Weather forecast",
+      text: "10 day weather forecast",
     },
     chart: {
-      height: "600px",
+      height: "500px",
     },
     navigator: {
       enabled: true,
@@ -35,34 +35,8 @@ const ComparisonChart = (props: Props): JSX.Element => {
       series: { color: "rgba(0, 82, 156, 0.3)" },
       adaptToUpdatedData: true,
     },
-    rangeSelector: {
-      enabled: true,
-      verticalAlign: "bottom",
-      buttons: [
-        {
-          type: "day",
-          count: 1,
-          text: "1d",
-          title: "View a day",
-        },
-        {
-          type: "day",
-          count: 7,
-          text: "1w",
-          title: "View a week",
-        },
-        {
-          type: "month",
-          count: 1,
-          text: "1m",
-          title: "View a month",
-        },
-        {
-          type: "all",
-          text: "All",
-          title: "View all",
-        },
-      ],
+    legend: {
+      enabled: false,
     },
     xAxis: {
       type: "datetime",
@@ -143,8 +117,10 @@ const ComparisonChart = (props: Props): JSX.Element => {
           enabled: true,
           forced: true,
           units: [["day", [1]]],
+          smoothed: true,
         },
-        pointWidth: 20,
+        pointWidth: 30,
+        minPointLength: 2,
         tooltip: {
           valueSuffix: " mm",
         },
