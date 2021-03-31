@@ -2,6 +2,11 @@ import React, { useState } from "react"
 import Highcharts from "highcharts/highstock"
 import HighchartsReact from "highcharts-react-official"
 import { WeatherDataPoint } from "../../services/fmi"
+import {
+  calculateAverage,
+  calculateMinimum,
+  calculateMaximum,
+} from "../../common"
 
 /**
  * Props interface for ComparisonChart
@@ -41,23 +46,27 @@ const ComparisonChart = (props: Props): JSX.Element => {
   })
 
   if (selectedWeatherData.length >= 1) {
-    const tempSum = selectedWeatherData.reduce(
-      (sum, dataPoint) => sum + dataPoint.temperature,
-      0
+    tempAvg = calculateAverage(
+      selectedWeatherData.map((dataPoint) => dataPoint.temperature)
     )
-    tempAvg = Math.round((tempSum / selectedWeatherData.length) * 10) / 10
-    tempMin = selectedWeatherData.reduce((min, dataPoint) => {
-      return dataPoint.temperature < min ? dataPoint.temperature : min
-    }, selectedWeatherData[0].temperature)
-    tempMax = selectedWeatherData.reduce((max, dataPoint) => {
-      return dataPoint.temperature > max ? dataPoint.temperature : max
-    }, selectedWeatherData[0].temperature)
-    windMax = selectedWeatherData.reduce((max, dataPoint) => {
-      if (!dataPoint.windSpeed) {
-        return max
-      }
-      return dataPoint.windSpeed > max ? dataPoint.windSpeed : max
-    }, 0)
+    tempAvg = Math.round(tempAvg * 10) / 10
+
+    tempMin = calculateMinimum(
+      selectedWeatherData.map((dataPoint) => dataPoint.temperature)
+    )
+
+    tempMax = calculateMaximum(
+      selectedWeatherData.map((dataPoint) => dataPoint.temperature)
+    )
+
+    windMax = calculateMaximum(
+      selectedWeatherData.map((dataPoint) => {
+        if (!dataPoint.windSpeed) {
+          return 0
+        }
+        return dataPoint.windSpeed
+      })
+    )
   }
 
   const options: Highcharts.Options = {
