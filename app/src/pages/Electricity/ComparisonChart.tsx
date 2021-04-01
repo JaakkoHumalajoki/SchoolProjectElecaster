@@ -70,6 +70,7 @@ const ComparisonChart = (props: Props): JSX.Element => {
       },
     ],
     tooltip: {
+      valueDecimals: 0,
       shared: true,
     },
     boost: {
