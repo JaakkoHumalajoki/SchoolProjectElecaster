@@ -40,35 +40,6 @@ const ForecastChart = (props: Props): JSX.Element => {
       series: { color: "rgba(0, 82, 156, 0.3)" },
       adaptToUpdatedData: true,
     },
-    rangeSelector: {
-      enabled: true,
-      verticalAlign: "bottom",
-      buttons: [
-        {
-          type: "day",
-          count: 1,
-          text: "1d",
-          title: "View a day",
-        },
-        {
-          type: "day",
-          count: 7,
-          text: "1w",
-          title: "View a week",
-        },
-        {
-          type: "month",
-          count: 1,
-          text: "1m",
-          title: "View a month",
-        },
-        {
-          type: "all",
-          text: "All",
-          title: "View all",
-        },
-      ],
-    },
     xAxis: {
       type: "datetime",
       crosshair: true,
@@ -85,7 +56,8 @@ const ForecastChart = (props: Props): JSX.Element => {
       },
     ],
     tooltip: {
-      shared: false,
+      valueDecimals: 0,
+      shared: true,
     },
     series: [
       {
