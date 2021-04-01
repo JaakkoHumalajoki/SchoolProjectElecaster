@@ -1,6 +1,6 @@
 import React from "react"
 import { WeatherDataPoint } from "../../services/fmi"
-import ComparisonChart from "./ComparisonChart"
+import WeatherForecastChart from "./WeatherForecastChart"
 import CitySelection from "../../components/CitySelection"
 
 /**
@@ -33,7 +33,7 @@ const WeatherPage = (props: Props): JSX.Element => {
   return (
     <div>
       <CitySelection city={city} onCityChange={onCityChange} />
-      <ComparisonChart weatherData={weatherData} />
+      <WeatherForecastChart weatherData={weatherData} />
     </div>
   )
 }
