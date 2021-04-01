@@ -6,14 +6,14 @@ import { fingridVariables as fvars } from "./fingrid-types"
 /**
  * @class ElectricityPageData holds all data related to the Electricity page
  * and handles all data fetching and caching
- * @implements ElectricityPageDataInterface
+ * @implements ElectricityData
  * @method fetchAll refreshes all data with the current timerange
  * @method setTimeRange sets timerange to hold
  */
 
 // eslint-disable-next-line import/prefer-default-export
-export class ElectricityPageData implements ElectricityPageDataInterface {
-  private electricityData: ElectricityPageDataInterface
+export class ElectricityPageData implements ElectricityData {
+  private electricityData: ElectricityData
 
   private timeRange: TimeRange
 
@@ -35,20 +35,20 @@ export class ElectricityPageData implements ElectricityPageDataInterface {
     }
   ) {
     this.timeRange = timerange
-    this.electricityData = {} as ElectricityPageDataInterface
+    this.electricityData = {} as ElectricityData
   }
 
   /**
    * Getter for forecsast data. Exposes class data read-only
    */
-  public get forecast(): ElectricityPageDataInterface["forecast"] {
+  public get forecast(): ElectricityData["forecast"] {
     return this.electricityData.forecast
   }
 
   /**
    * Getter for history data. Exposes class data read-only
    */
-  public get history(): ElectricityPageDataInterface["history"] {
+  public get history(): ElectricityData["history"] {
     return this.electricityData.history
   }
 

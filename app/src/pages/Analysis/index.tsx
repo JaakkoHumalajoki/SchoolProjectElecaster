@@ -43,11 +43,11 @@ const AnalysisPage = (props: Props): JSX.Element => {
     onCityChange,
     weatherData,
   } = props
-  const [data, setData] = useState<ElectricityPageDataInterface | null>(null)
+  const [data, setData] = useState<ElectricityData | null>(null)
 
   useEffect(() => {
     electricityService.fetch().then(() => {
-      const newData: ElectricityPageDataInterface = {
+      const newData: ElectricityData = {
         forecast: electricityService.forecast,
         history: electricityService.history,
       }

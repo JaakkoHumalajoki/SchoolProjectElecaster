@@ -54,7 +54,7 @@ declare global {
    * Interface defining data to be fetched for the
    * Electricitypage
    */
-  export interface ElectricityPageDataInterface {
+  export interface ElectricityData {
     forecast: {
       production: {
         /**
