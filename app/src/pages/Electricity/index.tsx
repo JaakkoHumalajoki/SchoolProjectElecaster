@@ -66,6 +66,7 @@ const ElectricityPage = (props: Props): JSX.Element => {
         windForecast={data.forecast.production.wind}
       />
       <PieChart
+        productionData={data.history.production.total}
         nuclearData={data.history.production.nuclear}
         hydroData={data.history.production.hydro}
         windData={data.history.production.wind}

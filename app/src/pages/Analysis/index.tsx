@@ -3,7 +3,7 @@ import { ElectricityPageData } from "../../services/queries"
 import TimeSelection from "../../components/TimeSelection"
 import CitySelection from "../../components/CitySelection"
 import ComparisonChart from "../Electricity/ComparisonChart"
-import WeatherChart from "../Weather/ComparisonChart"
+import WeatherChart from "../Weather/WeatherForecastChart"
 
 export interface Props {
   /**

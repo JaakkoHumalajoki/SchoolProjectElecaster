@@ -7,6 +7,10 @@ import HighchartsReact from "highcharts-react-official"
  */
 export interface Props {
   /**
+   * Total production data for all of Finland
+   */
+  productionData: ElectricityDataPoint[]
+  /**
    * Total nuclear production data for all of Finland
    */
   nuclearData: ElectricityDataPoint[]
@@ -33,23 +37,30 @@ const calculateAvg = (data: ElectricityDataPoint[]): number => {
  * @returns React element
  */
 const PieChart = (props: Props): JSX.Element => {
-  const { nuclearData, hydroData, windData } = props
+  const { productionData, nuclearData, hydroData, windData } = props
 
+  const productionAvg = calculateAvg(productionData)
   const nuclearAvg = calculateAvg(nuclearData)
   const hydroAvg = calculateAvg(hydroData)
   const windAvg = calculateAvg(windData)
+  const othersAvg = productionAvg - nuclearAvg - hydroAvg - windAvg
 
   const options: Highcharts.Options = {
     chart: {
       type: "pie",
     },
     title: {
-      text: "Energy percentage comparison",
+      text: "Average energy production by type",
+    },
+    tooltip: {
+      headerFormat: "<b>{point.key}</b><br />",
+      pointFormat:
+        "Average: <b>{point.y} MW</b><br />{series.name}: <b>{point.percentage:.1f}%</b>",
     },
     series: [
       {
         type: "pie",
-        name: "Test",
+        name: "Percentage",
         data: [
           {
             name: "Nuclear",
@@ -62,6 +73,11 @@ const PieChart = (props: Props): JSX.Element => {
           {
             name: "Wind",
             y: windAvg,
+          },
+          {
+            name: "Other",
+            sliced: true,
+            y: othersAvg,
           },
         ],
       },
