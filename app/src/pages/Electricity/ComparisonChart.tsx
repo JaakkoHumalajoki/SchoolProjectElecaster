@@ -99,7 +99,11 @@ const ComparisonChart = (props: Props): JSX.Element => {
       },
     ],
     tooltip: {
-      shared: false,
+      shared: true,
+    },
+    boost: {
+      enabled: true,
+      allowForce: true,
     },
     series: [
       {
@@ -110,6 +114,16 @@ const ComparisonChart = (props: Props): JSX.Element => {
           point.time.getTime(),
           point.value,
         ]),
+        dataGrouping: {
+          enabled: true,
+          forced: true,
+          approximation: "average",
+          units: [
+            ["hour", [1]],
+            ["day", [1]],
+            ["week", [1]],
+          ],
+        },
         tooltip: {
           valueSuffix: " MW",
         },
@@ -122,6 +136,16 @@ const ComparisonChart = (props: Props): JSX.Element => {
           point.time.getTime(),
           point.value,
         ]),
+        dataGrouping: {
+          enabled: true,
+          forced: true,
+          approximation: "average",
+          units: [
+            ["hour", [1]],
+            ["day", [1]],
+            ["week", [1]],
+          ],
+        },
         tooltip: {
           valueSuffix: " MW",
         },
@@ -131,6 +155,16 @@ const ComparisonChart = (props: Props): JSX.Element => {
         name: "Nuclear Energy",
         showInNavigator: true,
         data: nuclearData.map((point) => [point.time.getTime(), point.value]),
+        dataGrouping: {
+          enabled: true,
+          forced: true,
+          approximation: "average",
+          units: [
+            ["hour", [1]],
+            ["day", [1]],
+            ["week", [1]],
+          ],
+        },
         tooltip: {
           valueSuffix: " MW",
         },
@@ -140,6 +174,16 @@ const ComparisonChart = (props: Props): JSX.Element => {
         name: "Hydro Energy",
         showInNavigator: true,
         data: hydroData.map((point) => [point.time.getTime(), point.value]),
+        dataGrouping: {
+          enabled: true,
+          forced: true,
+          approximation: "average",
+          units: [
+            ["hour", [1]],
+            ["day", [1]],
+            ["week", [1]],
+          ],
+        },
         tooltip: {
           valueSuffix: " MW",
         },
@@ -149,6 +193,16 @@ const ComparisonChart = (props: Props): JSX.Element => {
         name: "Wind Energy",
         showInNavigator: true,
         data: windData.map((point) => [point.time.getTime(), point.value]),
+        dataGrouping: {
+          enabled: true,
+          forced: true,
+          approximation: "average",
+          units: [
+            ["hour", [1]],
+            ["day", [1]],
+            ["week", [1]],
+          ],
+        },
         tooltip: {
           valueSuffix: " MW",
         },
