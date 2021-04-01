@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react"
 import { ElectricityPageData } from "../../services/queries"
 import TimeSelection from "../../components/TimeSelection"
 import CitySelection from "../../components/CitySelection"
-import ComparisonChart from "../Electricity/ComparisonChart"
-import WeatherChart from "../Weather/WeatherForecastChart"
+import ForecastChart from "./ForecastChart"
 
 export interface Props {
   /**
@@ -64,14 +63,12 @@ const AnalysisPage = (props: Props): JSX.Element => {
     <div>
       <CitySelection city={city} onCityChange={onCityChange} />
       <TimeSelection timeRange={timeRange} onTimeChange={onTimeChange} />
-      <ComparisonChart
-        consumptionData={data.history.consumption.total}
-        productionData={data.history.production.total}
-        nuclearData={data.history.production.nuclear}
-        hydroData={data.history.production.hydro}
-        windData={data.history.production.wind}
+      <ForecastChart
+        consumptionForecast={data.forecast.consumption.total}
+        productionForecast={data.forecast.production.total}
+        windForecast={data.forecast.production.wind}
+        weatherData={weatherData}
       />
-      <WeatherChart weatherData={weatherData} />
     </div>
   )
 }
