@@ -53,9 +53,15 @@ const PieChart = (props: Props): JSX.Element => {
     title: {
       text: "Average energy production by type",
     },
+    tooltip: {
+      headerFormat: "<b>{point.key}</b><br />",
+      pointFormat:
+        "Average: <b>{point.y} MW</b><br />{series.name}: <b>{point.percentage:.1f}%</b>",
+    },
     series: [
       {
         type: "pie",
+        name: "Percentage",
         data: [
           {
             name: "Nuclear",
@@ -70,7 +76,8 @@ const PieChart = (props: Props): JSX.Element => {
             y: windAvg,
           },
           {
-            name: "Other forms",
+            name: "Other",
+            sliced: true,
             y: othersAvg,
           },
         ],
