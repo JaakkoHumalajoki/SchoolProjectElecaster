@@ -4,8 +4,6 @@ import Analysis from "./pages/Analysis"
 import Electricity from "./pages/Electricity"
 import Home from "./pages/Home"
 import Weather from "./pages/Weather"
-import { WeatherDataPoint } from "./services/fmi"
-import { TimeRange } from "./common"
 import { ElectricityPageData } from "./services/queries"
 
 /**

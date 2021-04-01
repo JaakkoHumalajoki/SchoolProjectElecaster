@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios"
-import { FmiForecastResponse, FmiLocation } from "./fmi-types"
+import { FmiForecastResponse } from "./fmi-types"
 
 const getForecastUrl = (city = "Tampere") =>
   `https://www.ilmatieteenlaitos.fi/api/weather/forecasts?area=&place=${city.toLowerCase()}`
@@ -18,21 +18,6 @@ const parseFmiDate = (rawdate: string): Date => {
   const seconds = clock.slice(4, 6)
 
   return new Date(`${year}-${month}-${day}T${hours}:${minutes}:${seconds}`)
-}
-
-export interface WeatherDataPoint {
-  time: Date
-  modifiedAt: Date
-  temperature: number
-  windSpeed?: number
-  windDirection?: number
-  description?: string
-  precipitation1h?: number
-}
-
-export interface WeatherData {
-  location: FmiLocation
-  data: WeatherDataPoint[]
 }
 
 const getWeatherData = async (city?: string): Promise<WeatherData> => {

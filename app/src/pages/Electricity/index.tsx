@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react"
-import {
-  ElectricityPageDataInterface,
-  ElectricityPageData,
-} from "../../services/queries"
-import { TimeRange } from "../../common"
+import { ElectricityPageData } from "../../services/queries"
 import TimeSelection from "../../components/TimeSelection"
 import ComparisonChart from "./ComparisonChart"
 import ForecastChart from "./ForecastChart"
@@ -37,11 +33,11 @@ export interface Props {
  */
 const ElectricityPage = (props: Props): JSX.Element => {
   const { timeRange, onTimeChange, electricityService } = props
-  const [data, setData] = useState<ElectricityPageDataInterface | null>(null)
+  const [data, setData] = useState<ElectricityData | null>(null)
 
   useEffect(() => {
     electricityService.fetch().then(() => {
-      const newData: ElectricityPageDataInterface = {
+      const newData: ElectricityData = {
         forecast: electricityService.forecast,
         history: electricityService.history,
       }

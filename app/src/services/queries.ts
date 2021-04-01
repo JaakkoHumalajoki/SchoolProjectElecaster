@@ -1,73 +1,19 @@
 // Here would be queries that we could use in frontend.
 // Idea is that these queries collects the data from different endpoints
-import { fetchElectricityData, ElectricityDataPoint } from "./fingrid"
-import { TimeRange } from "../common"
+import { fetchElectricityData } from "./fingrid"
 import { fingridVariables as fvars } from "./fingrid-types"
-
-/**
- * Interface defining data to be fetched for the
- * Electricitypage
- */
-export interface ElectricityPageDataInterface {
-  forecast: {
-    production: {
-      /**
-       * Total production in Finland
-       */
-      total: ElectricityDataPoint[]
-      /**
-       * Wind production forecast
-       */
-      wind: ElectricityDataPoint[]
-      /**
-       * Solar production forecast
-       */
-      solar: ElectricityDataPoint[]
-    }
-    consumption: {
-      /**
-       * Total consumption in Finland
-       */
-      total: ElectricityDataPoint[]
-    }
-  }
-  history: {
-    production: {
-      /**
-       * Total production in Finland
-       */
-      total: ElectricityDataPoint[]
-      /**
-       * Nuclear production history
-       */
-      nuclear: ElectricityDataPoint[]
-      /**
-       * Hydro production history
-       */
-      hydro: ElectricityDataPoint[]
-      /**
-       * Wind production history
-       */
-      wind: ElectricityDataPoint[]
-    }
-    consumption: {
-      /**
-       * Total consumption history in Finland
-       */
-      total: ElectricityDataPoint[]
-    }
-  }
-}
 
 /**
  * @class ElectricityPageData holds all data related to the Electricity page
  * and handles all data fetching and caching
- * @implements ElectricityPageDataInterface
+ * @implements ElectricityData
  * @method fetchAll refreshes all data with the current timerange
  * @method setTimeRange sets timerange to hold
  */
-export class ElectricityPageData implements ElectricityPageDataInterface {
-  private electricityData: ElectricityPageDataInterface
+
+// eslint-disable-next-line import/prefer-default-export
+export class ElectricityPageData implements ElectricityData {
+  private electricityData: ElectricityData
 
   private timeRange: TimeRange
 
@@ -89,20 +35,20 @@ export class ElectricityPageData implements ElectricityPageDataInterface {
     }
   ) {
     this.timeRange = timerange
-    this.electricityData = {} as ElectricityPageDataInterface
+    this.electricityData = {} as ElectricityData
   }
 
   /**
    * Getter for forecsast data. Exposes class data read-only
    */
-  public get forecast(): ElectricityPageDataInterface["forecast"] {
+  public get forecast(): ElectricityData["forecast"] {
     return this.electricityData.forecast
   }
 
   /**
    * Getter for history data. Exposes class data read-only
    */
-  public get history(): ElectricityPageDataInterface["history"] {
+  public get history(): ElectricityData["history"] {
     return this.electricityData.history
   }
 

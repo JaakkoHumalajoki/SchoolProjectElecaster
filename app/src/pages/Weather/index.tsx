@@ -1,5 +1,4 @@
 import React from "react"
-import { WeatherDataPoint } from "../../services/fmi"
 import WeatherForecastChart from "./WeatherForecastChart"
 import CitySelection from "../../components/CitySelection"
 

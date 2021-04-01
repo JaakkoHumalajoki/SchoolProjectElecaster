@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useRoutes } from "react-router-dom"
 import routes from "./routes"
-import weatherService, { WeatherData, WeatherDataPoint } from "./services/fmi"
-import { TimeRange } from "./common"
+import weatherService from "./services/fmi"
 import { ElectricityPageData } from "./services/queries"
 
 const today: Date = new Date()
