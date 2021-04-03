@@ -17,6 +17,15 @@ declare global {
   }
 
   /**
+   * Interface for city selection
+   * ID is the ID for the closest weather station to the city
+   */
+  export interface City {
+    id: number
+    name: string
+  }
+
+  /**
    * Inteface for a single data point in a list of weather data
    */
   export interface WeatherDataPoint {
