@@ -30,7 +30,7 @@ declare global {
    */
   export interface WeatherDataPoint {
     time: Date
-    modifiedAt: Date
+    modifiedAt?: Date
     temperature: number
     windSpeed?: number
     windDirection?: number
@@ -42,8 +42,12 @@ declare global {
    * Inteface for weather data
    */
   export interface WeatherData {
-    location: FmiLocation
+    location?: FmiLocation
+    city?: City
     data: WeatherDataPoint[]
+
+    forecast?: WeatherDataPoint[]
+    history?: WeatherDataPoint[]
   }
 
   /**
@@ -59,6 +63,7 @@ declare global {
      */
     value: number
   }
+
   /**
    * Interface defining data to be fetched for the
    * Electricitypage
