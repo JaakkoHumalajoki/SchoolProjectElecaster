@@ -82,7 +82,7 @@ class WeatherService implements WeatherData {
     this.historyTimeRange = timeRange
   }
 
-  public get timeRange() {
+  public get timeRange(): TimeRange {
     return this.historyTimeRange
   }
 

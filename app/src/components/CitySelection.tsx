@@ -81,12 +81,12 @@ export interface Props {
   /**
    * Currently selected city in App state
    */
-  city: string
+  city: City
   /**
    * Callback function for when user selects a new city
-   * @param newCity city name as string
+   * @param newCity selected City object
    */
-  onCityChange(newCity: string): void
+  onCityChange(newCity: City): void
 }
 
 /**
@@ -100,11 +100,15 @@ const CitySelection = (props: Props): JSX.Element => {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChange = (event: any) => {
-    onCityChange(event.target.value)
+    const cityName = event.target.value
+    const newCity = cityList.find((cityItem) => cityItem.name === cityName)
+    if (newCity) {
+      onCityChange(newCity)
+    }
   }
 
   return (
-    <select name="city" defaultValue={city} onChange={handleChange}>
+    <select name="city" defaultValue={city.name} onChange={handleChange}>
       {cityList.map((cityOption) => (
         <option key={cityOption.name} value={cityOption.name}>
           {cityOption.name}

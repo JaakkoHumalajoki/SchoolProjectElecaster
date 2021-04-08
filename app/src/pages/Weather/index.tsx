@@ -9,12 +9,12 @@ export interface Props {
   /**
    * Currently selected city in App state
    */
-  city: string
+  city: City
   /**
    * Callback function for when user selects a new city
-   * @param newCity city name as string
+   * @param newCity selected City object
    */
-  onCityChange(newCity: string): void
+  onCityChange(newCity: City): void
   /**
    * Weather data held in App state to be shown in subcomponents
    */

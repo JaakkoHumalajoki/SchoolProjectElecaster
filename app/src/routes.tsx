@@ -16,12 +16,12 @@ const routes = (
   /**
    * Currently selected city in App state
    */
-  city: string,
+  city: City,
   /**
    * Callback function for when user selects a new city
-   * @param newCity city name as string
+   * @param newCity selected City object
    */
-  onCityChange: (newCity: string) => void,
+  onCityChange: (newCity: City) => void,
   /**
    * Currently selected TimeRange in App state
    */
