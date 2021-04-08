@@ -1,6 +1,12 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import WeatherForecastChart from "./WeatherForecastChart"
 import CitySelection from "../../components/CitySelection"
+import WeatherService from "../../services/fmi"
+
+interface WeatherDataSet {
+  history: WeatherDataPoint[]
+  forecast: WeatherDataPoint[]
+}
 
 /**
  * Props interface for WeatherPage component
@@ -16,9 +22,9 @@ export interface Props {
    */
   onCityChange(newCity: City): void
   /**
-   * Weather data held in App state to be shown in subcomponents
+   * WeatherService from which weather-related data can be fetched
    */
-  weatherData: WeatherDataPoint[]
+  weatherService: WeatherService
 }
 
 /**
@@ -27,12 +33,30 @@ export interface Props {
  * @returns React element
  */
 const WeatherPage = (props: Props): JSX.Element => {
-  const { city, onCityChange, weatherData } = props
+  const { city, onCityChange, weatherService } = props
+  const [weatherData, setWeatherData] = useState<WeatherDataSet | null>(null)
+
+  useEffect(() => {
+    setWeatherData(null)
+
+    weatherService.fetch().then(() => {
+      const newWeatherData: WeatherDataSet = {
+        history: weatherService.history ? weatherService.history : [],
+        forecast: weatherService.forecast ? weatherService.forecast : [],
+      }
+      setWeatherData(newWeatherData)
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [city])
+
+  if (!weatherData) {
+    return <div>loading...</div>
+  }
 
   return (
     <div>
       <CitySelection city={city} onCityChange={onCityChange} />
-      <WeatherForecastChart weatherData={weatherData} />
+      <WeatherForecastChart forecastData={weatherData.forecast} />
     </div>
   )
 }
