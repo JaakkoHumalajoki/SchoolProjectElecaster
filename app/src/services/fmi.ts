@@ -140,9 +140,9 @@ class WeatherService implements WeatherData {
     )
     const rawWeatherData = response.data
 
-    const descriptions: { [key: string]: string } = {}
+    const descriptions: { [key: number]: string } = {}
     rawWeatherData.symbolDescriptions.forEach((description) => {
-      descriptions[description.id.toString()] = description.text_en
+      descriptions[description.id] = description.text_en
     })
 
     this.weatherData.forecast = rawWeatherData.forecastValues
@@ -163,7 +163,7 @@ class WeatherService implements WeatherData {
             windDirection: item.WindDirection ?? undefined,
             precipitation1h: item.Precipitation1h ?? undefined,
             description: item.SmartSymbol
-              ? descriptions[item.SmartSymbol.toString()]
+              ? descriptions[item.SmartSymbol]
               : undefined,
           }
         }
