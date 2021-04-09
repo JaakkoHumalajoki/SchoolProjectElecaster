@@ -66,9 +66,9 @@ class WeatherService implements WeatherData {
       `https://opendata.fmi.fi/wfs?request=getFeature&version=2.0.0&storedquery_id=fmi::observations::weather::multipointcoverage&parameters=t2m,wd_10min,ws_10min,r_1h&timestep=60` +
       `&starttime=${this.dateToFmiString(
         timeRange.startTime
-      )}&endtime=${this.dateToFmiString(
-        timeRange.endTime
-      )}&place=${this.city.name.toLowerCase()}`
+      )}&endtime=${this.dateToFmiString(timeRange.endTime)}&${
+        this.city.id ? `fmisid=${this.city.id}` : `place=${this.city.name}`
+      }`
     )
   }
 
