@@ -2,11 +2,7 @@ import React, { useState, useEffect } from "react"
 import WeatherForecastChart from "./WeatherForecastChart"
 import CitySelection from "../../components/CitySelection"
 import WeatherService from "../../services/fmi"
-
-interface WeatherDataSet {
-  history: WeatherDataPoint[]
-  forecast: WeatherDataPoint[]
-}
+import { WeatherDataSet, emptyWeatherData } from "../../common"
 
 /**
  * Props interface for WeatherPage component
@@ -34,10 +30,12 @@ export interface Props {
  */
 const WeatherPage = (props: Props): JSX.Element => {
   const { city, onCityChange, weatherService } = props
-  const [weatherData, setWeatherData] = useState<WeatherDataSet | null>(null)
+  const [weatherData, setWeatherData] = useState<WeatherDataSet>(
+    emptyWeatherData
+  )
 
   useEffect(() => {
-    setWeatherData(null)
+    setWeatherData(emptyWeatherData)
 
     weatherService.fetch().then(() => {
       const newWeatherData: WeatherDataSet = {
@@ -48,10 +46,6 @@ const WeatherPage = (props: Props): JSX.Element => {
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [city])
-
-  if (!weatherData) {
-    return <div>loading...</div>
-  }
 
   return (
     <div>

@@ -19,3 +19,37 @@ export const calculateMaximum = (values: number[]): number => {
   }
   return values.reduce((max, value) => (value > max ? value : max), values[0])
 }
+
+export const emptyElectricityData: ElectricityData = {
+  forecast: {
+    production: {
+      total: [],
+      wind: [],
+      solar: [],
+    },
+    consumption: {
+      total: [],
+    },
+  },
+  history: {
+    production: {
+      total: [],
+      nuclear: [],
+      hydro: [],
+      wind: [],
+    },
+    consumption: {
+      total: [],
+    },
+  },
+}
+
+export interface WeatherDataSet {
+  forecast: WeatherDataPoint[]
+  history: WeatherDataPoint[]
+}
+
+export const emptyWeatherData: WeatherDataSet = {
+  forecast: [],
+  history: [],
+}

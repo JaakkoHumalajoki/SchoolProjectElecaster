@@ -4,6 +4,7 @@ import TimeSelection from "../../components/TimeSelection"
 import ComparisonChart from "./ComparisonChart"
 import ForecastChart from "./ForecastChart"
 import PieChart from "./PieChart"
+import { emptyElectricityData } from "../../common"
 
 /**
  * Props interface for ElectricityPage component
@@ -33,12 +34,13 @@ export interface Props {
  */
 const ElectricityPage = (props: Props): JSX.Element => {
   const { timeRange, onTimeChange, electricityService } = props
-  const [
-    electricityData,
-    setElectricityData,
-  ] = useState<ElectricityData | null>(null)
+  const [electricityData, setElectricityData] = useState<ElectricityData>(
+    emptyElectricityData
+  )
 
   useEffect(() => {
+    setElectricityData(emptyElectricityData)
+
     electricityService.fetch().then(() => {
       const newData: ElectricityData = {
         forecast: electricityService.forecast,
@@ -48,10 +50,6 @@ const ElectricityPage = (props: Props): JSX.Element => {
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeRange])
-
-  if (!electricityData) {
-    return <div>Loading...</div>
-  }
 
   return (
     <div>

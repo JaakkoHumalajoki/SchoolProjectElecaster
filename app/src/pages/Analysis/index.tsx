@@ -4,11 +4,11 @@ import TimeSelection from "../../components/TimeSelection"
 import CitySelection from "../../components/CitySelection"
 import ForecastChart from "./ForecastChart"
 import WeatherService from "../../services/fmi"
-
-interface WeatherDataSet {
-  history: WeatherDataPoint[]
-  forecast: WeatherDataPoint[]
-}
+import {
+  WeatherDataSet,
+  emptyWeatherData,
+  emptyElectricityData,
+} from "../../common"
 
 export interface Props {
   city: City
@@ -48,14 +48,15 @@ const AnalysisPage = (props: Props): JSX.Element => {
     weatherService,
     electricityService,
   } = props
-  const [
-    electricityData,
-    setElectricityData,
-  ] = useState<ElectricityData | null>(null)
-  const [weatherData, setWeatherData] = useState<WeatherDataSet | null>(null)
+  const [electricityData, setElectricityData] = useState<ElectricityData>(
+    emptyElectricityData
+  )
+  const [weatherData, setWeatherData] = useState<WeatherDataSet>(
+    emptyWeatherData
+  )
 
   useEffect(() => {
-    setElectricityData(null)
+    setElectricityData(emptyElectricityData)
 
     electricityService.fetch().then(() => {
       const elecData: ElectricityData = {
@@ -80,7 +81,7 @@ const AnalysisPage = (props: Props): JSX.Element => {
   }, [timeRange])
 
   useEffect(() => {
-    setWeatherData(null)
+    setWeatherData(emptyWeatherData)
 
     weatherService.fetch().then(() => {
       const newWeatherData: WeatherDataSet = {
@@ -91,10 +92,6 @@ const AnalysisPage = (props: Props): JSX.Element => {
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [city, timeRange])
-
-  if (!electricityData || !weatherData) {
-    return <div>Loading...</div>
-  }
 
   return (
     <div>
