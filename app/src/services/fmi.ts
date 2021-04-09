@@ -218,15 +218,23 @@ class WeatherService implements WeatherData {
           const windDir = Number(datapointsParsed[index][1])
           const windSpeed = Number(datapointsParsed[index][2])
           const rain = Number(datapointsParsed[index][3])
-      return {
+          return {
             time: date,
             temperature: temp,
             windDirection: !Number.isNaN(windDir) ? windDir : undefined,
             windSpeed: !Number.isNaN(windSpeed) ? windSpeed : undefined,
             precipitation1h: !Number.isNaN(rain) ? rain : undefined,
-      }
+          }
         }
       )
+      .filter(
+        (value) =>
+          this.isValidDate(value.time) && !Number.isNaN(value.temperature)
+      )
+  }
+
+  private isValidDate = (d: Date): boolean => {
+    return d instanceof Date && !Number.isNaN(d.getTime())
   }
 
   private parseFmiDate = (rawDate: string): Date => {
