@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { useRoutes } from "react-router-dom"
 import routes from "./routes"
-import weatherService from "./services/fmi"
+import WeatherService from "./services/fmi"
 import { ElectricityPageData } from "./services/queries"
 
 const today: Date = new Date()
@@ -16,22 +16,17 @@ weekFromNow.setDate(today.getDate() + 7)
  * @returns React element
  */
 export default function App(): JSX.Element {
-  const [city, setCity] = useState<string>("Tampere")
+  const [city, setCity] = useState<City>({ fmisid: 101124, name: "Tampere" })
   const [timeRange, setTimeRange] = useState<TimeRange>({
     startTime: tenDaysPast,
     endTime: weekFromNow,
   })
-  const [weatherData, setWeatherData] = useState<WeatherDataPoint[]>([])
+  const weatherService = new WeatherService(city, timeRange)
   const electricityService = new ElectricityPageData(timeRange)
 
-  useEffect(() => {
-    weatherService.getWeatherData(city).then((data: WeatherData) => {
-      setWeatherData(data.data)
-    })
-  }, [city])
-
-  const handleCityChange = (newCity: string) => {
+  const handleCityChange = (newCity: City) => {
     setCity(newCity)
+    weatherService.city = newCity
   }
 
   const handleTimeChange = (newRange: TimeRange) => {
@@ -42,6 +37,7 @@ export default function App(): JSX.Element {
     }
     setTimeRange(newRange)
     electricityService.setTimeRange(newRange)
+    weatherService.timeRange = newRange
   }
 
   const routing = useRoutes(
@@ -50,7 +46,7 @@ export default function App(): JSX.Element {
       handleCityChange,
       timeRange,
       handleTimeChange,
-      weatherData,
+      weatherService,
       electricityService
     )
   )

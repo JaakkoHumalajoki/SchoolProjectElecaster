@@ -4,6 +4,7 @@ import TimeSelection from "../../components/TimeSelection"
 import ComparisonChart from "./ComparisonChart"
 import ForecastChart from "./ForecastChart"
 import PieChart from "./PieChart"
+import { emptyElectricityData } from "../../common"
 
 /**
  * Props interface for ElectricityPage component
@@ -33,43 +34,43 @@ export interface Props {
  */
 const ElectricityPage = (props: Props): JSX.Element => {
   const { timeRange, onTimeChange, electricityService } = props
-  const [data, setData] = useState<ElectricityData | null>(null)
+  const [electricityData, setElectricityData] = useState<ElectricityData>(
+    emptyElectricityData
+  )
 
   useEffect(() => {
+    setElectricityData(emptyElectricityData)
+
     electricityService.fetch().then(() => {
       const newData: ElectricityData = {
         forecast: electricityService.forecast,
         history: electricityService.history,
       }
-      setData(newData)
+      setElectricityData(newData)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeRange])
-
-  if (data === null) {
-    return <div>Loading...</div>
-  }
 
   return (
     <div>
       <TimeSelection timeRange={timeRange} onTimeChange={onTimeChange} />
       <ComparisonChart
-        consumptionData={data.history.consumption.total}
-        productionData={data.history.production.total}
-        nuclearData={data.history.production.nuclear}
-        hydroData={data.history.production.hydro}
-        windData={data.history.production.wind}
+        consumptionData={electricityData.history.consumption.total}
+        productionData={electricityData.history.production.total}
+        nuclearData={electricityData.history.production.nuclear}
+        hydroData={electricityData.history.production.hydro}
+        windData={electricityData.history.production.wind}
       />
       <ForecastChart
-        consumptionForecast={data.forecast.consumption.total}
-        productionForecast={data.forecast.production.total}
-        windForecast={data.forecast.production.wind}
+        consumptionForecast={electricityData.forecast.consumption.total}
+        productionForecast={electricityData.forecast.production.total}
+        windForecast={electricityData.forecast.production.wind}
       />
       <PieChart
-        productionData={data.history.production.total}
-        nuclearData={data.history.production.nuclear}
-        hydroData={data.history.production.hydro}
-        windData={data.history.production.wind}
+        productionData={electricityData.history.production.total}
+        nuclearData={electricityData.history.production.nuclear}
+        hydroData={electricityData.history.production.hydro}
+        windData={electricityData.history.production.wind}
       />
     </div>
   )

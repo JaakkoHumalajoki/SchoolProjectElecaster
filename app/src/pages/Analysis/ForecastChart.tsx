@@ -21,7 +21,7 @@ export interface Props {
   /**
    * All weather data for currently selected city
    */
-  weatherData: WeatherDataPoint[]
+  forecastData: WeatherDataPoint[]
 }
 
 /**
@@ -35,7 +35,7 @@ const ForecastChart = (props: Props): JSX.Element => {
     consumptionForecast,
     productionForecast,
     windForecast,
-    weatherData,
+    forecastData: weatherData,
   } = props
 
   const options: Highcharts.Options = {

@@ -14,7 +14,7 @@ export interface Props {
   /**
    * All weather data for currently selected city
    */
-  weatherData: WeatherDataPoint[]
+  forecastData: WeatherDataPoint[]
 }
 
 /**
@@ -24,7 +24,7 @@ export interface Props {
  * @returns React element
  */
 const ComparisonChart = (props: Props): JSX.Element => {
-  const { weatherData } = props
+  const { forecastData: weatherData } = props
 
   const [selectedRangeMin, setSelectedRangeMin] = useState(0) // 1st January, 1970
   const [selectedRangeMax, setSelectedRangeMax] = useState(10000000000000) // 266 years into future
