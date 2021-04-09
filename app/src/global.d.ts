@@ -42,12 +42,9 @@ declare global {
    * Inteface for weather data
    */
   export interface WeatherData {
-    location?: FmiLocation
-    city?: City
-    data: WeatherDataPoint[]
-
-    forecast?: WeatherDataPoint[]
-    history?: WeatherDataPoint[]
+    city: City
+    forecast: WeatherDataPoint[]
+    history: WeatherDataPoint[]
   }
 
   /**
