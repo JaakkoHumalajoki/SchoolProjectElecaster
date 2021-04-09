@@ -283,9 +283,8 @@ class WeatherService implements WeatherData {
       )
   }
 
-  private isValidDate = (d: Date): boolean => {
-    return d instanceof Date && !Number.isNaN(d.getTime())
-  }
+  private isValidDate = (date: Date): boolean =>
+    date instanceof Date && !Number.isNaN(date.getTime())
 
   private parseFmiDate = (rawDate: string): Date => {
     // Fmi date is formatted like this 20210316T020000
