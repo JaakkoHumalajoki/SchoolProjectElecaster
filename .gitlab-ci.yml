@@ -17,7 +17,7 @@ default:
 Deploy documentation:
   stage: deploy
   only:
-    - branches
+    - master
   script:
     - npm install -g netlify-cli
     - cd ./app
