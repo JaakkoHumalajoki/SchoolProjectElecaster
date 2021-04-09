@@ -26,6 +26,10 @@
   @apply flex max-w-6xl mx-auto p-4;
 }
 
+.navigation {
+  @apply items-center space-x-2 text-xl;
+}
+
 .btn-rounded-lg {
   @apply m-2 p-4 w-52 text-lg rounded-md ring-2 ring-inset ring-gray-600 ring-opacity-50;
 }
