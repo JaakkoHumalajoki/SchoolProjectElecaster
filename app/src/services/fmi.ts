@@ -63,7 +63,7 @@ class WeatherService implements WeatherData {
 
   private getHistoryUrl(timeRange: TimeRange): string {
     return (
-      `https://opendata.fmi.fi/wfs?request=getFeature&version=2.0.0&storedquery_id=fmi::observations::weather::multipointcoverage&parameters=t2m,wd_10min,ws_10min&timestep=60` +
+      `https://opendata.fmi.fi/wfs?request=getFeature&version=2.0.0&storedquery_id=fmi::observations::weather::multipointcoverage&parameters=t2m,wd_10min,ws_10min,r_1h&timestep=60` +
       `&starttime=${this.dateToFmiString(
         timeRange.startTime
       )}&endtime=${this.dateToFmiString(
@@ -211,12 +211,22 @@ class WeatherService implements WeatherData {
 
     /* eslint-enable @typescript-eslint/no-explicit-any */
 
-    return dateValuesParsed.map((value: Date, index: number) => {
+    return dateValuesParsed
+      .map(
+        (date: Date, index: number): WeatherDataPoint => {
+          const temp = Number(datapointsParsed[index][0])
+          const windDir = Number(datapointsParsed[index][1])
+          const windSpeed = Number(datapointsParsed[index][2])
+          const rain = Number(datapointsParsed[index][3])
       return {
-        time: value,
-        temperature: Number(datapointsParsed[index][0]),
+            time: date,
+            temperature: temp,
+            windDirection: !Number.isNaN(windDir) ? windDir : undefined,
+            windSpeed: !Number.isNaN(windSpeed) ? windSpeed : undefined,
+            precipitation1h: !Number.isNaN(rain) ? rain : undefined,
       }
-    })
+        }
+      )
   }
 
   private parseFmiDate = (rawDate: string): Date => {
