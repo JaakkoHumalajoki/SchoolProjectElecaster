@@ -3,8 +3,23 @@ import { ElectricityPageData } from "../../services/queries"
 import TimeSelection from "../../components/TimeSelection"
 import CitySelection from "../../components/CitySelection"
 import ForecastChart from "./ForecastChart"
+import WeatherService from "../../services/fmi"
+
+interface WeatherDataSet {
+  history: WeatherDataPoint[]
+  forecast: WeatherDataPoint[]
+}
 
 export interface Props {
+  city: City
+  /**
+   * Callback function for when user selects a new city
+   * @param newCity selected City object
+   */
+  onCityChange: (newCity: City) => void
+  /**
+   * Weather data held in App state to be shown in subcomponents
+   */
   /**
    * Currently selected TimeRange in App state
    */
@@ -15,59 +30,69 @@ export interface Props {
    */
   onTimeChange(newRange: TimeRange): void
   /**
+   * WeatherService from which weather-related data can be fetched
+   */
+  weatherService: WeatherService
+  /**
    * ElectricityPageData service from which electricity data can be fetched
    */
   electricityService: ElectricityPageData
-  /**
-   * Currently selected city in App state
-   */
-  city: City
-  /**
-   * Callback function for when user selects a new city
-   * @param newCity selected City object
-   */
-  onCityChange: (newCity: City) => void
-  /**
-   * Weather data held in App state to be shown in subcomponents
-   */
-  weatherData: WeatherDataPoint[]
 }
 
 const AnalysisPage = (props: Props): JSX.Element => {
   const {
-    timeRange,
-    onTimeChange,
-    electricityService,
     city,
     onCityChange,
-    weatherData,
+    timeRange,
+    onTimeChange,
+    weatherService,
+    electricityService,
   } = props
-  const [data, setData] = useState<ElectricityData | null>(null)
+  const [
+    electricityData,
+    setElectricityData,
+  ] = useState<ElectricityData | null>(null)
+  const [weatherData, setWeatherData] = useState<WeatherDataSet | null>(null)
 
   useEffect(() => {
+    setElectricityData(null)
+
     electricityService.fetch().then(() => {
-      const newData: ElectricityData = {
-        forecast: electricityService.forecast,
+      const elecData: ElectricityData = {
         history: electricityService.history,
+        forecast: electricityService.forecast,
       }
 
       const now = new Date()
-      newData.forecast.consumption.total = newData.forecast.consumption.total.filter(
+      elecData.forecast.consumption.total = elecData.forecast.consumption.total.filter(
         (dataPoint) => dataPoint.time >= now
       )
-      newData.forecast.production.total = newData.forecast.production.total.filter(
+      elecData.forecast.production.total = elecData.forecast.production.total.filter(
         (dataPoint) => dataPoint.time >= now
       )
-      newData.forecast.production.wind = newData.forecast.production.wind.filter(
+      elecData.forecast.production.wind = elecData.forecast.production.wind.filter(
         (dataPoint) => dataPoint.time >= now
       )
 
-      setData(newData)
+      setElectricityData(elecData)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeRange])
 
-  if (data === null) {
+  useEffect(() => {
+    setWeatherData(null)
+
+    weatherService.fetch().then(() => {
+      const newWeatherData: WeatherDataSet = {
+        history: weatherService.history ? weatherService.history : [],
+        forecast: weatherService.forecast ? weatherService.forecast : [],
+      }
+      setWeatherData(newWeatherData)
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [city, timeRange])
+
+  if (!electricityData || !weatherData) {
     return <div>Loading...</div>
   }
 
@@ -76,10 +101,10 @@ const AnalysisPage = (props: Props): JSX.Element => {
       <CitySelection city={city} onCityChange={onCityChange} />
       <TimeSelection timeRange={timeRange} onTimeChange={onTimeChange} />
       <ForecastChart
-        consumptionForecast={data.forecast.consumption.total}
-        productionForecast={data.forecast.production.total}
-        windForecast={data.forecast.production.wind}
-        weatherData={weatherData}
+        consumptionForecast={electricityData.forecast.consumption.total}
+        productionForecast={electricityData.forecast.production.total}
+        windForecast={electricityData.forecast.production.wind}
+        forecastData={weatherData.forecast}
       />
     </div>
   )

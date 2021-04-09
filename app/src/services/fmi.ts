@@ -272,7 +272,7 @@ const parseFmiDate = (rawdate: string): Date => {
   return new Date(`${year}-${month}-${day}T${hours}:${minutes}:${seconds}`)
 }
 
-const getWeatherData = async (city?: string): Promise<WeatherData> => {
+export const getWeatherData = async (city?: string): Promise<WeatherData> => {
   const response: AxiosResponse<FmiForecastResponse> = await axios.get(
     getForecastUrl(city)
   )
@@ -317,4 +317,4 @@ const getWeatherData = async (city?: string): Promise<WeatherData> => {
   return weatherData
 }
 
-export default { getWeatherData, WeatherService }
+export default WeatherService

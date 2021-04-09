@@ -4,6 +4,7 @@ import Analysis from "./pages/Analysis"
 import Electricity from "./pages/Electricity"
 import Home from "./pages/Home"
 import Weather from "./pages/Weather"
+import WeatherService from "./services/fmi"
 import { ElectricityPageData } from "./services/queries"
 
 /**
@@ -32,9 +33,9 @@ const routes = (
    */
   onTimeChange: (newRange: TimeRange) => void,
   /**
-   * Weather data held in App state to be shown in subcomponents
+   * WeatherService from which weather-related data can be fetched
    */
-  weatherData: WeatherDataPoint[],
+  weatherService: WeatherService,
   /**
    * ElectricityPageData service from which electricity data can be fetched
    */
@@ -54,7 +55,7 @@ const routes = (
           <Weather
             city={city}
             onCityChange={onCityChange}
-            weatherData={weatherData}
+            weatherService={weatherService}
           />
         ),
       },
@@ -72,12 +73,12 @@ const routes = (
         path: "analysis",
         element: (
           <Analysis
-            timeRange={timeRange}
-            onTimeChange={onTimeChange}
-            electricityService={electricityService}
             city={city}
             onCityChange={onCityChange}
-            weatherData={weatherData}
+            timeRange={timeRange}
+            onTimeChange={onTimeChange}
+            weatherService={weatherService}
+            electricityService={electricityService}
           />
         ),
       },
