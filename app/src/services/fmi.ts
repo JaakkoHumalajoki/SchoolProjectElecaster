@@ -7,7 +7,8 @@ import { FmiForecastResponse } from "./fmi-types"
  * @class WeatherService handles all data related to weather
  * @implements WeatherData
  * @method fetch refreshes all data within the current timerange and city
- * @property timerange {TimeRange}
+ * @property timerange Timerange the class data currently represents
+ * @property city City that the data is fetched for
  */
 class WeatherService implements WeatherData {
   /**

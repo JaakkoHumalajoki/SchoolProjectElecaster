@@ -17,12 +17,16 @@ declare global {
   }
 
   /**
-   * Interface for city selection
-   * ID is the ID for the closest weather station to the city
+   * Information about City
    */
   export interface City {
-    id: number
+    /**
+     * Name of the city
+     */
     name: string
+    /**
+     * Id for the closest weather station to the city
+     */
     fmisid: number
   }
 
@@ -43,9 +47,26 @@ declare global {
    * Inteface for weather data
    */
   export interface WeatherData {
+    /**
+     * City object that holds information about the city to fetch weather data for
+     */
     city: City
+    /**
+     * Forecast values for current city
+     *
+     * These values alway hold the maxinum amount of forecast data available from FMI
+     */
     forecast: WeatherDataPoint[]
+    /**
+     * History values for current city
+     *
+     * Weather history for the current city at given timerange
+     */
     history: WeatherDataPoint[]
+    /**
+     * Timerange to fetch the data for
+     */
+    timeRange: TimeRange
   }
 
   /**
