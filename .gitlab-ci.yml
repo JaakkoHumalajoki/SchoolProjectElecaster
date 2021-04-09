@@ -4,7 +4,6 @@
 image: node:latest
 
 stages:
-  - test
   - deploy
 
 cache:
@@ -14,13 +13,6 @@ cache:
 default:
   before_script:
     - npm config set cache $HOME/.npm/cache --global
-
-Run tests:
-  stage: test
-  script:
-    - echo "Run tests here"
-    - sleep 3
-    - echo "SUCCESS"
 
 Deploy documentation:
   stage: deploy
