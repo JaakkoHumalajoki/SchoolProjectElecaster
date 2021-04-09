@@ -279,7 +279,7 @@ class WeatherService implements WeatherData {
       )
       .filter(
         (value) =>
-          this.isValidDate(value.time) || !Number.isNaN(value.temperature)
+          this.isValidDate(value.time) && !Number.isNaN(value.temperature)
       )
   }
 
