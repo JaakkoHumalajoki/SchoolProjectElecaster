@@ -91,7 +91,9 @@ class WeatherService implements WeatherData {
       `&starttime=${this.dateToFmiString(
         timeRange.startTime
       )}&endtime=${this.dateToFmiString(timeRange.endTime)}&${
-        this.city.id ? `fmisid=${this.city.id}` : `place=${this.city.name}`
+        this.city.fmisid
+          ? `fmisid=${this.city.fmisid}`
+          : `place=${this.city.name}`
       }`
     )
   }

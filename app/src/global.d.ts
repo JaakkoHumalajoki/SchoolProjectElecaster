@@ -23,6 +23,7 @@ declare global {
   export interface City {
     id: number
     name: string
+    fmisid: number
   }
 
   /**
