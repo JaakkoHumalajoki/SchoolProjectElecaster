@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import WeatherForecastChart from "./WeatherForecastChart"
 import WeatherHistoryChart from "./WeatherHistoryChart"
 import CitySelection from "../../components/CitySelection"
+import TimeSelection from "../../components/TimeSelection"
 import WeatherService from "../../services/fmi"
 import { WeatherDataSet, emptyWeatherData } from "../../common"
 
@@ -19,6 +20,15 @@ export interface Props {
    */
   onCityChange(newCity: City): void
   /**
+   * Currently selected TimeRange in App state
+   */
+  timeRange: TimeRange
+  /**
+   * Callback function for when user changes TimeRange
+   * @param newRange changed TimeRange
+   */
+  onTimeChange(newRange: TimeRange): void
+  /**
    * WeatherService from which weather-related data can be fetched
    */
   weatherService: WeatherService
@@ -30,7 +40,7 @@ export interface Props {
  * @returns React element
  */
 const WeatherPage = (props: Props): JSX.Element => {
-  const { city, onCityChange, weatherService } = props
+  const { city, onCityChange, timeRange, onTimeChange, weatherService } = props
   const [weatherData, setWeatherData] = useState<WeatherDataSet>(
     emptyWeatherData
   )
@@ -46,11 +56,12 @@ const WeatherPage = (props: Props): JSX.Element => {
       setWeatherData(newWeatherData)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [city])
+  }, [city, timeRange])
 
   return (
     <div>
       <CitySelection city={city} onCityChange={onCityChange} />
+      <TimeSelection timeRange={timeRange} onTimeChange={onTimeChange} />
       <WeatherForecastChart forecastData={weatherData.forecast} />
       <WeatherHistoryChart historyData={weatherData.history} />
     </div>

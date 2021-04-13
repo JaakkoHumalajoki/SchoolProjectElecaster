@@ -55,6 +55,8 @@ const routes = (
           <Weather
             city={city}
             onCityChange={onCityChange}
+            timeRange={timeRange}
+            onTimeChange={onTimeChange}
             weatherService={weatherService}
           />
         ),
