@@ -33,6 +33,9 @@ const ForecastChart = (props: Props): JSX.Element => {
     title: {
       text: "Energy Forecast Comparison",
     },
+    chart: {
+      height: "600px",
+    },
     navigator: {
       enabled: true,
       maskFill: "rgba(0, 82, 156, 0.3)",
@@ -46,8 +49,22 @@ const ForecastChart = (props: Props): JSX.Element => {
     yAxis: [
       {
         title: {
-          text: "Electricity MW",
+          text: "Total / MW",
         },
+        height: "45%",
+        offset: 0,
+        lineWidth: 2,
+        resize: {
+          enabled: true,
+        },
+      },
+      {
+        title: {
+          text: "Individual / MW",
+        },
+        height: "45%",
+        top: "55%",
+        offset: 0,
         lineWidth: 2,
         resize: {
           enabled: true,
@@ -86,6 +103,7 @@ const ForecastChart = (props: Props): JSX.Element => {
       {
         type: "line",
         name: "Wind Energy",
+        yAxis: 1,
         showInNavigator: true,
         data: windForecast.map((point) => [point.time.getTime(), point.value]),
         tooltip: {

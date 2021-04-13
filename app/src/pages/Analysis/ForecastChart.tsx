@@ -42,6 +42,9 @@ const ForecastChart = (props: Props): JSX.Element => {
     title: {
       text: "Energy & Weather forecast analysis",
     },
+    chart: {
+      height: "600px",
+    },
     navigator: {
       enabled: true,
       maskFill: "rgba(0, 82, 156, 0.3)",
@@ -55,19 +58,20 @@ const ForecastChart = (props: Props): JSX.Element => {
     yAxis: [
       {
         title: {
-          text: "Electricity MW",
+          text: "Electricity",
         },
-        height: "55%",
+        height: "45%",
         lineWidth: 2,
       },
       {
         title: {
           text: "Weather",
         },
-        top: "60%",
-        height: "40%",
+        top: "55%",
+        height: "45%",
         offset: 0,
         lineWidth: 2,
+        min: 0,
       },
     ],
     tooltip: {
