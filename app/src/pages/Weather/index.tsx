@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import WeatherForecastChart from "./WeatherForecastChart"
+import WeatherHistoryChart from "./WeatherHistoryChart"
 import CitySelection from "../../components/CitySelection"
 import WeatherService from "../../services/fmi"
 import { WeatherDataSet, emptyWeatherData } from "../../common"
@@ -51,6 +52,7 @@ const WeatherPage = (props: Props): JSX.Element => {
     <div>
       <CitySelection city={city} onCityChange={onCityChange} />
       <WeatherForecastChart forecastData={weatherData.forecast} />
+      <WeatherHistoryChart historyData={weatherData.history} />
     </div>
   )
 }
