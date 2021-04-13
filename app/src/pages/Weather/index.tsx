@@ -4,7 +4,7 @@ import WeatherHistoryChart from "./WeatherHistoryChart"
 import CitySelection from "../../components/CitySelection"
 import TimeSelection from "../../components/TimeSelection"
 import WeatherService from "../../services/fmi"
-import { WeatherDataSet, emptyWeatherData } from "../../common"
+import { emptyWeatherData } from "../../common"
 
 /**
  * Props interface for WeatherPage component
@@ -41,15 +41,15 @@ export interface Props {
  */
 const WeatherPage = (props: Props): JSX.Element => {
   const { city, onCityChange, timeRange, onTimeChange, weatherService } = props
-  const [weatherData, setWeatherData] = useState<WeatherDataSet>(
-    emptyWeatherData
-  )
+  const [weatherData, setWeatherData] = useState<
+    Pick<WeatherData, "forecast" | "history">
+  >(emptyWeatherData)
 
   useEffect(() => {
     setWeatherData(emptyWeatherData)
 
     weatherService.fetch().then(() => {
-      const newWeatherData: WeatherDataSet = {
+      const newWeatherData: Pick<WeatherData, "forecast" | "history"> = {
         history: weatherService.history ? weatherService.history : [],
         forecast: weatherService.forecast ? weatherService.forecast : [],
       }

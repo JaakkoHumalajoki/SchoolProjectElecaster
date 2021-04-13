@@ -4,11 +4,7 @@ import TimeSelection from "../../components/TimeSelection"
 import CitySelection from "../../components/CitySelection"
 import ForecastChart from "./ForecastChart"
 import WeatherService from "../../services/fmi"
-import {
-  WeatherDataSet,
-  emptyWeatherData,
-  emptyElectricityData,
-} from "../../common"
+import { emptyWeatherData, emptyElectricityData } from "../../common"
 
 export interface Props {
   city: City
@@ -51,9 +47,9 @@ const AnalysisPage = (props: Props): JSX.Element => {
   const [electricityData, setElectricityData] = useState<ElectricityData>(
     emptyElectricityData
   )
-  const [weatherData, setWeatherData] = useState<WeatherDataSet>(
-    emptyWeatherData
-  )
+  const [weatherData, setWeatherData] = useState<
+    Pick<WeatherData, "forecast" | "history">
+  >(emptyWeatherData)
 
   useEffect(() => {
     setElectricityData(emptyElectricityData)
@@ -84,7 +80,7 @@ const AnalysisPage = (props: Props): JSX.Element => {
     setWeatherData(emptyWeatherData)
 
     weatherService.fetch().then(() => {
-      const newWeatherData: WeatherDataSet = {
+      const newWeatherData: Pick<WeatherData, "forecast" | "history"> = {
         history: weatherService.history ? weatherService.history : [],
         forecast: weatherService.forecast ? weatherService.forecast : [],
       }
