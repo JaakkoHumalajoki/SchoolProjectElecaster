@@ -73,7 +73,7 @@ const ComparisonChart = (props: Props): JSX.Element => {
       text: "Weather history",
     },
     chart: {
-      height: "500px",
+      height: "600px",
     },
     navigator: {
       enabled: true,

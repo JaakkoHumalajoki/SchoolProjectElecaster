@@ -47,6 +47,9 @@ const ComparisonChart = (props: Props): JSX.Element => {
     title: {
       text: "Energy comparison",
     },
+    chart: {
+      height: "600px",
+    },
     navigator: {
       enabled: true,
       maskFill: "rgba(0, 82, 156, 0.3)",
@@ -60,8 +63,22 @@ const ComparisonChart = (props: Props): JSX.Element => {
     yAxis: [
       {
         title: {
-          text: "Electricity MW",
+          text: "Total / MW",
         },
+        height: "45%",
+        offset: 0,
+        lineWidth: 2,
+        resize: {
+          enabled: true,
+        },
+      },
+      {
+        title: {
+          text: "Individual / MW",
+        },
+        height: "45%",
+        top: "55%",
+        offset: 0,
         lineWidth: 2,
         resize: {
           enabled: true,
@@ -124,6 +141,7 @@ const ComparisonChart = (props: Props): JSX.Element => {
       {
         type: "line",
         name: "Nuclear Energy",
+        yAxis: 1,
         showInNavigator: true,
         data: nuclearData.map((point) => [point.time.getTime(), point.value]),
         dataGrouping: {
@@ -143,6 +161,7 @@ const ComparisonChart = (props: Props): JSX.Element => {
       {
         type: "line",
         name: "Hydro Energy",
+        yAxis: 1,
         showInNavigator: true,
         data: hydroData.map((point) => [point.time.getTime(), point.value]),
         dataGrouping: {
@@ -162,6 +181,7 @@ const ComparisonChart = (props: Props): JSX.Element => {
       {
         type: "line",
         name: "Wind Energy",
+        yAxis: 1,
         showInNavigator: true,
         data: windData.map((point) => [point.time.getTime(), point.value]),
         dataGrouping: {
