@@ -62,8 +62,8 @@ const WeatherPage = (props: Props): JSX.Element => {
     <div>
       <CitySelection city={city} onCityChange={onCityChange} />
       <TimeSelection timeRange={timeRange} onTimeChange={onTimeChange} />
-      <WeatherForecastChart forecastData={weatherData.forecast} />
       <WeatherHistoryChart historyData={weatherData.history} />
+      <WeatherForecastChart forecastData={weatherData.forecast} />
     </div>
   )
 }

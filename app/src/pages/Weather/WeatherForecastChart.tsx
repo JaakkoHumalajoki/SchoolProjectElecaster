@@ -70,7 +70,7 @@ const ComparisonChart = (props: Props): JSX.Element => {
 
   const options: Highcharts.Options = {
     title: {
-      text: "10 day weather forecast",
+      text: "Weather forecast",
     },
     chart: {
       height: "600px",
@@ -101,6 +101,7 @@ const ComparisonChart = (props: Props): JSX.Element => {
         },
         height: "50%",
         lineWidth: 2,
+        allowDecimals: false,
       },
       {
         title: {
@@ -108,8 +109,10 @@ const ComparisonChart = (props: Props): JSX.Element => {
         },
         top: "55%",
         height: "20%",
+        min: 0,
         offset: 0,
         lineWidth: 2,
+        allowDecimals: false,
       },
       {
         title: {
@@ -118,11 +121,13 @@ const ComparisonChart = (props: Props): JSX.Element => {
         top: "80%",
         height: "20%",
         offset: 0,
-        softMax: 10,
+        softMax: 4,
         lineWidth: 2,
+        allowDecimals: false,
       },
     ],
     tooltip: {
+      valueDecimals: 1,
       shared: true,
     },
     series: [
@@ -134,6 +139,14 @@ const ComparisonChart = (props: Props): JSX.Element => {
           value.time.getTime(),
           value.temperature,
         ]),
+        dataGrouping: {
+          enabled: true,
+          units: [
+            ["hour", [1]],
+            ["day", [1]],
+            ["week", [1]],
+          ],
+        },
         tooltip: {
           valueSuffix: " C",
         },
@@ -146,6 +159,14 @@ const ComparisonChart = (props: Props): JSX.Element => {
           value.time.getTime(),
           value.windSpeed,
         ]),
+        dataGrouping: {
+          enabled: true,
+          units: [
+            ["hour", [1]],
+            ["day", [1]],
+            ["week", [1]],
+          ],
+        },
         tooltip: {
           valueSuffix: " m/s",
         },
@@ -159,19 +180,13 @@ const ComparisonChart = (props: Props): JSX.Element => {
           value.precipitation1h,
         ]),
         dataGrouping: {
-          approximation: (valueArray: number[]) => {
-            const total = valueArray.reduce(
-              (sum: number, value: number) => sum + value,
-              0
-            )
-            return Math.round(total)
-          },
           enabled: true,
-          forced: true,
-          units: [["day", [1]]],
-          smoothed: true,
+          units: [
+            ["hour", [1]],
+            ["day", [1]],
+            ["week", [1]],
+          ],
         },
-        pointWidth: 30,
         minPointLength: 2,
         tooltip: {
           valueSuffix: " mm",

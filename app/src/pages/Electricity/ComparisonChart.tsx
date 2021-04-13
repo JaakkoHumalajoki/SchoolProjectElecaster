@@ -1,7 +1,6 @@
 import React from "react"
 import Highcharts from "highcharts/highstock"
 import HighchartsReact from "highcharts-react-official"
-
 /**
  * Props interface for ComparisonChart component
  */
@@ -89,10 +88,6 @@ const ComparisonChart = (props: Props): JSX.Element => {
       valueDecimals: 0,
       shared: true,
     },
-    boost: {
-      enabled: true,
-      allowForce: true,
-    },
     series: [
       {
         type: "line",
@@ -104,8 +99,6 @@ const ComparisonChart = (props: Props): JSX.Element => {
         ]),
         dataGrouping: {
           enabled: true,
-          forced: true,
-          approximation: "average",
           units: [
             ["hour", [1]],
             ["day", [1]],
@@ -126,8 +119,6 @@ const ComparisonChart = (props: Props): JSX.Element => {
         ]),
         dataGrouping: {
           enabled: true,
-          forced: true,
-          approximation: "average",
           units: [
             ["hour", [1]],
             ["day", [1]],
@@ -146,8 +137,6 @@ const ComparisonChart = (props: Props): JSX.Element => {
         data: nuclearData.map((point) => [point.time.getTime(), point.value]),
         dataGrouping: {
           enabled: true,
-          forced: true,
-          approximation: "average",
           units: [
             ["hour", [1]],
             ["day", [1]],
@@ -166,8 +155,6 @@ const ComparisonChart = (props: Props): JSX.Element => {
         data: hydroData.map((point) => [point.time.getTime(), point.value]),
         dataGrouping: {
           enabled: true,
-          forced: true,
-          approximation: "average",
           units: [
             ["hour", [1]],
             ["day", [1]],
@@ -186,8 +173,6 @@ const ComparisonChart = (props: Props): JSX.Element => {
         data: windData.map((point) => [point.time.getTime(), point.value]),
         dataGrouping: {
           enabled: true,
-          forced: true,
-          approximation: "average",
           units: [
             ["hour", [1]],
             ["day", [1]],
