@@ -54,6 +54,9 @@ const EnergyComparisonChart = (props: Props): JSX.Element => {
     chart: {
       height: "600px",
     },
+    time: {
+      useUTC: false,
+    },
     navigator: {
       enabled: true,
       maskFill: "rgba(0, 82, 156, 0.3)",
