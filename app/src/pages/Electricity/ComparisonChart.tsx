@@ -44,7 +44,7 @@ const ComparisonChart = (props: Props): JSX.Element => {
 
   const options: Highcharts.Options = {
     title: {
-      text: "Energy comparison",
+      text: "Energy production & consumption history",
     },
     chart: {
       height: "600px",

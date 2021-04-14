@@ -31,7 +31,7 @@ const ForecastChart = (props: Props): JSX.Element => {
 
   const options: Highcharts.Options = {
     title: {
-      text: "Energy Forecast Comparison",
+      text: "Energy production & consumption forecast",
     },
     chart: {
       height: "600px",
