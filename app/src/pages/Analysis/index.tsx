@@ -4,6 +4,7 @@ import TimeSelection from "../../components/TimeSelection"
 import CitySelection from "../../components/CitySelection"
 import HistoryChart from "./HistoryChart"
 import ForecastChart from "./ForecastChart"
+import EnergyComparisonChart from "./EnergyComparisonChart"
 import WeatherService from "../../services/fmi"
 import { emptyWeatherData, emptyElectricityData } from "../../common"
 
@@ -96,6 +97,14 @@ const AnalysisPage = (props: Props): JSX.Element => {
         productionForecast={electricityData.forecast.production.total}
         windForecast={electricityData.forecast.production.wind}
         forecastData={weatherData.forecast}
+      />
+      <EnergyComparisonChart
+        consumptionHistory={electricityData.history.consumption.total}
+        productionHistory={electricityData.history.production.total}
+        windHistory={electricityData.history.production.wind}
+        consumptionForecast={electricityData.forecast.consumption.total}
+        productionForecast={electricityData.forecast.production.total}
+        windForecast={electricityData.forecast.production.wind}
       />
     </div>
   )
