@@ -71,7 +71,6 @@ const ForecastChart = (props: Props): JSX.Element => {
         height: "45%",
         offset: 0,
         lineWidth: 2,
-        min: 0,
       },
     ],
     tooltip: {
