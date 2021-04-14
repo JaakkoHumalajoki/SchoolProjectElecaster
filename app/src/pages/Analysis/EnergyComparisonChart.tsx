@@ -8,43 +8,48 @@ export interface Props {
   /**
    * Total consumption data for all of Finland
    */
-  consumptionData: ElectricityDataPoint[]
+  consumptionHistory: ElectricityDataPoint[]
   /**
    * Total production data for all of Finland
    */
-  productionData: ElectricityDataPoint[]
-  /**
-   * Total nuclear production data for all of Finland
-   */
-  nuclearData: ElectricityDataPoint[]
-  /**
-   * Total hydro production data for all of Finland
-   */
-  hydroData: ElectricityDataPoint[]
+  productionHistory: ElectricityDataPoint[]
   /**
    * Total wind production data for all of Finland
    */
-  windData: ElectricityDataPoint[]
+  windHistory: ElectricityDataPoint[]
+  /**
+   * Forecast data for total consumption in Finland
+   */
+  consumptionForecast: ElectricityDataPoint[]
+  /**
+   * Forecast data for total production in Finland
+   */
+  productionForecast: ElectricityDataPoint[]
+  /**
+   * Forecast data for wind energy production in Finland
+   */
+  windForecast: ElectricityDataPoint[]
 }
 
 /**
- * Displays a Highcharts graph to compare energy consumption and
- * production values.
+ * Displays a Highcharts graph to compare energy forecast
+ * to the actual energy history values
  * @param props Props
  * @returns React element
  */
-const ComparisonChart = (props: Props): JSX.Element => {
+const EnergyComparisonChart = (props: Props): JSX.Element => {
   const {
-    consumptionData,
-    productionData,
-    nuclearData,
-    hydroData,
-    windData,
+    consumptionHistory,
+    productionHistory,
+    windHistory,
+    consumptionForecast,
+    productionForecast,
+    windForecast,
   } = props
 
   const options: Highcharts.Options = {
     title: {
-      text: "Energy production & consumption history",
+      text: "Energy history & forecast comparison",
     },
     chart: {
       height: "600px",
@@ -65,7 +70,7 @@ const ComparisonChart = (props: Props): JSX.Element => {
     yAxis: [
       {
         title: {
-          text: "Total / MW",
+          text: "History",
         },
         height: "45%",
         offset: 0,
@@ -76,7 +81,7 @@ const ComparisonChart = (props: Props): JSX.Element => {
       },
       {
         title: {
-          text: "Individual / MW",
+          text: "Forecast",
         },
         height: "45%",
         top: "55%",
@@ -94,9 +99,9 @@ const ComparisonChart = (props: Props): JSX.Element => {
     series: [
       {
         type: "line",
-        name: "Total Consumption",
+        name: "Consumption history",
         showInNavigator: true,
-        data: consumptionData.map((point) => [
+        data: consumptionHistory.map((point) => [
           point.time.getTime(),
           point.value,
         ]),
@@ -114,9 +119,9 @@ const ComparisonChart = (props: Props): JSX.Element => {
       },
       {
         type: "line",
-        name: "Total Production",
+        name: "Production history",
         showInNavigator: true,
-        data: productionData.map((point) => [
+        data: productionHistory.map((point) => [
           point.time.getTime(),
           point.value,
         ]),
@@ -134,10 +139,9 @@ const ComparisonChart = (props: Props): JSX.Element => {
       },
       {
         type: "line",
-        name: "Nuclear Energy",
-        yAxis: 1,
+        name: "Wind history",
         showInNavigator: true,
-        data: nuclearData.map((point) => [point.time.getTime(), point.value]),
+        data: windHistory.map((point) => [point.time.getTime(), point.value]),
         dataGrouping: {
           enabled: true,
           units: [
@@ -152,10 +156,13 @@ const ComparisonChart = (props: Props): JSX.Element => {
       },
       {
         type: "line",
-        name: "Hydro Energy",
+        name: "Consumption forecast",
         yAxis: 1,
         showInNavigator: true,
-        data: hydroData.map((point) => [point.time.getTime(), point.value]),
+        data: consumptionForecast.map((point) => [
+          point.time.getTime(),
+          point.value,
+        ]),
         dataGrouping: {
           enabled: true,
           units: [
@@ -170,10 +177,31 @@ const ComparisonChart = (props: Props): JSX.Element => {
       },
       {
         type: "line",
-        name: "Wind Energy",
+        name: "Production forecast",
         yAxis: 1,
         showInNavigator: true,
-        data: windData.map((point) => [point.time.getTime(), point.value]),
+        data: productionForecast.map((point) => [
+          point.time.getTime(),
+          point.value,
+        ]),
+        dataGrouping: {
+          enabled: true,
+          units: [
+            ["hour", [1]],
+            ["day", [1]],
+            ["week", [1]],
+          ],
+        },
+        tooltip: {
+          valueSuffix: " MW",
+        },
+      },
+      {
+        type: "line",
+        name: "Wind forecast",
+        yAxis: 1,
+        showInNavigator: true,
+        data: windForecast.map((point) => [point.time.getTime(), point.value]),
         dataGrouping: {
           enabled: true,
           units: [
@@ -200,4 +228,4 @@ const ComparisonChart = (props: Props): JSX.Element => {
   )
 }
 
-export default ComparisonChart
+export default EnergyComparisonChart

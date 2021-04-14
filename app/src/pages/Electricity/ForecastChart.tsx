@@ -29,12 +29,26 @@ export interface Props {
 const ForecastChart = (props: Props): JSX.Element => {
   const { consumptionForecast, productionForecast, windForecast } = props
 
+  const now = new Date()
+  const filteredConsumptionForecast = consumptionForecast.filter(
+    (dataPoint) => dataPoint.time >= now
+  )
+  const filteredProductionForecast = productionForecast.filter(
+    (dataPoint) => dataPoint.time >= now
+  )
+  const filteredWindForecast = windForecast.filter(
+    (dataPoint) => dataPoint.time >= now
+  )
+
   const options: Highcharts.Options = {
     title: {
-      text: "Energy Forecast Comparison",
+      text: "Energy production & consumption forecast",
     },
     chart: {
       height: "600px",
+    },
+    time: {
+      useUTC: false,
     },
     navigator: {
       enabled: true,
@@ -80,10 +94,18 @@ const ForecastChart = (props: Props): JSX.Element => {
         type: "line",
         name: "Total Consumption",
         showInNavigator: true,
-        data: consumptionForecast.map((point) => [
+        data: filteredConsumptionForecast.map((point) => [
           point.time.getTime(),
           point.value,
         ]),
+        dataGrouping: {
+          enabled: true,
+          units: [
+            ["hour", [1]],
+            ["day", [1]],
+            ["week", [1]],
+          ],
+        },
         tooltip: {
           valueSuffix: " MW",
         },
@@ -92,10 +114,18 @@ const ForecastChart = (props: Props): JSX.Element => {
         type: "line",
         name: "Total Production",
         showInNavigator: true,
-        data: productionForecast.map((point) => [
+        data: filteredProductionForecast.map((point) => [
           point.time.getTime(),
           point.value,
         ]),
+        dataGrouping: {
+          enabled: true,
+          units: [
+            ["hour", [1]],
+            ["day", [1]],
+            ["week", [1]],
+          ],
+        },
         tooltip: {
           valueSuffix: " MW",
         },
@@ -105,7 +135,18 @@ const ForecastChart = (props: Props): JSX.Element => {
         name: "Wind Energy",
         yAxis: 1,
         showInNavigator: true,
-        data: windForecast.map((point) => [point.time.getTime(), point.value]),
+        data: filteredWindForecast.map((point) => [
+          point.time.getTime(),
+          point.value,
+        ]),
+        dataGrouping: {
+          enabled: true,
+          units: [
+            ["hour", [1]],
+            ["day", [1]],
+            ["week", [1]],
+          ],
+        },
         tooltip: {
           valueSuffix: " MW",
         },

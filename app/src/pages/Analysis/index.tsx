@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react"
 import { ElectricityPageData } from "../../services/queries"
 import TimeSelection from "../../components/TimeSelection"
 import CitySelection from "../../components/CitySelection"
+import HistoryChart from "./HistoryChart"
 import ForecastChart from "./ForecastChart"
+import EnergyComparisonChart from "./EnergyComparisonChart"
 import WeatherService from "../../services/fmi"
 import { emptyWeatherData, emptyElectricityData } from "../../common"
 
@@ -60,17 +62,6 @@ const AnalysisPage = (props: Props): JSX.Element => {
         forecast: electricityService.forecast,
       }
 
-      const now = new Date()
-      elecData.forecast.consumption.total = elecData.forecast.consumption.total.filter(
-        (dataPoint) => dataPoint.time >= now
-      )
-      elecData.forecast.production.total = elecData.forecast.production.total.filter(
-        (dataPoint) => dataPoint.time >= now
-      )
-      elecData.forecast.production.wind = elecData.forecast.production.wind.filter(
-        (dataPoint) => dataPoint.time >= now
-      )
-
       setElectricityData(elecData)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -93,11 +84,27 @@ const AnalysisPage = (props: Props): JSX.Element => {
     <div>
       <CitySelection city={city} onCityChange={onCityChange} />
       <TimeSelection timeRange={timeRange} onTimeChange={onTimeChange} />
+      <HistoryChart
+        consumptionData={electricityData.history.consumption.total}
+        productionData={electricityData.history.production.total}
+        nuclearData={electricityData.history.production.nuclear}
+        hydroData={electricityData.history.production.hydro}
+        windData={electricityData.history.production.wind}
+        weatherData={weatherData.history}
+      />
       <ForecastChart
         consumptionForecast={electricityData.forecast.consumption.total}
         productionForecast={electricityData.forecast.production.total}
         windForecast={electricityData.forecast.production.wind}
         forecastData={weatherData.forecast}
+      />
+      <EnergyComparisonChart
+        consumptionHistory={electricityData.history.consumption.total}
+        productionHistory={electricityData.history.production.total}
+        windHistory={electricityData.history.production.wind}
+        consumptionForecast={electricityData.forecast.consumption.total}
+        productionForecast={electricityData.forecast.production.total}
+        windForecast={electricityData.forecast.production.wind}
       />
     </div>
   )

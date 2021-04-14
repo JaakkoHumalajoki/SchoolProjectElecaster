@@ -38,12 +38,26 @@ const ForecastChart = (props: Props): JSX.Element => {
     forecastData: weatherData,
   } = props
 
+  const now = new Date()
+  const filteredConsumptionForecast = consumptionForecast.filter(
+    (dataPoint) => dataPoint.time >= now
+  )
+  const filteredProductionForecast = productionForecast.filter(
+    (dataPoint) => dataPoint.time >= now
+  )
+  const filteredWindForecast = windForecast.filter(
+    (dataPoint) => dataPoint.time >= now
+  )
+
   const options: Highcharts.Options = {
     title: {
-      text: "Energy & Weather forecast analysis",
+      text: "Energy & weather forecast analysis",
     },
     chart: {
       height: "600px",
+    },
+    time: {
+      useUTC: false,
     },
     navigator: {
       enabled: true,
@@ -71,7 +85,6 @@ const ForecastChart = (props: Props): JSX.Element => {
         height: "45%",
         offset: 0,
         lineWidth: 2,
-        min: 0,
       },
     ],
     tooltip: {
@@ -83,10 +96,18 @@ const ForecastChart = (props: Props): JSX.Element => {
         type: "line",
         name: "Total Consumption",
         showInNavigator: true,
-        data: consumptionForecast.map((point) => [
+        data: filteredConsumptionForecast.map((point) => [
           point.time.getTime(),
           point.value,
         ]),
+        dataGrouping: {
+          enabled: true,
+          units: [
+            ["hour", [1]],
+            ["day", [1]],
+            ["week", [1]],
+          ],
+        },
         tooltip: {
           valueSuffix: " MW",
         },
@@ -95,10 +116,18 @@ const ForecastChart = (props: Props): JSX.Element => {
         type: "line",
         name: "Total Production",
         showInNavigator: true,
-        data: productionForecast.map((point) => [
+        data: filteredProductionForecast.map((point) => [
           point.time.getTime(),
           point.value,
         ]),
+        dataGrouping: {
+          enabled: true,
+          units: [
+            ["hour", [1]],
+            ["day", [1]],
+            ["week", [1]],
+          ],
+        },
         tooltip: {
           valueSuffix: " MW",
         },
@@ -107,7 +136,18 @@ const ForecastChart = (props: Props): JSX.Element => {
         type: "line",
         name: "Wind Energy",
         showInNavigator: true,
-        data: windForecast.map((point) => [point.time.getTime(), point.value]),
+        data: filteredWindForecast.map((point) => [
+          point.time.getTime(),
+          point.value,
+        ]),
+        dataGrouping: {
+          enabled: true,
+          units: [
+            ["hour", [1]],
+            ["day", [1]],
+            ["week", [1]],
+          ],
+        },
         tooltip: {
           valueSuffix: " MW",
         },
@@ -121,19 +161,35 @@ const ForecastChart = (props: Props): JSX.Element => {
           value.time.getTime(),
           value.temperature,
         ]),
+        dataGrouping: {
+          enabled: true,
+          units: [
+            ["hour", [1]],
+            ["day", [1]],
+            ["week", [1]],
+          ],
+        },
         tooltip: {
           valueSuffix: " C",
         },
       },
       {
         type: "line",
-        name: "Wind",
+        name: "Wind speed",
         showInNavigator: true,
         yAxis: 1,
         data: weatherData.map((value) => [
           value.time.getTime(),
           value.windSpeed,
         ]),
+        dataGrouping: {
+          enabled: true,
+          units: [
+            ["hour", [1]],
+            ["day", [1]],
+            ["week", [1]],
+          ],
+        },
         tooltip: {
           valueSuffix: " m/s",
         },
