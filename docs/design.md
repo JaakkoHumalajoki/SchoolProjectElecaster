@@ -1,5 +1,17 @@
 # Design dokumentti - 0xc0ff3e
 
+## Sisällysluettelo
+
+[Prototyypit](#prototyppit)
+
+[Arkkitehtuuri](#Arkkitehtuuri)
+
+- [Web sovelluksen toimintaperiaate](#web-sovelluksen-toimintaperiaate)
+- [Sovelluksen kansiorakenne](#sovelluksen-kansiorakenne)
+- [Sovelluksen UI:n rakenne](#sovelluksen-UIn-rakenne)
+- [Sovelluksen koodin kansiorakenne](#sovelluksen-koodin-kansiorakenne)
+- [Sovelluksen "Big Picture" ja design ratkaisut](#sovelluksen-"big-picture"-ja-design-ratkaisut)
+
 Ratkaisumme kurssin määrittelemään tehtävään on kirjoittaa React-pohjainen web-sovellus, joka hakee datan suoraan tietolähteiden API:sta ajon aikaisesti. Hyödynnämme projektissa moderneja teknologioita sekä työkaluja. Projektin kielenä toimii TypeScript.
 
 Modernin web-ohjelmoinnin tarjoamat menetelmät ja rajapinnat sopivat täydellisesti kurssin projektin toteuttamiseksi. Molemmat APIt ovat myös itsessään web-sovelluksia, joten web-sovelluksen tekeminen on luonnollinen ratkaisu.
@@ -13,7 +25,7 @@ Alla linkit Figmassa toteutettuihin prototyyppeihin sovelluksen työpöytä- ja 
 - [Työpöytäversio](https://www.figma.com/proto/hUkQpST2beG7YZ00qm2K2q/Prototype?node-id=57%3A158&scaling=scale-down)
 - [Mobiiliversio](https://www.figma.com/proto/hUkQpST2beG7YZ00qm2K2q/Prototype?node-id=20%3A933&scaling=scale-down)
 
-## Korkean tason määrittely (Arkkitehtuuri)
+## Arkkitehtuuri
 
 Arkkitehtuuri oli pitkälti suunniteltu etukäteen. Tämä oli mahdollista kokemuksen ansioista, joka oli jo olemassa Reactilla suunnitelluista web sovellukisista. Pienessä sovelluksessa voi ennalta tiedostaa sopivan rakenteen, toisin kuin suuremmassa sovelluksessa. Myös teknologiavalinnoilla on ansionsa projektin yksinkertaisuuteen. Reactia käytettäessä käyttöliittymän tekeminen on suhteellisen helppoa. Näin ollen logiikka ja ohjelmointityö, mitä vaaditaan käyttöliittymän suunnittelluun on verrattain pientä, verrattuna esimerkiksi C++:aan Qt:lla. React antaa viitekehyksen, jonka käyttäminen välttää monet kompastuskivet, kuten datan tilaan liittyvät asiat käyttöliittymän kannalta. Reactin komponenttiajattelu kannustaa myös modulaariseen ajatteluun, vaikka ei se takaa vielä modulaarisuutta. Vielä yksi syy yksinkertaiseen arkkitehtuuriin on valmiiden kirjastojen käyttäminen, joita Reactin ja web ekosysteemin ansioista on olemassa. Näistä esimerkkinä mainittakoon Highcharts, joka tarjosi yksinkertaisen sisäisen rajapinnan kuvaajien tekemiseksi. Tarkemmat tiedot kolmannen osapuolien kirjastoista löytyvät [alempaa](#kolmannen-osapuolen-kirjastot-ja-työkalut).
 
@@ -55,17 +67,23 @@ Sovellusta tehdessä pyrittiin löytämään intuitiivista rakennetta, joka autt
 Aiemmin mainittiin, että /app/src löytyy sovelluksen varsinainen koodi. Tämän kansion rakenne on seuraavanlainen.
 
 ```
-├── components # Yksittäisiä komponentteja. Sivujen "rakennuspalikoita"
+├── components # Yhtenäisiä komponentteja. "Rakennuspalikoita", joita käytetään enemmän kuin yhdellä sivulla.
 ├── layout # Sovelluksen layout, selitetty yllä
-├── pages # "Sivut". Sovelluksen sisältö. Katso navigaatiopalkki.
-│   ├── Analysis
+├── pages # "Sivut". Sovelluksen sisältö. Katso sovelluksen headeristä löytyvä navigaatiopalkki.
+│   ├── Analysis # Jokainen sivun kansio sisältää sivun komponentit, joista muodostuu sivu (index.tsx).
 │   ├── Electricy
 │   ├── Home
 │   └── Weather
 ├── services # Sovelluksen datan hakeminen eriytetty omaksi moduuliksi
 ```
 
-Tarkemmat tiedot yksittäisistä komponenteista löytyvät sivupalkista --->
+Tarkemmat tiedot yksittäisistä tiedostoista löytyvät sivupalkista --->
+
+### Sovelluksen "Big Picture" ja design ratkaisut
+
+Sovelluksen "Big Picture" on kuvattu alla. Siinä kuvataan datan kulku sovelluksen läpi aina renderöityviin komponentteihin asti.
+
+![Sovelluksen "Big Picture"](./big-picture.png)
 
 ## Rajapinnat ja palvelut
 
