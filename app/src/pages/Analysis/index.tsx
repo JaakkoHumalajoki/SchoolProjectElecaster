@@ -61,17 +61,6 @@ const AnalysisPage = (props: Props): JSX.Element => {
         forecast: electricityService.forecast,
       }
 
-      const now = new Date()
-      elecData.forecast.consumption.total = elecData.forecast.consumption.total.filter(
-        (dataPoint) => dataPoint.time >= now
-      )
-      elecData.forecast.production.total = elecData.forecast.production.total.filter(
-        (dataPoint) => dataPoint.time >= now
-      )
-      elecData.forecast.production.wind = elecData.forecast.production.wind.filter(
-        (dataPoint) => dataPoint.time >= now
-      )
-
       setElectricityData(elecData)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
