@@ -50,7 +50,7 @@ const HistoryChart = (props: Props): JSX.Element => {
 
   const options: Highcharts.Options = {
     title: {
-      text: "Energy & Weather forecast analysis",
+      text: "Energy & Weather history analysis",
     },
     chart: {
       height: "600px",
