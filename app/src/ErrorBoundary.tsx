@@ -9,6 +9,8 @@ interface State {
 }
 
 /**
+ * @class ErrorBoundary Error boundary acts as a global "catch" block
+ * which catches uncaught errors from subcomponents
  *
  * Partly derived from
  * https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/error_boundaries
