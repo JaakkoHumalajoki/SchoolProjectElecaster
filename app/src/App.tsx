@@ -1,8 +1,20 @@
 import React, { useState } from "react"
+
+import Highcharts from "highcharts"
+import HighchartsStock from "highcharts/highstock"
+import HighchartsExporting from "highcharts/modules/exporting"
+
 import { useRoutes } from "react-router-dom"
 import routes from "./routes"
 import WeatherService from "./services/fmi"
 import { ElectricityPageData } from "./services/queries"
+
+if (typeof Highcharts === "object") {
+  HighchartsExporting(Highcharts)
+}
+if (typeof HighchartsStock === "object") {
+  HighchartsExporting(HighchartsStock)
+}
 
 const today: Date = new Date()
 const tenDaysPast: Date = new Date()
