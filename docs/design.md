@@ -1,17 +1,10 @@
+
+
 # Design dokumentti - 0xc0ff3e
 
 ## Sisällysluettelo
 
-[Prototyypit](#prototyppit)
-
-[Arkkitehtuuri](#Arkkitehtuuri)
-
-- [Web sovelluksen toimintaperiaate](#web-sovelluksen-toimintaperiaate)
-- [Sovelluksen kansiorakenne](#sovelluksen-kansiorakenne)
-- [Sovelluksen UI:n rakenne](#sovelluksen-UIn-rakenne)
-- [Sovelluksen koodin kansiorakenne](#sovelluksen-koodin-kansiorakenne)
-- [Sovelluksen "Big Picture"](#sovelluksen-"big-picture")
-- [Design ratkaisut](#design-ratkaisut)
+[[_TOC_]]
 
 Ratkaisumme kurssin määrittelemään tehtävään on kirjoittaa React-pohjainen web-sovellus, joka hakee datan suoraan tietolähteiden API:sta ajon aikaisesti. Hyödynnämme projektissa moderneja teknologioita sekä työkaluja. Projektin kielenä toimii TypeScript.
 
