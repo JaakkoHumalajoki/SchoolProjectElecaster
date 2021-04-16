@@ -1,14 +1,28 @@
-import React from "react"
+import React, { useState } from "react"
 import { Link } from "react-router-dom"
 import Navigation from "./Navigation"
 
-export default (): JSX.Element => (
-  <header>
-    <div className="navbar">
-      <Link to="/">
-        <h1 className="text-4xl font-black">Elecaster</h1>
-      </Link>
-      <Navigation />
-    </div>
-  </header>
-)
+export default (): JSX.Element => {
+  const [navMenuOpen, setNavMenuOpen] = useState(false)
+
+  const toggleNavMenu = () => setNavMenuOpen(!navMenuOpen)
+
+  const closeNavMenu = () => {
+    if (navMenuOpen) setNavMenuOpen(false)
+  }
+
+  return (
+    <header>
+      <div className="navbar">
+        <div className="flex flex-auto">
+          <Link to="/" onClick={closeNavMenu}>
+            <h1 className="text-4xl font-black pb-2 border-b-2 border-transparent hover:border-black hoverAnimation">
+              Elecaster
+            </h1>
+          </Link>
+        </div>
+        <Navigation {...{ navMenuOpen, toggleNavMenu, closeNavMenu }} />
+      </div>
+    </header>
+  )
+}
