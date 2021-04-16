@@ -191,8 +191,9 @@ const ForecastChart = (props: Props): JSX.Element => {
         show values up to 9 days into the future.
         <br />
         While looking at past dates, the values are the predictions as they were
-        before correct measurements were done. No data exists for old weather
-        forecasts.
+        before correct measurements were done.
+        <br />
+        No data exists for old weather forecasts.
       </p>
     </div>
   )
