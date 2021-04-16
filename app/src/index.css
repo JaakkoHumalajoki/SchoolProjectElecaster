@@ -38,6 +38,10 @@
   @apply card-lg;
 }
 
+.hoverAnimation {
+  @apply transition duration-100 ease-in-out;
+}
+
 body {
   overflow-x: hidden;
 }
