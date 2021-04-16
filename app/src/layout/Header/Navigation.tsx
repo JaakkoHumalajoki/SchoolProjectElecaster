@@ -53,7 +53,9 @@ const NavLinks = ({
         {children.split(" ").map((link) => (
           <li
             key={link}
-            className="list-none text-right p-2 border-b-2 border-transparent hover:border-black hoverAnimation"
+            className={`list-none text-right p-2 border-b-2 border-transparent hoverAnimation ${
+              menuOpen ? "hover:bg-gray-200" : "hover:border-black"
+            }`}
           >
             <NavLink to={link.toLowerCase()} onClick={closeMenu}>
               {link}
