@@ -146,7 +146,8 @@ const ForecastChart = (props: Props): JSX.Element => {
       <p>
         This data is the electricity forecast predictions, which can show values
         up to 5 days into the future.
-        <br />
+      </p>
+      <p>
         While looking at past dates, the values are the predictions as they were
         before correct measurements were done.
       </p>

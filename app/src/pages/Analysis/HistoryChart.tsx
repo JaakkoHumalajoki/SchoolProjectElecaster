@@ -228,12 +228,11 @@ const HistoryChart = (props: Props): JSX.Element => {
   }
 
   return (
-    <div>
-      <HighchartsReact
-        highcharts={Highcharts}
-        options={options}
-        containerProps={{ className: "chartContainer" }}
-      />
+    <div className="chartContainer">
+      <HighchartsReact highcharts={Highcharts} options={options} />
+      <p>
+        Chart for comparing historical data between electricity and weather.
+      </p>
     </div>
   )
 }

@@ -218,12 +218,12 @@ const EnergyComparisonChart = (props: Props): JSX.Element => {
   }
 
   return (
-    <div>
-      <HighchartsReact
-        highcharts={Highcharts}
-        options={options}
-        containerProps={{ className: "chartContainer" }}
-      />
+    <div className="chartContainer">
+      <HighchartsReact highcharts={Highcharts} options={options} />
+      <p>
+        Chart for comparing the difference between electricity forecast
+        predictions and actual measurement data.
+      </p>
     </div>
   )
 }

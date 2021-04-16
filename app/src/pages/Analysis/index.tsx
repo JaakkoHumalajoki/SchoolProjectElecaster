@@ -99,12 +99,6 @@ const AnalysisPage = (props: Props): JSX.Element => {
         windData={electricityData.history.production.wind}
         weatherData={weatherData.history}
       />
-      <ForecastChart
-        consumptionForecast={electricityData.forecast.consumption.total}
-        productionForecast={electricityData.forecast.production.total}
-        windForecast={electricityData.forecast.production.wind}
-        forecastData={weatherData.forecast}
-      />
       <EnergyComparisonChart
         consumptionHistory={electricityData.history.consumption.total}
         productionHistory={electricityData.history.production.total}
@@ -112,6 +106,12 @@ const AnalysisPage = (props: Props): JSX.Element => {
         consumptionForecast={electricityData.forecast.consumption.total}
         productionForecast={electricityData.forecast.production.total}
         windForecast={electricityData.forecast.production.wind}
+      />
+      <ForecastChart
+        consumptionForecast={electricityData.forecast.consumption.total}
+        productionForecast={electricityData.forecast.production.total}
+        windForecast={electricityData.forecast.production.wind}
+        forecastData={weatherData.forecast}
       />
     </div>
   )
