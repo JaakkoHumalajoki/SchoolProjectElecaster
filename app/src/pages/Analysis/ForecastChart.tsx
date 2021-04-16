@@ -40,7 +40,13 @@ const ForecastChart = (props: Props): JSX.Element => {
 
   const options: Highcharts.Options = {
     title: {
-      text: "Energy & Weather forecast analysis",
+      text: "Energy & weather forecast analysis",
+    },
+    chart: {
+      height: "600px",
+    },
+    time: {
+      useUTC: false,
     },
     navigator: {
       enabled: true,
@@ -55,17 +61,17 @@ const ForecastChart = (props: Props): JSX.Element => {
     yAxis: [
       {
         title: {
-          text: "Electricity MW",
+          text: "Electricity",
         },
-        height: "55%",
+        height: "45%",
         lineWidth: 2,
       },
       {
         title: {
           text: "Weather",
         },
-        top: "60%",
-        height: "40%",
+        top: "55%",
+        height: "45%",
         offset: 0,
         lineWidth: 2,
       },
@@ -83,6 +89,14 @@ const ForecastChart = (props: Props): JSX.Element => {
           point.time.getTime(),
           point.value,
         ]),
+        dataGrouping: {
+          enabled: true,
+          units: [
+            ["hour", [1]],
+            ["day", [1]],
+            ["week", [1]],
+          ],
+        },
         tooltip: {
           valueSuffix: " MW",
         },
@@ -95,6 +109,14 @@ const ForecastChart = (props: Props): JSX.Element => {
           point.time.getTime(),
           point.value,
         ]),
+        dataGrouping: {
+          enabled: true,
+          units: [
+            ["hour", [1]],
+            ["day", [1]],
+            ["week", [1]],
+          ],
+        },
         tooltip: {
           valueSuffix: " MW",
         },
@@ -104,6 +126,14 @@ const ForecastChart = (props: Props): JSX.Element => {
         name: "Wind Energy",
         showInNavigator: true,
         data: windForecast.map((point) => [point.time.getTime(), point.value]),
+        dataGrouping: {
+          enabled: true,
+          units: [
+            ["hour", [1]],
+            ["day", [1]],
+            ["week", [1]],
+          ],
+        },
         tooltip: {
           valueSuffix: " MW",
         },
@@ -117,19 +147,35 @@ const ForecastChart = (props: Props): JSX.Element => {
           value.time.getTime(),
           value.temperature,
         ]),
+        dataGrouping: {
+          enabled: true,
+          units: [
+            ["hour", [1]],
+            ["day", [1]],
+            ["week", [1]],
+          ],
+        },
         tooltip: {
           valueSuffix: " C",
         },
       },
       {
         type: "line",
-        name: "Wind",
+        name: "Wind speed",
         showInNavigator: true,
         yAxis: 1,
         data: weatherData.map((value) => [
           value.time.getTime(),
           value.windSpeed,
         ]),
+        dataGrouping: {
+          enabled: true,
+          units: [
+            ["hour", [1]],
+            ["day", [1]],
+            ["week", [1]],
+          ],
+        },
         tooltip: {
           valueSuffix: " m/s",
         },
@@ -138,12 +184,17 @@ const ForecastChart = (props: Props): JSX.Element => {
   }
 
   return (
-    <div>
-      <HighchartsReact
-        highcharts={Highcharts}
-        options={options}
-        containerProps={{ className: "chartContainer" }}
-      />
+    <div className="chartContainer">
+      <HighchartsReact highcharts={Highcharts} options={options} />
+      <p>
+        This data is the electricity & weather forecast predictions, which can
+        show values up to 9 days into the future.
+        <br />
+        While looking at past dates, the values are the predictions as they were
+        before correct measurements were done.
+        <br />
+        No data exists for old weather forecasts.
+      </p>
     </div>
   )
 }

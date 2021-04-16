@@ -78,7 +78,7 @@ export class ElectricityPageData implements ElectricityData {
           solar: responseData[2],
         },
         consumption: {
-          total: responseData[1],
+          total: responseData[0],
         },
       },
       history: {

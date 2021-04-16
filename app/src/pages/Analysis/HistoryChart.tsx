@@ -1,8 +1,9 @@
 import React from "react"
 import Highcharts from "highcharts/highstock"
 import HighchartsReact from "highcharts-react-official"
+
 /**
- * Props interface for ComparisonChart component
+ * Props interface for HistoryChart component
  */
 export interface Props {
   /**
@@ -25,26 +26,31 @@ export interface Props {
    * Total wind production data for all of Finland
    */
   windData: ElectricityDataPoint[]
+  /**
+   * All history data for currently selected city
+   */
+  weatherData: WeatherDataPoint[]
 }
 
 /**
- * Displays a Highcharts graph to compare energy consumption and
- * production values.
+ * Displays a Highcharts graph to compare electricity and
+ * weather data in analysis page
  * @param props Props
  * @returns React element
  */
-const ComparisonChart = (props: Props): JSX.Element => {
+const HistoryChart = (props: Props): JSX.Element => {
   const {
     consumptionData,
     productionData,
     nuclearData,
     hydroData,
     windData,
+    weatherData,
   } = props
 
   const options: Highcharts.Options = {
     title: {
-      text: "Energy production & consumption history",
+      text: "Energy & weather history analysis",
     },
     chart: {
       height: "600px",
@@ -65,30 +71,23 @@ const ComparisonChart = (props: Props): JSX.Element => {
     yAxis: [
       {
         title: {
-          text: "Total / MW",
+          text: "Electricity",
         },
         height: "45%",
-        offset: 0,
         lineWidth: 2,
-        resize: {
-          enabled: true,
-        },
       },
       {
         title: {
-          text: "Individual / MW",
+          text: "Weather",
         },
-        height: "45%",
         top: "55%",
+        height: "45%",
         offset: 0,
         lineWidth: 2,
-        resize: {
-          enabled: true,
-        },
       },
     ],
     tooltip: {
-      valueDecimals: 0,
+      valueDecimals: 1,
       shared: true,
     },
     series: [
@@ -135,7 +134,6 @@ const ComparisonChart = (props: Props): JSX.Element => {
       {
         type: "line",
         name: "Nuclear Energy",
-        yAxis: 1,
         showInNavigator: true,
         data: nuclearData.map((point) => [point.time.getTime(), point.value]),
         dataGrouping: {
@@ -153,7 +151,6 @@ const ComparisonChart = (props: Props): JSX.Element => {
       {
         type: "line",
         name: "Hydro Energy",
-        yAxis: 1,
         showInNavigator: true,
         data: hydroData.map((point) => [point.time.getTime(), point.value]),
         dataGrouping: {
@@ -171,7 +168,6 @@ const ComparisonChart = (props: Props): JSX.Element => {
       {
         type: "line",
         name: "Wind Energy",
-        yAxis: 1,
         showInNavigator: true,
         data: windData.map((point) => [point.time.getTime(), point.value]),
         dataGrouping: {
@@ -184,6 +180,48 @@ const ComparisonChart = (props: Props): JSX.Element => {
         },
         tooltip: {
           valueSuffix: " MW",
+        },
+      },
+      {
+        type: "line",
+        name: "Temperature",
+        showInNavigator: true,
+        yAxis: 1,
+        data: weatherData.map((value) => [
+          value.time.getTime(),
+          value.temperature,
+        ]),
+        dataGrouping: {
+          enabled: true,
+          units: [
+            ["hour", [1]],
+            ["day", [1]],
+            ["week", [1]],
+          ],
+        },
+        tooltip: {
+          valueSuffix: " C",
+        },
+      },
+      {
+        type: "line",
+        name: "Wind speed",
+        showInNavigator: true,
+        yAxis: 1,
+        data: weatherData.map((value) => [
+          value.time.getTime(),
+          value.windSpeed,
+        ]),
+        dataGrouping: {
+          enabled: true,
+          units: [
+            ["hour", [1]],
+            ["day", [1]],
+            ["week", [1]],
+          ],
+        },
+        tooltip: {
+          valueSuffix: " m/s",
         },
       },
     ],
@@ -200,4 +238,4 @@ const ComparisonChart = (props: Props): JSX.Element => {
   )
 }
 
-export default ComparisonChart
+export default HistoryChart

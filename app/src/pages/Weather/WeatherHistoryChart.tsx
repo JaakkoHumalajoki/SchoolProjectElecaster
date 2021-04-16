@@ -12,9 +12,9 @@ import {
  */
 export interface Props {
   /**
-   * All weather data for currently selected city
+   * All history data for currently selected city
    */
-  forecastData: WeatherDataPoint[]
+  historyData: WeatherDataPoint[]
 }
 
 /**
@@ -24,7 +24,7 @@ export interface Props {
  * @returns React element
  */
 const ComparisonChart = (props: Props): JSX.Element => {
-  const { forecastData: weatherData } = props
+  const { historyData } = props
 
   const [selectedRangeMin, setSelectedRangeMin] = useState(0) // 1st January, 1970
   const [selectedRangeMax, setSelectedRangeMax] = useState(10000000000000) // 266 years into future
@@ -34,7 +34,7 @@ const ComparisonChart = (props: Props): JSX.Element => {
   let tempMax = 0
   let windMax = 0
 
-  const selectedWeatherData = weatherData.filter((dataPoint) => {
+  const selectedWeatherData = historyData.filter((dataPoint) => {
     if (
       dataPoint.time.getTime() >= selectedRangeMin &&
       dataPoint.time.getTime() <= selectedRangeMax
@@ -70,7 +70,7 @@ const ComparisonChart = (props: Props): JSX.Element => {
 
   const options: Highcharts.Options = {
     title: {
-      text: "9 day weather forecast",
+      text: "Weather history",
     },
     chart: {
       height: "600px",
@@ -138,7 +138,7 @@ const ComparisonChart = (props: Props): JSX.Element => {
         type: "line",
         name: "Temperature",
         showInNavigator: true,
-        data: weatherData.map((value) => [
+        data: historyData.map((value) => [
           value.time.getTime(),
           value.temperature,
         ]),
@@ -158,7 +158,7 @@ const ComparisonChart = (props: Props): JSX.Element => {
         type: "line",
         name: "Wind",
         yAxis: 1,
-        data: weatherData.map((value) => [
+        data: historyData.map((value) => [
           value.time.getTime(),
           value.windSpeed,
         ]),
@@ -178,7 +178,7 @@ const ComparisonChart = (props: Props): JSX.Element => {
         type: "column",
         name: "Precipitation",
         yAxis: 2,
-        data: weatherData.map((value) => [
+        data: historyData.map((value) => [
           value.time.getTime(),
           value.precipitation1h,
         ]),

@@ -2,13 +2,11 @@ import React, { useState, useEffect } from "react"
 import { ElectricityPageData } from "../../services/queries"
 import TimeSelection from "../../components/TimeSelection"
 import CitySelection from "../../components/CitySelection"
+import HistoryChart from "./HistoryChart"
 import ForecastChart from "./ForecastChart"
+import EnergyComparisonChart from "./EnergyComparisonChart"
 import WeatherService from "../../services/fmi"
-import {
-  WeatherDataSet,
-  emptyWeatherData,
-  emptyElectricityData,
-} from "../../common"
+import { emptyWeatherData, emptyElectricityData } from "../../common"
 
 export interface Props {
   city: City
@@ -51,9 +49,9 @@ const AnalysisPage = (props: Props): JSX.Element => {
   const [electricityData, setElectricityData] = useState<ElectricityData>(
     emptyElectricityData
   )
-  const [weatherData, setWeatherData] = useState<WeatherDataSet>(
-    emptyWeatherData
-  )
+  const [weatherData, setWeatherData] = useState<
+    Pick<WeatherData, "forecast" | "history">
+  >(emptyWeatherData)
 
   useEffect(() => {
     setElectricityData(emptyElectricityData)
@@ -64,17 +62,6 @@ const AnalysisPage = (props: Props): JSX.Element => {
         forecast: electricityService.forecast,
       }
 
-      const now = new Date()
-      elecData.forecast.consumption.total = elecData.forecast.consumption.total.filter(
-        (dataPoint) => dataPoint.time >= now
-      )
-      elecData.forecast.production.total = elecData.forecast.production.total.filter(
-        (dataPoint) => dataPoint.time >= now
-      )
-      elecData.forecast.production.wind = elecData.forecast.production.wind.filter(
-        (dataPoint) => dataPoint.time >= now
-      )
-
       setElectricityData(elecData)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -84,10 +71,17 @@ const AnalysisPage = (props: Props): JSX.Element => {
     setWeatherData(emptyWeatherData)
 
     weatherService.fetch().then(() => {
-      const newWeatherData: WeatherDataSet = {
+      const newWeatherData: Pick<WeatherData, "forecast" | "history"> = {
         history: weatherService.history ? weatherService.history : [],
         forecast: weatherService.forecast ? weatherService.forecast : [],
       }
+
+      newWeatherData.forecast = newWeatherData.forecast.filter(
+        (dataPoint) =>
+          dataPoint.time >= timeRange.startTime &&
+          dataPoint.time <= timeRange.endTime
+      )
+
       setWeatherData(newWeatherData)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -97,11 +91,27 @@ const AnalysisPage = (props: Props): JSX.Element => {
     <div>
       <CitySelection city={city} onCityChange={onCityChange} />
       <TimeSelection timeRange={timeRange} onTimeChange={onTimeChange} />
+      <HistoryChart
+        consumptionData={electricityData.history.consumption.total}
+        productionData={electricityData.history.production.total}
+        nuclearData={electricityData.history.production.nuclear}
+        hydroData={electricityData.history.production.hydro}
+        windData={electricityData.history.production.wind}
+        weatherData={weatherData.history}
+      />
       <ForecastChart
         consumptionForecast={electricityData.forecast.consumption.total}
         productionForecast={electricityData.forecast.production.total}
         windForecast={electricityData.forecast.production.wind}
         forecastData={weatherData.forecast}
+      />
+      <EnergyComparisonChart
+        consumptionHistory={electricityData.history.consumption.total}
+        productionHistory={electricityData.history.production.total}
+        windHistory={electricityData.history.production.wind}
+        consumptionForecast={electricityData.forecast.consumption.total}
+        productionForecast={electricityData.forecast.production.total}
+        windForecast={electricityData.forecast.production.wind}
       />
     </div>
   )

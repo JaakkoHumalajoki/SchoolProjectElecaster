@@ -44,12 +44,7 @@ export const emptyElectricityData: ElectricityData = {
   },
 }
 
-export interface WeatherDataSet {
-  forecast: WeatherDataPoint[]
-  history: WeatherDataPoint[]
-}
-
-export const emptyWeatherData: WeatherDataSet = {
+export const emptyWeatherData: Pick<WeatherData, "forecast" | "history"> = {
   forecast: [],
   history: [],
 }

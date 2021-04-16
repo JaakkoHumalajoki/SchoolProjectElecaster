@@ -31,7 +31,13 @@ const ForecastChart = (props: Props): JSX.Element => {
 
   const options: Highcharts.Options = {
     title: {
-      text: "Energy Forecast Comparison",
+      text: "Energy production & consumption forecast",
+    },
+    chart: {
+      height: "600px",
+    },
+    time: {
+      useUTC: false,
     },
     navigator: {
       enabled: true,
@@ -46,8 +52,22 @@ const ForecastChart = (props: Props): JSX.Element => {
     yAxis: [
       {
         title: {
-          text: "Electricity MW",
+          text: "Total / MW",
         },
+        height: "45%",
+        offset: 0,
+        lineWidth: 2,
+        resize: {
+          enabled: true,
+        },
+      },
+      {
+        title: {
+          text: "Individual / MW",
+        },
+        height: "45%",
+        top: "55%",
+        offset: 0,
         lineWidth: 2,
         resize: {
           enabled: true,
@@ -67,6 +87,14 @@ const ForecastChart = (props: Props): JSX.Element => {
           point.time.getTime(),
           point.value,
         ]),
+        dataGrouping: {
+          enabled: true,
+          units: [
+            ["hour", [1]],
+            ["day", [1]],
+            ["week", [1]],
+          ],
+        },
         tooltip: {
           valueSuffix: " MW",
         },
@@ -79,6 +107,14 @@ const ForecastChart = (props: Props): JSX.Element => {
           point.time.getTime(),
           point.value,
         ]),
+        dataGrouping: {
+          enabled: true,
+          units: [
+            ["hour", [1]],
+            ["day", [1]],
+            ["week", [1]],
+          ],
+        },
         tooltip: {
           valueSuffix: " MW",
         },
@@ -86,8 +122,17 @@ const ForecastChart = (props: Props): JSX.Element => {
       {
         type: "line",
         name: "Wind Energy",
+        yAxis: 1,
         showInNavigator: true,
         data: windForecast.map((point) => [point.time.getTime(), point.value]),
+        dataGrouping: {
+          enabled: true,
+          units: [
+            ["hour", [1]],
+            ["day", [1]],
+            ["week", [1]],
+          ],
+        },
         tooltip: {
           valueSuffix: " MW",
         },
@@ -96,12 +141,15 @@ const ForecastChart = (props: Props): JSX.Element => {
   }
 
   return (
-    <div>
-      <HighchartsReact
-        highcharts={Highcharts}
-        options={options}
-        containerProps={{ className: "chartContainer" }}
-      />
+    <div className="chartContainer">
+      <HighchartsReact highcharts={Highcharts} options={options} />
+      <p>
+        This data is the electricity forecast predictions, which can show values
+        up to 5 days into the future.
+        <br />
+        While looking at past dates, the values are the predictions as they were
+        before correct measurements were done.
+      </p>
     </div>
   )
 }
