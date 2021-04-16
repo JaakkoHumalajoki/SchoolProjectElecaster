@@ -44,19 +44,15 @@ const NavLinks = ({
         onClick={closeMenu}
       />
       <ul
-        className={`items-center space-x-2 text-2xl sm:flex sm:flex-row sm:relative sm:inset-0 sm:space-y-0 sm:border-none sm:shadow-none ${
+        className={`items-center text-xl sm:flex sm:flex-row sm:relative sm:inset-0 sm:space-y-0 sm:border-none sm:shadow-none ${
           menuOpen
-            ? "flex-col absolute top-16 right-4 p-2 py-4 space-y-3 z-10 border-2 border-gray-200 bg-white shadow-md"
+            ? "flex-col absolute top-16 right-4 py-2 z-10 border-2 border-gray-200 bg-white shadow-md"
             : "hidden"
         }`}
       >
         {children.split(" ").map((link) => (
-          <li key={link} className="list-none text-right">
-            <NavLink
-              to={link.toLowerCase()}
-              onClick={closeMenu}
-              className="block p-2"
-            >
+          <li key={link} className="list-none text-right p-2">
+            <NavLink to={link.toLowerCase()} onClick={closeMenu}>
               {link}
             </NavLink>
           </li>
