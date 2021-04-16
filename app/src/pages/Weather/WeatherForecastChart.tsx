@@ -70,7 +70,7 @@ const ComparisonChart = (props: Props): JSX.Element => {
 
   const options: Highcharts.Options = {
     title: {
-      text: "Weather forecast",
+      text: "9 day weather forecast",
     },
     chart: {
       height: "600px",

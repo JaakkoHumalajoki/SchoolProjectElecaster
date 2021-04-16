@@ -75,6 +75,13 @@ const AnalysisPage = (props: Props): JSX.Element => {
         history: weatherService.history ? weatherService.history : [],
         forecast: weatherService.forecast ? weatherService.forecast : [],
       }
+
+      newWeatherData.forecast = newWeatherData.forecast.filter(
+        (dataPoint) =>
+          dataPoint.time >= timeRange.startTime &&
+          dataPoint.time <= timeRange.endTime
+      )
+
       setWeatherData(newWeatherData)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps

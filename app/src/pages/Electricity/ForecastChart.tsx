@@ -29,17 +29,6 @@ export interface Props {
 const ForecastChart = (props: Props): JSX.Element => {
   const { consumptionForecast, productionForecast, windForecast } = props
 
-  const now = new Date()
-  const filteredConsumptionForecast = consumptionForecast.filter(
-    (dataPoint) => dataPoint.time >= now
-  )
-  const filteredProductionForecast = productionForecast.filter(
-    (dataPoint) => dataPoint.time >= now
-  )
-  const filteredWindForecast = windForecast.filter(
-    (dataPoint) => dataPoint.time >= now
-  )
-
   const options: Highcharts.Options = {
     title: {
       text: "Energy production & consumption forecast",
@@ -94,7 +83,7 @@ const ForecastChart = (props: Props): JSX.Element => {
         type: "line",
         name: "Total Consumption",
         showInNavigator: true,
-        data: filteredConsumptionForecast.map((point) => [
+        data: consumptionForecast.map((point) => [
           point.time.getTime(),
           point.value,
         ]),
@@ -114,7 +103,7 @@ const ForecastChart = (props: Props): JSX.Element => {
         type: "line",
         name: "Total Production",
         showInNavigator: true,
-        data: filteredProductionForecast.map((point) => [
+        data: productionForecast.map((point) => [
           point.time.getTime(),
           point.value,
         ]),
@@ -135,10 +124,7 @@ const ForecastChart = (props: Props): JSX.Element => {
         name: "Wind Energy",
         yAxis: 1,
         showInNavigator: true,
-        data: filteredWindForecast.map((point) => [
-          point.time.getTime(),
-          point.value,
-        ]),
+        data: windForecast.map((point) => [point.time.getTime(), point.value]),
         dataGrouping: {
           enabled: true,
           units: [
@@ -155,12 +141,15 @@ const ForecastChart = (props: Props): JSX.Element => {
   }
 
   return (
-    <div>
-      <HighchartsReact
-        highcharts={Highcharts}
-        options={options}
-        containerProps={{ className: "chartContainer" }}
-      />
+    <div className="chartContainer">
+      <HighchartsReact highcharts={Highcharts} options={options} />
+      <p>
+        This data is the electricity forecast predictions, which can show values
+        up to 5 days into the future.
+        <br />
+        While looking at past dates, the values are the predictions as they were
+        before correct measurements were done.
+      </p>
     </div>
   )
 }
