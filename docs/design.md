@@ -10,7 +10,8 @@
 - [Sovelluksen kansiorakenne](#sovelluksen-kansiorakenne)
 - [Sovelluksen UI:n rakenne](#sovelluksen-UIn-rakenne)
 - [Sovelluksen koodin kansiorakenne](#sovelluksen-koodin-kansiorakenne)
-- [Sovelluksen "Big Picture" ja design ratkaisut](#sovelluksen-"big-picture"-ja-design-ratkaisut)
+- [Sovelluksen "Big Picture"](#sovelluksen-"big-picture")
+- [Design ratkaisut](#design-ratkaisut)
 
 Ratkaisumme kurssin määrittelemään tehtävään on kirjoittaa React-pohjainen web-sovellus, joka hakee datan suoraan tietolähteiden API:sta ajon aikaisesti. Hyödynnämme projektissa moderneja teknologioita sekä työkaluja. Projektin kielenä toimii TypeScript.
 
@@ -79,11 +80,88 @@ Aiemmin mainittiin, että /app/src löytyy sovelluksen varsinainen koodi. Tämä
 
 Tarkemmat tiedot yksittäisistä tiedostoista löytyvät sivupalkista --->
 
-### Sovelluksen "Big Picture" ja design ratkaisut
+### Sovelluksen "Big Picture"
 
 Sovelluksen "Big Picture" on kuvattu alla. Siinä kuvataan datan kulku sovelluksen läpi aina renderöityviin komponentteihin asti.
 
 ![Sovelluksen "Big Picture"](./big-picture.png)
+
+Katkoviivalla on kuvattu kansioita, joista löytyy saman tyylisiä moduuleja/tiedostoja. Laatikot kuvastavat yhtä tietyn tyyppistä moduulia, joita voi olla yksi tai useampi samassa kansiossa.
+
+Data kulkee service moduulin läpi, joka tekee kyselyt ja käsittelee datan sovellukselle sopivaan muotoon. Sovelluksessa on tällä hetkellä kaksi serviceä, FMI ja Fingrid.
+
+Pages kansiosta löytyy aiemmin mainitut sivut, jotka näyttäytyvät käyttäjälle ruudulla. Jokainen sivu on oma kansionsa, josta löytyy page komponentti. Tämä on siis jokaisen sivun juuri komponentti, joka kokoaa yhteen alikomponentteja. Sovelluksen datan tila elää page komponentissa. Kun käyttäjä tekee muutoksia käyttöliittymässä, page komponentti kertoo alikomponenteille tilan muutoksesta, jotka uudelleen renderöityvät vastaamaan uutta tilaa. Alikomponentteja on kahta eri tyyppiä, jaettuja alikomponentteja ja sivukohtaisia alikomponentteja. Jaettu alikomponentti on yksinkertaisesti komponentti, jota käytetään useammalla sivulla. Sivukohtainen alikomponentti, joka löytyy sivun kansiosta, on itsenäinen komponentti, jota ei käytetä millään muulla sivulla. Syy jaottelulle on yksinkertainen. Mikäli halutaan käyttää samaa komponenttia useammalla sivulla, pidetään se eri paikassa, kuin komponentit, joita ei haluta jakaa muiden sivujen kanssa. Hyötynä tässä jaottelussa on selkeä vastuunjako siitä, että jos tekee muutoksia komponenttiin, tietää sen mahdolliset vaikutukset.
+
+Components kansiosta löytyy jaetut alikomponentit, joita käytetään useammalla sivulla.
+
+## Design ratkaisut
+
+Design ratkaisuista puhuttaessa on mielestäni hyvä aloittaa Reactista. React on niin suuri osa sitä, miten asioita tehdään. Sovelluksessa käytetään funktionaalisia komponentteja. Teknisesti meidän sovelluksessa ne ovat TypeScript funktiota, jotka käännettään JavaScript funktioiksi. Vaikka ne ovat funktioita, niillä voi olla tila, niin kuin luokilla. React ei kuitenkaan käytä periyttämistä, vaan [kokoonpanoa](https://reactjs.org/docs/composition-vs-inheritance.html) (eng. composition). Dokumentaatio aiheesta [Thinking in React](https://reactjs.org/docs/thinking-in-react.html) kertoo Reactin tavasta toteuttaa käyttöliitymät syvemmin, kuin tässä ehdin avaamaan. Yksi asia mistä voisi vielä mainita, on Reactin ylhäältä alas datan kulkeminen, jota on sovellettu aiemmassa kappaleessa page componentin muodossa. Data virtaa alaspäin alikomponentteihin ylemmistä komponenteista. Asiasta enemmän selitetty Reactin dokumentaatiossa [Lifting state up](https://reactjs.org/docs/lifting-state-up.html) ja [The Data Flows Down](https://reactjs.org/docs/state-and-lifecycle.html#the-data-flows-down).
+
+Mitä tulee GoF Design Patterneihin tai SOLID periaatteisiin, on todella hankalaa suoraan verrata niitä web devaamiseen, puhumattakaan web devaamiseen Reactilla. Myös JavaScriptillä on oma vaikutuksensa tähän, tai meidän tapauksessa TypeScript, joka on tyypitetty JS.
+
+> Being a SOLID JavaScript Developer isn’t as straight forward as in other languages. JavaScript is a loosely typed language. Some consider it a functional language. Others consider it an object oriented language. Some think its both. And some think that having classes in JavaScript is just plain wrong.
+>
+> [Dor Tuz](https://thefullstack.xyz/solid-javascript/)
+
+Toisinsanoen JS:llä koodaaminen tuo paljon vastuuta, jonka mukana tulee paljon valtaa (Tarkoituksella toisin päin, koska niin [maailma toimii](https://medium.com/thrive-global/this-75-year-harvard-study-reveals-the-secret-to-happiness-and-success-3cf0002510fe)). Rajoitamme kuitenkin tätä valtaa käyttämällä TypeScriptiä tyypityksen lisäämiseksi. Näin ollen teemme vähemmän typeriä virheitä oletuksen muodossa.
+
+Sen sijaan, että yritän väkisin saada GoF tai SOLID periaatteet mahtumaan tähän projektiin, kerron mielummin periaatteista, joista projekti on muodostunut.
+
+Olen suuri Uncle Bobin fani. Hän on toki todella kiistelty henkilö, koska ilmaisee asiat kärjistäen. Hänen Clean Code kirjassa on kuitenkin periaatteita, missä on mielestäni paljon perää. Valitettavasti en sitäkään kirjaa ole ehtinyt lukea ja tehdä muistiinpanoja, kuin ensimmäisetä kuudesta luvusta. Näiden pohjalta on kuitenkin tullut paljon asioita, mihin mielestäni ei kiinnitetä tarpeeksi huomiota.
+
+Yksi idea on, että refaktorointi olisi rutiininomainen tapa. Tätä ei kukaan varmasti tee liikaa, ja usein sitä tehdään liian vähän. On kuitenkin vaikeaa löytää balanssi teknisen velan kanssa. Jos pitäisi sitä kuitenkin arvioida tässä projektissa, se balanssi on mielestäni projektin luonteen kannalta järkevä. Teknistä velkaa on otettu, koska projekti luonnollisesti loppuu kurssin loputtua. Sitä ei kuitenkaan ole otettu missään kohtaa niin paljoa, että devaaminen olisi hidastunut projektin aikana merkittävästi. Sanoisi myös, että järkevällä rakenteella ja käytetyillä teknologioilla on tekemistä asian kanssa. Se on helpoittanut työtä ja työnjakoa.
+
+Toinen luku kirjassa kertoo hyvästä nimeämisestä. Tämä on mielestäni yksi aliarvostetuimpia asioita koodauksessa. Kaikki tietää, että koodia luetaan paljon, paljon, enemmän kuin sitä kirjoitetaan. Suora lainaus kirjan ensimmäisestä luvusta:
+
+> You get the drift. Indeed, the ratio of time spent reading vs. writing is well over 10:1.
+> We are constantly reading old code as part of the effort to write new code.
+> Because this ratio is so high, we want the reading of code to be easy, even if it makes
+> the writing harder. Of course there’s no way to write code without reading it, so making it
+> easy to read actually makes it easier to write
+
+Hyvä nimeäminen on vaikeaa. Siihen on kuitenkin pyritty kiinnittämään huomiota projektin rakennetta mietittäessä. Kuitenkin nyt kun silmäilee tiedostoja, huomaa, että ne voisi nimetä vielä selkeämmin. Esimerkiksi aiemmin mainitsemani components kansio. Kerroin, että sen tehtävä on pitää sisällään kaikki useammalla kuin yhdellä sivulla käytetyt komponentit. Mikä voisi olla parempi nimi tällöin?
+
+<details><summary>Paina avataksesi vastaus</summary>Shared components! 😄</details>
+
+Nimeäminen koskee luonnollisesti kaikkea mitä kirjoitat. Koodia, kommentteja yms. Tämän takia onkin kyse enemmän kirjoitustaidoista ja luovuudesta, kuin teknisistä taidoista. Ja koska koodaaminen on abstraktioiden luomista, on se välillä todella hankalaa löytää kuvaavia sanoja asioille. Paras nimi onkin nimi, joka ei tarvitse selityksiä (lue: kommenttia sen olemassaolon tarkoituksesta).
+
+Kolmas luku käsittelee funktioita. Tämä näkyy suoraan meidän funktionaalisissa komponenteissa. Jos pitäisi sanoa yksi periaate, joka liittyy ohjelmointiin, se olisi [KISS](https://en.wikipedia.org/wiki/KISS_principle). Keep it simple, stupid! Suomeksi "Pidä se yksinkertaisena, tyhmä!" tai ystävällisemmin "Pide se typerän yksinkertaisena". Eli funktiot pyritään pitämään lyhyinä, kompleksisuus vähäisenä ja asiat yksinkertaisina. Monimutkaisten ja hienojen rakenteiden kanssa käy usein niin, että kompastuu omaan näppäryyteensä hyvin nopeasti.
+
+On hyvä pitää abstraktiotasot järkevän kokoisina. Paras analogia selittämään, mitä tarkottaa abstraktiotasot on sanomalehden lukeminen. Voit rauhassa silmäillä etusivun otsikoita ja miettiä mistä kiinnostaisi tietää enemmän. Sitten valitset artikkelin, jonka luet. Artikkeli ei kuitenkaan aloita kertomaan jutun yksityiskohdista ensin. Se kertoo ensin yleistietoa aiheesta. Vasta kun luet artikkelia hetken aikaa, voit joko jatkaa lukemista, tai siirtyä seuraavaan artikkeliin. Tätä tarkoittaa abstraktiotasot. Projektissa pages on sanomalehden sivut ja niiden sisällä olevat index.tsx on artikkeleita. Artikkelin yksityiskohdat ovat index.tsx:n sisältämät komponentit.
+
+Neljäs luku käsittelee kommentteja. Emme ole toteuttaneet projektissa kommentteja aivan niin, kuin itse ajattelen kommenttien merkityksestä. Aiemmin vihjasin jo miten hyvä nimeäminen liittyy kommentteihin. Lainatakseni lausetta taas kirjasta, mistä olen samaa mieltä.
+
+> The proper use of comments is to compensate for our failure to express ourself in code.
+
+Kommentit ovat vain tapa ilmaista meidän puuttellisia kirjotustaitoja. Sen sijaan, että käytät aikasi huonon koodin kommentointiin, käytä se koodin siivoamiseen. Siivoamista voi olla koodin logiikan yksinkertaistaminen, tai mikä useimmiten riitää, funktion tai muuttujan uudelleennimeäminen. Kirjassa käsitellään asiaa jälleen huomattavasti kattavammin kuin tässä ehtii, joten lyhyen listan muodossa hyvät ja huonot kommentit.
+
+Hyviä kommentteja
+
+- Legal
+- Selventävät kommentit kun työskententelee esimerkiksi koodin kanssa jota ei voi muuttaa
+- Päätöksentekoa selittävät asiat
+- Varoitukset
+
+Huonoja kommentteja
+
+- Any comment that forces you to look in another module for the meaning of that comment has failed to communicate to you and is not worth the bits it consumes.
+- Kommentit jotka toistavat sen mitä koodi itsessään jo kertoo (huomaa hyvä nimeäminen)
+- Harhaanjohtavat kommentit
+- Pakolliset kommentit
+- Kommentit, jotka johtuvat huonosta nimeämisestä
+- Koodi mikä on kommentoitu pois käytöstä !
+- Kommentti, joka referoi tietoa muualta järjestelmästä (Mitä tapahtuu kommentille kun järjestelmä muualla muuttuu?)
+
+Viides luku käsittelee formatointia ja yhteisten pelisääntöjen sopimisen tärkeyttä. Formatointi tarkoittaa lähdekoodin muotoilua (Se mitä näät editorissa). Esimerkiksi rivien pituus, tyhjät välilyönnit yms. Tähän on onneksi kuitenkin tullut jo työkalu, joka hoitaa sen meidän puolesta (Prettier). On kuitenkin hyvä huomauttaa, että tämäkin on yksi tietoinen design ratkaisu, joka mahdollistaa helpompaa työskentelyä. Yhteinen formaatti helpoittaa esimerkiksi lukemista, kun kaikki sisennykset ovat samankokoisia. Tämän lisäksi meillä on käytössä ESLint, joka neuvoo parempaan koodityöskentelyyn. Se toimii tavallaan ohjekirjana. Linttaus on siis staattista koodin analysointia.
+
+Tässä oli siis paljon niitä periaatteita, minkä pohjalta, yrityksen ja erehdyksen kautta, projektin rakenne on syntynyt. Kuten alussa mainitsin, suurin osa näistä erehdyksistä on tehty etukäteen, ja projektin rakenne oli tiedossa jo projektia aloittaessa. Näitä asioita on niin paljon, että niissä ei valitettavasti pääse "Why did you do it
+like this?” tasolle. Muuten tästä syntyisi jo kirjan verran asiaa. Ajattelen kuitenkin, että kokonaiskuvan hahmottamisesta on toivottavasti edes jotain hyötyä, jotta voi ymmärtää miksi asioita on tehty niin kuin niitä on tässä projektissa tehty. Projekti ei ole millaan tavalla täydellinen representaatio näistä ideologioista/periaatteista, niin kuin ei mikään projekti muutenkaan. Kompatakseni Agile Manifeston periaatteita tähän loppuun arkkitehtuurista:
+
+> The best architectures, requirements, and designs
+> emerge from self-organizing teams.
+>
+> [Principles behind the Agile Manifesto](http://agilemanifesto.org/principles.html)
 
 ## Rajapinnat ja palvelut
 
