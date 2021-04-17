@@ -1,5 +1,4 @@
 
-
 # Design dokumentti - 0xc0ff3e
 
 ## Sisällysluettelo
@@ -89,9 +88,9 @@ Components kansiosta löytyy jaetut alikomponentit, joita käytetään useammall
 
 ## Design ratkaisut
 
-Design ratkaisuista puhuttaessa on mielestäni hyvä aloittaa Reactista. React on niin suuri osa sitä, miten asioita tehdään. Sovelluksessa käytetään funktionaalisia komponentteja. Teknisesti meidän sovelluksessa ne ovat TypeScript funktiota, jotka käännettään JavaScript funktioiksi. Vaikka ne ovat funktioita, niillä voi olla tila, niin kuin luokilla. React ei kuitenkaan käytä periyttämistä, vaan [kokoonpanoa](https://reactjs.org/docs/composition-vs-inheritance.html) (eng. composition). Dokumentaatio aiheesta [Thinking in React](https://reactjs.org/docs/thinking-in-react.html) kertoo Reactin tavasta toteuttaa käyttöliitymät syvemmin, kuin tässä ehdin avaamaan. Yksi asia mistä voisi vielä mainita, on Reactin ylhäältä alas datan kulkeminen, jota on sovellettu aiemmassa kappaleessa page componentin muodossa. Data virtaa alaspäin alikomponentteihin ylemmistä komponenteista. Asiasta enemmän selitetty Reactin dokumentaatiossa [Lifting state up](https://reactjs.org/docs/lifting-state-up.html) ja [The Data Flows Down](https://reactjs.org/docs/state-and-lifecycle.html#the-data-flows-down).
+Design ratkaisuista puhuttaessa on hyvä aloittaa Reactista. React on niin suuri osa sitä, miten asioita tehdään. Sovelluksessa käytetään funktionaalisia komponentteja. Teknisesti sovelluksessa ne ovat TypeScript funktiota, jotka käännettään JavaScript funktioiksi. Vaikka ne ovat funktioita, niillä voi olla tila, niin kuin luokilla. React ei kuitenkaan käytä periyttämistä, vaan [kokoonpanoa](https://reactjs.org/docs/composition-vs-inheritance.html) (eng. composition). Dokumentaatio aiheesta [Thinking in React](https://reactjs.org/docs/thinking-in-react.html) kertoo Reactin tavasta toteuttaa käyttöliitymät syvemmin, kuin tässä ehtii avaamaan. Yksi asia mistä voisi vielä mainita, on Reactin ylhäältä alas datan kulkeminen, jota on sovellettu aiemmassa kappaleessa page componentin muodossa. Data virtaa alaspäin alikomponentteihin ylemmistä komponenteista. Asiasta enemmän selitetty Reactin dokumentaatiossa [Lifting state up](https://reactjs.org/docs/lifting-state-up.html) ja [The Data Flows Down](https://reactjs.org/docs/state-and-lifecycle.html#the-data-flows-down).
 
-Mitä tulee GoF Design Patterneihin tai SOLID periaatteisiin, on todella hankalaa suoraan verrata niitä web devaamiseen, puhumattakaan web devaamiseen Reactilla. Myös JavaScriptillä on oma vaikutuksensa tähän, tai meidän tapauksessa TypeScript, joka on tyypitetty JS.
+Mitä tulee GoF Design Patterneihin tai SOLID periaatteisiin, on todella hankalaa suoraan verrata niitä web devaamiseen, puhumattakaan web devaamiseen Reactilla. Myös JavaScriptillä on oma vaikutuksensa tähän, tai tässä tapauksessa TypeScript, joka on tyypitetty JS.
 
 > Being a SOLID JavaScript Developer isn’t as straight forward as in other languages. JavaScript is a loosely typed language. Some consider it a functional language. Others consider it an object oriented language. Some think its both. And some think that having classes in JavaScript is just plain wrong.
 >
@@ -99,13 +98,13 @@ Mitä tulee GoF Design Patterneihin tai SOLID periaatteisiin, on todella hankala
 
 Toisinsanoen JS:llä koodaaminen tuo paljon vastuuta, jonka mukana tulee paljon valtaa (Tarkoituksella toisin päin, koska niin [maailma toimii](https://medium.com/thrive-global/this-75-year-harvard-study-reveals-the-secret-to-happiness-and-success-3cf0002510fe)). Rajoitamme kuitenkin tätä valtaa käyttämällä TypeScriptiä tyypityksen lisäämiseksi. Näin ollen teemme vähemmän typeriä virheitä oletuksen muodossa.
 
-Sen sijaan, että yritän väkisin saada GoF tai SOLID periaatteet mahtumaan tähän projektiin, kerron mielummin periaatteista, joista projekti on muodostunut.
+Sen sijaan, että yritetään väkisin saada GoF tai SOLID periaatteet mahtumaan tähän projektiin, kerromme mielummin periaatteista, joista projekti on muodostunut.
 
-Olen suuri Uncle Bobin fani. Hän on toki todella kiistelty henkilö, koska ilmaisee asiat kärjistäen. Hänen Clean Code kirjassa on kuitenkin periaatteita, missä on mielestäni paljon perää. Valitettavasti en sitäkään kirjaa ole ehtinyt lukea ja tehdä muistiinpanoja, kuin ensimmäisetä kuudesta luvusta. Näiden pohjalta on kuitenkin tullut paljon asioita, mihin mielestäni ei kiinnitetä tarpeeksi huomiota.
+Uncle Bob on kova jätkä. Hän on toki todella kiistelty henkilö, koska ilmaisee asiat kärjistäen. Hänen Clean Code kirjassa on kuitenkin periaatteita, missä on paljon perää. Näiden pohjalta on tullut paljon asioita, mihin ei kiinnitetä tarpeeksi huomiota.
 
-Yksi idea on, että refaktorointi olisi rutiininomainen tapa. Tätä ei kukaan varmasti tee liikaa, ja usein sitä tehdään liian vähän. On kuitenkin vaikeaa löytää balanssi teknisen velan kanssa. Jos pitäisi sitä kuitenkin arvioida tässä projektissa, se balanssi on mielestäni projektin luonteen kannalta järkevä. Teknistä velkaa on otettu, koska projekti luonnollisesti loppuu kurssin loputtua. Sitä ei kuitenkaan ole otettu missään kohtaa niin paljoa, että devaaminen olisi hidastunut projektin aikana merkittävästi. Sanoisin myös, että järkevällä rakenteella ja käytetyillä teknologioilla on tekemistä asian kanssa. Se on helpoittanut työtä ja työnjakoa.
+Yksi idea on, että refaktorointi olisi rutiininomainen tapa. Tätä ei kukaan varmasti tee liikaa, ja usein sitä tehdään liian vähän. On kuitenkin vaikeaa löytää balanssi teknisen velan kanssa. Jos pitäisi sitä kuitenkin arvioida tässä projektissa, se balanssi on projektin luonteen kannalta järkevä. Teknistä velkaa on otettu, koska projekti luonnollisesti loppuu kurssin loputtua. Sitä ei kuitenkaan ole otettu missään kohtaa niin paljoa, että devaaminen olisi hidastunut projektin aikana merkittävästi. Järkevällä rakenteella ja käytetyillä teknologioilla on tekemistä asian kanssa. Se on helpoittanut työtä ja työnjakoa.
 
-Toinen luku kirjassa kertoo hyvästä nimeämisestä. Tämä on mielestäni yksi aliarvostetuimpia asioita koodauksessa. Kaikki tietää, että koodia luetaan paljon, paljon, enemmän kuin sitä kirjoitetaan. Suora lainaus kirjan ensimmäisestä luvusta:
+Toinen luku kirjassa kertoo hyvästä nimeämisestä. Tämä on yksi aliarvostetuimpia asioita koodauksessa. Kaikki tietää, että koodia luetaan paljon, paljon, enemmän kuin sitä kirjoitetaan. Suora lainaus kirjan ensimmäisestä luvusta:
 
 > You get the drift. Indeed, the ratio of time spent reading vs. writing is well over 10:1.
 > We are constantly reading old code as part of the effort to write new code.
@@ -113,21 +112,21 @@ Toinen luku kirjassa kertoo hyvästä nimeämisestä. Tämä on mielestäni yksi
 > the writing harder. Of course there’s no way to write code without reading it, so making it
 > easy to read actually makes it easier to write
 
-Hyvä nimeäminen on vaikeaa. Siihen on kuitenkin pyritty kiinnittämään huomiota projektin rakennetta mietittäessä. Kuitenkin nyt kun silmäilee tiedostoja, huomaa, että ne voisi nimetä vielä selkeämmin. Esimerkiksi aiemmin mainitsemani components kansio. Kerroin, että sen tehtävä on pitää sisällään kaikki useammalla kuin yhdellä sivulla käytetyt komponentit. Mikä voisi olla parempi nimi tällöin?
+Hyvä nimeäminen on vaikeaa. Siihen on kuitenkin pyritty kiinnittämään huomiota projektin rakennetta mietittäessä. Kuitenkin nyt kun silmäilee tiedostoja, huomaa, että ne voisi nimetä vielä selkeämmin. Esimerkiksi aiemmin mainittu components kansio. Kerrottiin, että sen tehtävä on pitää sisällään kaikki useammalla kuin yhdellä sivulla käytetyt komponentit. Mikä voisi olla parempi nimi tällöin?
 
 <details><summary>Paina avataksesi vastaus</summary>Shared components! 😄</details>
 
-Nimeäminen koskee luonnollisesti kaikkea mitä kirjoitat. Koodia, kommentteja yms. Tämän takia onkin kyse enemmän kirjoitustaidoista ja luovuudesta, kuin teknisistä taidoista. Ja koska koodaaminen on abstraktioiden luomista, on välillä todella hankalaa löytää kuvaavia sanoja asioille. Paras nimi onkin nimi, joka ei tarvitse selityksiä (lue: kommenttia sen olemassaolon tarkoituksesta).
+Nimeäminen koskee luonnollisesti kaikkea mitä kirjoittaa. Koodia, kommentteja yms. Tämän takia onkin kyse enemmän kirjoitustaidoista ja luovuudesta, kuin teknisistä taidoista. Ja koska koodaaminen on abstraktioiden luomista, on välillä todella hankalaa löytää kuvaavia sanoja asioille. Paras nimi onkin nimi, joka ei tarvitse selityksiä (lue: kommenttia sen olemassaolon tarkoituksesta).
 
 Kolmas luku käsittelee funktioita. Tämä näkyy suoraan meidän funktionaalisissa komponenteissa. Jos pitäisi sanoa yksi periaate, joka liittyy ohjelmointiin, se olisi [KISS](https://en.wikipedia.org/wiki/KISS_principle). Keep it simple, stupid! Suomeksi "Pidä se yksinkertaisena, tyhmä!" tai ystävällisemmin "Pide se typerän yksinkertaisena". Eli funktiot pyritään pitämään lyhyinä, kompleksisuus vähäisenä ja asiat yksinkertaisina. Monimutkaisten ja hienojen rakenteiden kanssa käy usein niin, että kompastuu omaan näppäryyteensä hyvin nopeasti.
 
-On hyvä pitää abstraktiotasot järkevän kokoisina. Paras analogia selittämään mitä tarkottaa abstraktiotasot, on sanomalehden lukeminen. Voit rauhassa silmäillä etusivun otsikoita ja miettiä mistä kiinnostaisi tietää enemmän. Sitten valitset artikkelin, jonka luet. Artikkeli ei kuitenkaan aloita kertomaan jutun yksityiskohdista ensin. Se kertoo ensin yleistietoa aiheesta. Vasta kun luet artikkelia hetken aikaa, voit joko jatkaa lukemista, tai siirtyä seuraavaan artikkeliin. Tätä tarkoittaa abstraktiotasot. Projektissa pages on sanomalehden sivut ja niiden sisällä olevat index.tsx on artikkeleita. Artikkelin yksityiskohdat ovat index.tsx:n sisältämät komponentit.
+On hyvä pitää abstraktiotasot järkevän kokoisina. Paras analogia selittämään mitä tarkottaa abstraktiotasot, on sanomalehden lukeminen. Voit rauhassa silmäillä etusivun otsikoita ja miettiä mistä kiinnostaisi tietää enemmän. Sitten valitset artikkelin, jonka luet. Artikkeli ei kuitenkaan aloita kertomaan jutun yksityiskohdista ensin. Se kertoo ensin yleistietoa aiheesta. Vasta kun luet artikkelia hetken aikaa, voit joko jatkaa lukemista, tai siirtyä seuraavaan artikkeliin. Tätä tarkoittaa abstraktiotasot. Projektissa pages on sanomalehden sivut ja niiden sisällä olevat index.tsx tiedostot on artikkeleita. Artikkelin yksityiskohdat ovat index.tsx:n sisältämät komponentit.
 
-Neljäs luku käsittelee kommentteja. Emme ole toteuttaneet projektissa kommentteja aivan niin, kuin itse ajattelen kommenttien merkityksestä. Aiemmin vihjasin jo miten hyvä nimeäminen liittyy kommentteihin. Lainatakseni lausetta taas kirjasta, mistä olen samaa mieltä.
+Neljäs luku käsittelee kommentteja. Aiemmin vihjailtiin jo miten hyvä nimeäminen liittyy kommentteihin. Suora lainaus kirjasta.
 
 > The proper use of comments is to compensate for our failure to express ourself in code.
 
-Kommentit ovat vain tapa ilmaista meidän puuttellisia kirjotustaitoja. Sen sijaan, että käytät aikasi huonon koodin kommentointiin, käytä se koodin siivoamiseen. Siivoamista voi olla koodin logiikan yksinkertaistaminen, tai mikä useimmiten riitää, funktion tai muuttujan uudelleennimeäminen. Kirjassa käsitellään asiaa jälleen huomattavasti kattavammin kuin tässä ehtii, joten lyhyen listan muodossa hyvät ja huonot kommentit.
+Kommentit ovat vain tapa ilmaista puuttellisia kirjoitustaitoja. Sen sijaan, että käyttää aikansa huonon koodin kommentointiin, kannattaa se käyttää koodin siivoamiseen, eli refaktorointiin. Refaktorointia voi olla koodin logiikan yksinkertaistaminen, tai mikä useimmiten riitää, funktion tai muuttujan uudelleennimeäminen. Myös funktion pilkkominen osiin on klassinen esimerkki refaktoroinnista. Kirjassa käsitellään asiaa jälleen huomattavasti kattavammin kuin tässä ehtii, joten lyhyen listan muodossa hyvät ja huonot kommentit.
 
 Hyviä kommentteja
 
@@ -148,8 +147,8 @@ Huonoja kommentteja
 
 Viides luku käsittelee formatointia ja yhteisten pelisääntöjen sopimisen tärkeyttä. Formatointi tarkoittaa lähdekoodin muotoilua (Se mitä näät editorissa). Esimerkiksi rivien pituus, tyhjät välilyönnit yms. Tähän on onneksi kuitenkin tullut jo työkalu, joka hoitaa sen meidän puolesta (Prettier). On kuitenkin hyvä huomauttaa, että tämäkin on yksi tietoinen design ratkaisu, joka mahdollistaa helpompaa työskentelyä. Yhteinen formaatti helpoittaa esimerkiksi lukemista, kun kaikki sisennykset ovat samankokoisia. Tämän lisäksi meillä on käytössä ESLint, joka neuvoo parempaan koodityöskentelyyn. Se toimii tavallaan ohjekirjana. Linttaus on siis staattista koodin analysointia.
 
-Tässä oli siis paljon niitä periaatteita, minkä pohjalta, yrityksen ja erehdyksen kautta, projektin rakenne on syntynyt. Kuten alussa mainitsin, suurin osa näistä erehdyksistä on tehty etukäteen, ja projektin rakenne oli tiedossa jo projektia aloittaessa. Näitä asioita on niin paljon, että niissä ei valitettavasti pääse "Why did you do it
-like this?” tasolle. Muuten tästä syntyisi jo kirjan verran asiaa. Ajattelen kuitenkin, että kokonaiskuvan hahmottamisesta on toivottavasti edes jotain hyötyä, jotta voi ymmärtää miksi asioita on tehty niin kuin niitä on tässä projektissa tehty. Projekti ei ole millaan tavalla täydellinen representaatio näistä ideologioista/periaatteista, niin kuin ei mikään projekti muutenkaan. Kompatakseni Agile Manifeston periaatteita tähän loppuun arkkitehtuurista:
+Tässä oli paljon niitä periaatteita, minkä pohjalta, yrityksen ja erehdyksen kautta, projektin rakenne on syntynyt. Kuten alussa mainittiin, suurin osa näistä erehdyksistä on tehty etukäteen, ja projektin rakenne oli tiedossa jo projektia aloittaessa. Näitä asioita on niin paljon, että niissä ei valitettavasti pääse "Why did you do it
+like this?” tasolle. Muuten tästä syntyisi jo kirjan verran asiaa. Kokonaiskuvan hahmottamisesta on toivottavasti edes jotain hyötyä, jotta voi ymmärtää miksi asioita on tehty niin kuin niitä on tässä projektissa tehty. Projekti ei ole millaan tavalla täydellinen representaatio näistä ideologioista/periaatteista, niin kuin ei mikään projekti muutenkaan. Kompatakseen Agile Manifeston periaatteita tähän loppuun arkkitehtuurista ja designinsta:
 
 > The best architectures, requirements, and designs
 > emerge from self-organizing teams.
@@ -158,7 +157,46 @@ like this?” tasolle. Muuten tästä syntyisi jo kirjan verran asiaa. Ajattelen
 
 ## Rajapinnat ja palvelut
 
-Tulemme kirjoittamaan kaksi palvelua, `fmiService` ja `fingridService`, jotka vastaavat datan noutamisesta ja parsimisesta.
+Kaksi palvelua Fingridin ja FMI:n datan hakemiseen. Ne tarjoavat palvelua componenteille. Data flow on kuvattu Big Picturessa aiemmin. Tarkemmat interface määrittelyt löytyvät kommentteina koodista global.d.ts tyyppimäärittelytiedostosta. Siellä on määritelty globaaliin nimiavaruuteen interfacet, koska niitä käytetään useammalla sivulla. Esimerkiksi sääpalvelua käytetään weather sivun lisäksi analysis sivulla.
+
+## Itsearviointi
+
+### Plussat
+  - Oikea kirjasto datan visualisointiin
+  - Oikea työkalu ongelmaan (selainympäristö)
+  - Laajennettavuus
+  - Typescript: interfacet ja tyypitys
+  - Hyvä arkkitehtuuri
+  - Tiimin vastuunjako eri osa-alueille
+
+### Miinukset
+  - Servicen interfacen muuttuminen projektin kehittyessä, johtuen heikkolaatuisista API:eista.
+  - käytettävien API:en heikko laatu. Alla muutama esimerkki monista ongelmista.
+    - FMI: historia vain XML muodossa, dokumentaatio hukassa/ei ajantasalla. Epäjohdonmukaiset rajapinnat (sekä JSON, että XML sekaisin). Typeriä rajoitteita (vain 168 tuntia kerrallaan / request ?!?!!?!?!). Säätiedon historian puutteellisuus, pilvisyys ja tuulen historia puuttuvat kähes kokonaan.
+    - Fingrid: Jokainen datatyyppi täytyy noutaa palvelimelta erikseen (yksi aikaväli / 9 pyyntöä). Dokumentaatio vanhentunutta ja sekavaa. Palvelin asettaa "no-cache,must-revalidate" jokaiseen pyyntöön vaikka käyttäjälle olisi hyödyllistä jättää data selaimen välimuistiin.
+
+### Kysymyset
+
+** In the mid-term submission you only had a partially implemented application. Now, that
+you have implemented all functional requirements, evaluate how well the design you
+originally made served your purpose, and what kind of changes you had to make. **
+
+Ohjelman toteuttaminen on mennyt "niin kuin Strömssä". Ohjelmaa on rakennettu iteratiivisesti tekemällä perus runko aluksi, jonka jälkeen on laajennettu toiminallisuuksia tämän päälle. Missän vaiheessa ei ole jouduttu tekemään merkittäävää refaktorointia arkkitehtuuriin tai designiin, vaan on voitu jatkaa ominaisuuksien tekemistä alusta loppuun asti vanhan päälle. Kaikki Refactor kommitit ovat liittyneet vain interfaceiden tai servicien muutoksiin, tai uudelleennimeämiseen. Kokonaisrakenne on kuitenkin säilynyt samana.
+
+Ohjelma on yksinkertainen, joten yksinkertainen arkkitehtuuri palvelee tarkoitustansa hyvin. Myös datan parsiminen frontissa on säästänyt overheadia, verrattuna backendin toteuttamiseen. Tätä on toki vaikeaa arvioida, kuinka paljon ylimääräistä työtä olisi backendin tekeminen tuonut mukanaan.
+
+**How well have you been able to stick to your original design and how well have you been able to implement features based on your original plan.**
+
+Ohjelmiston pääasiallinen arkkitehtuuri ei muuttunut alkuperäisestä suunnitelmasta. Ohjelman sisältämät rajapinnat ovat taas projektin aikana kasvaneet ja eläneet komponenttien tarpeen mukaan, mutta myös rajapintojen rajoitteiden takia.
+
+Yleisesti ottaen ohjelman implementointi on ollut melko kivutonta. Designin puolesta ei ole tullut ongelmia implementointiin.
+
+Suurin ongelma projektissa on johtunut siitä, että API:t ovat ollet heikkolaatuisia, joten rajapintoja ei pystynyt suunnitelemaan etukäteen. Tämä johti siihen, että ohjelmassa jouduttiin tekemään hieman turhaa työtä refaktoroinnin muodossa.
+
+**What changes you needed to make the original design to implement the all features**
+
+None. Ohjelman toteutus on vastannut aluksi suunniteltua.
+
 
 ## Kolmannen osapuolen kirjastot ja työkalut
 
