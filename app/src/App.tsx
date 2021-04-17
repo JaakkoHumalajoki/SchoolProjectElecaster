@@ -7,7 +7,7 @@ import HighchartsExporting from "highcharts/modules/exporting"
 import { useRoutes } from "react-router-dom"
 import routes from "./routes"
 import WeatherService from "./services/fmi"
-import { ElectricityPageData } from "./services/queries"
+import ElectricityService from "./services/fingrid"
 
 if (typeof Highcharts === "object") {
   HighchartsExporting(Highcharts)
@@ -34,7 +34,7 @@ export default function App(): JSX.Element {
     endTime: weekFromNow,
   })
   const weatherService = new WeatherService(city, timeRange)
-  const electricityService = new ElectricityPageData(timeRange)
+  const electricityService = new ElectricityService(timeRange)
 
   const handleCityChange = (newCity: City) => {
     setCity(newCity)

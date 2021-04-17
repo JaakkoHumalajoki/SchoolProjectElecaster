@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { ElectricityPageData } from "../../services/queries"
+import ElectricityService from "../../services/fingrid"
 import TimeSelection from "../../components/TimeSelection"
 import ComparisonChart from "./ComparisonChart"
 import ForecastChart from "./ForecastChart"
@@ -22,7 +22,7 @@ export interface Props {
   /**
    * ElectricityPageData service from which electricity data can be fetched
    */
-  electricityService: ElectricityPageData
+  electricityService: ElectricityService
 }
 
 /**

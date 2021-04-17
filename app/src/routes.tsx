@@ -5,7 +5,7 @@ import Electricity from "./pages/Electricity"
 import Home from "./pages/Home"
 import Weather from "./pages/Weather"
 import WeatherService from "./services/fmi"
-import { ElectricityPageData } from "./services/queries"
+import ElectricityService from "./services/fingrid"
 
 /**
  * Routes is responsible for giving page-url:s to each view tab within the app
@@ -39,7 +39,7 @@ const routes = (
   /**
    * ElectricityPageData service from which electricity data can be fetched
    */
-  electricityService: ElectricityPageData
+  electricityService: ElectricityService
 ) => [
   {
     path: "/",
