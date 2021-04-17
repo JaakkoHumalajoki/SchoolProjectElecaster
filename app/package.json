@@ -50,7 +50,7 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "build-docs": "npx typedoc --options tsdoc.json --tsconfig tsconfig.json --readme ../README.md"
+    "build-docs": "npx typedoc --options tsdoc.json --tsconfig tsconfig.json --readme ../docs/design.md"
   },
   "husky": {
     "hooks": {
