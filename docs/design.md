@@ -147,7 +147,7 @@ Huonoja kommentteja
 Viides luku käsittelee formatointia ja yhteisten pelisääntöjen sopimisen tärkeyttä. Formatointi tarkoittaa lähdekoodin muotoilua (Se mitä näät editorissa). Esimerkiksi rivien pituus, tyhjät välilyönnit yms. Tähän on onneksi kuitenkin tullut jo työkalu, joka hoitaa sen meidän puolesta (Prettier). On kuitenkin hyvä huomauttaa, että tämäkin on yksi tietoinen design ratkaisu, joka mahdollistaa helpompaa työskentelyä. Yhteinen formaatti helpoittaa esimerkiksi lukemista, kun kaikki sisennykset ovat samankokoisia. Tämän lisäksi meillä on käytössä ESLint, joka neuvoo parempaan koodityöskentelyyn. Se toimii tavallaan ohjekirjana. Linttaus on siis staattista koodin analysointia.
 
 Tässä oli paljon niitä periaatteita, minkä pohjalta, yrityksen ja erehdyksen kautta, projektin rakenne on syntynyt. Kuten alussa mainittiin, suurin osa näistä erehdyksistä on tehty etukäteen, ja projektin rakenne oli tiedossa jo projektia aloittaessa. Näitä asioita on niin paljon, että niissä ei valitettavasti pääse "Why did you do it
-like this?” tasolle. Muuten tästä syntyisi jo kirjan verran asiaa. Kokonaiskuvan hahmottamisesta on toivottavasti edes jotain hyötyä, jotta voi ymmärtää miksi asioita on tehty niin kuin niitä on tässä projektissa tehty. Projekti ei ole millaan tavalla täydellinen representaatio näistä ideologioista/periaatteista, niin kuin ei mikään projekti muutenkaan. Kompatakseen Agile Manifeston periaatteita tähän loppuun arkkitehtuurista ja designinsta:
+like this?” tasolle. Muuten tästä syntyisi jo kirjan verran asiaa. Kokonaiskuvan hahmottamisesta on toivottavasti edes jotain hyötyä, jotta voi ymmärtää miksi asioita on tehty niin kuin niitä on tässä projektissa tehty. Projekti ei ole millaan tavalla täydellinen representaatio näistä ideologioista/periaatteista, niin kuin ei mikään projekti muutenkaan. Kompatakseen Agile Manifeston periaatteita tähän loppuun arkkitehtuurista ja designista:
 
 > The best architectures, requirements, and designs
 > emerge from self-organizing teams.
@@ -161,6 +161,7 @@ Kaksi palvelua Fingridin ja FMI:n datan hakemiseen. Ne tarjoavat palvelua compon
 ## Itsearviointi
 
 ### Plussat
+  - Todella hyvä prototyyppi
   - Oikea kirjasto datan visualisointiin
   - Oikea työkalu ongelmaan (selainympäristö)
   - Laajennettavuus
