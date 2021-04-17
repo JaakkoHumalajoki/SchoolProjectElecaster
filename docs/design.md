@@ -1,4 +1,3 @@
-
 # Design dokumentti - 0xc0ff3e
 
 ## Sisällysluettelo
@@ -177,9 +176,9 @@ Kaksi palvelua Fingridin ja FMI:n datan hakemiseen. Ne tarjoavat palvelua compon
 
 ### Kysymyset
 
-** In the mid-term submission you only had a partially implemented application. Now, that
+**In the mid-term submission you only had a partially implemented application. Now, that
 you have implemented all functional requirements, evaluate how well the design you
-originally made served your purpose, and what kind of changes you had to make. **
+originally made served your purpose, and what kind of changes you had to make.**
 
 Ohjelman toteuttaminen on mennyt "niin kuin Strömssä". Ohjelmaa on rakennettu iteratiivisesti tekemällä perus runko aluksi, jonka jälkeen on laajennettu toiminallisuuksia tämän päälle. Missän vaiheessa ei ole jouduttu tekemään merkittäävää refaktorointia arkkitehtuuriin tai designiin, vaan on voitu jatkaa ominaisuuksien tekemistä alusta loppuun asti vanhan päälle. Kaikki Refactor kommitit ovat liittyneet vain interfaceiden tai servicien muutoksiin, tai uudelleennimeämiseen. Kokonaisrakenne on kuitenkin säilynyt samana.
 
