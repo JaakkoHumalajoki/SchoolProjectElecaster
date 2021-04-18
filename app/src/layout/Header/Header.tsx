@@ -13,7 +13,7 @@ export default (): JSX.Element => {
 
   return (
     <header
-      className={`border-2 bg-white fixed w-full z-20 ${
+      className={`border-b-2 bg-white fixed w-full z-20 ${
         navMenuOpen ? "bg-opacity-100" : "bg-opacity-80 "
       }`}
     >
