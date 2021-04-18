@@ -5,6 +5,7 @@ import {
   calculateAverage,
   calculateMinimum,
   calculateMaximum,
+  commonOptions,
 } from "../../common"
 
 /**
@@ -69,27 +70,12 @@ const ComparisonChart = (props: Props): JSX.Element => {
   }
 
   const options: Highcharts.Options = {
+    ...commonOptions,
     title: {
       text: "Weather history",
     },
-    chart: {
-      height: "600px",
-    },
-    time: {
-      useUTC: false,
-    },
-    navigator: {
-      enabled: true,
-      maskFill: "rgba(0, 82, 156, 0.3)",
-      series: { color: "rgba(0, 82, 156, 0.3)" },
-      adaptToUpdatedData: true,
-    },
-    legend: {
-      enabled: false,
-    },
     xAxis: {
-      type: "datetime",
-      crosshair: true,
+      ...commonOptions.xAxis,
       events: {
         setExtremes(e) {
           setSelectedRangeMin(e.min)
@@ -129,10 +115,6 @@ const ComparisonChart = (props: Props): JSX.Element => {
         allowDecimals: false,
       },
     ],
-    tooltip: {
-      valueDecimals: 1,
-      shared: true,
-    },
     series: [
       {
         type: "line",

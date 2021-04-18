@@ -48,3 +48,33 @@ export const emptyWeatherData: Pick<WeatherData, "forecast" | "history"> = {
   forecast: [],
   history: [],
 }
+
+export const commonOptions: Highcharts.Options = {
+  chart: {
+    height: "600px",
+  },
+  time: {
+    useUTC: false,
+  },
+  navigator: {
+    enabled: true,
+    maskFill: "rgba(0, 82, 156, 0.3)",
+    series: { color: "rgba(0, 82, 156, 0.3)" },
+    adaptToUpdatedData: true,
+    handles: {
+      height: 25,
+      width: 15,
+    },
+  },
+  legend: {
+    enabled: false,
+  },
+  xAxis: {
+    type: "datetime",
+    crosshair: true,
+  },
+  tooltip: {
+    valueDecimals: 1,
+    shared: true,
+  },
+}
