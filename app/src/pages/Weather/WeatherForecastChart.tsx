@@ -183,11 +183,29 @@ const ComparisonChart = (props: Props): JSX.Element => {
   return (
     <div className="card-lg">
       <HighchartsReact highcharts={Highcharts} options={options} />
-      <h2>Analysis for highlighted time range</h2>
-      <p>Average temperature: {tempAvg} °C</p>
-      <p>maximum temperature: {tempMax} °C</p>
-      <p>Minimum temperature: {tempMin} °C</p>
-      <p>Maximum wind speed: {windMax} m/s</p>
+      <div className="description-box">
+        <h3>Analysis for highlighted time range</h3>
+        <table className="infotable">
+          <tbody>
+            <tr>
+              <td>Average temperature:</td>
+              <td>{tempAvg} °C</td>
+            </tr>
+            <tr>
+              <td>maximum temperature:</td>
+              <td>{tempMax} °C</td>
+            </tr>
+            <tr>
+              <td>Minimum temperature:</td>
+              <td>{tempMin} °C</td>
+            </tr>
+            <tr>
+              <td>Maximum wind speed:</td>
+              <td>{windMax} m/s</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   )
 }
