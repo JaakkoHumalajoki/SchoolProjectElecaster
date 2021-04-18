@@ -89,9 +89,12 @@ const AnalysisPage = (props: Props): JSX.Element => {
 
   return (
     <div>
-      <div className="topControls">
-        <CitySelection city={city} onCityChange={onCityChange} />
-        <TimeSelection timeRange={timeRange} onTimeChange={onTimeChange} />
+      <div className="card-lg">
+        <h1 className="pageHeader">Analysis</h1>
+        <div className="topControls">
+          <CitySelection city={city} onCityChange={onCityChange} />
+          <TimeSelection timeRange={timeRange} onTimeChange={onTimeChange} />
+        </div>
       </div>
       {weatherData === emptyWeatherData ||
       electricityData === emptyElectricityData ? (

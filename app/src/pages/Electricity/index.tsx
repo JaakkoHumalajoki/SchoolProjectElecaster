@@ -53,8 +53,11 @@ const ElectricityPage = (props: Props): JSX.Element => {
 
   return (
     <div>
-      <div className="topControls">
-        <TimeSelection timeRange={timeRange} onTimeChange={onTimeChange} />
+      <div className="card-lg">
+        <h1 className="pageHeader">Electricity</h1>
+        <div className="topControls">
+          <TimeSelection timeRange={timeRange} onTimeChange={onTimeChange} />
+        </div>
       </div>
       {electricityData === emptyElectricityData ? (
         <div>

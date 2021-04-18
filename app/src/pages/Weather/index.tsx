@@ -60,9 +60,12 @@ const WeatherPage = (props: Props): JSX.Element => {
 
   return (
     <div>
-      <div className="topControls">
-        <CitySelection city={city} onCityChange={onCityChange} />
-        <TimeSelection timeRange={timeRange} onTimeChange={onTimeChange} />
+      <div className="card-lg">
+        <h1 className="pageHeader">Weather</h1>
+        <div className="topControls">
+          <CitySelection city={city} onCityChange={onCityChange} />
+          <TimeSelection timeRange={timeRange} onTimeChange={onTimeChange} />
+        </div>
       </div>
       {weatherData === emptyWeatherData ? (
         <div>
