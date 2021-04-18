@@ -63,11 +63,11 @@
 }
 
 div.pageHeader > h1 {
-  @apply text-6xl pt-4 pb-2;
+  @apply text-4xl sm:text-6xl pt-4 pb-2;
 }
 
 div.pageHeader > h2 {
-  @apply text-xl pb-6 mt-1;
+  @apply text-lg sm:text-xl pb-6 mt-1;
 }
 
 h3 {
