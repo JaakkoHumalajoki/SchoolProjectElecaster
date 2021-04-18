@@ -46,6 +46,10 @@
   @apply transition duration-100 ease-in-out;
 }
 
+.topControls {
+  @apply flex flex-col p-4 card-lg xs:flex-row shadow-md;
+}
+
 body {
   overflow-x: hidden;
 }

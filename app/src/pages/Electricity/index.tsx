@@ -53,7 +53,9 @@ const ElectricityPage = (props: Props): JSX.Element => {
 
   return (
     <div>
-      <TimeSelection timeRange={timeRange} onTimeChange={onTimeChange} />
+      <div className="topControls">
+        <TimeSelection timeRange={timeRange} onTimeChange={onTimeChange} />
+      </div>
       <ComparisonChart
         consumptionData={electricityData.history.consumption.total}
         productionData={electricityData.history.production.total}
