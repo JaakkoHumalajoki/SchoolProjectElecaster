@@ -12,7 +12,11 @@ export default (): JSX.Element => {
   }
 
   return (
-    <header className="border-2 bg-white bg-opacity-70 fixed w-full z-20">
+    <header
+      className={`border-2 bg-white fixed w-full z-20 ${
+        navMenuOpen ? "bg-opacity-100" : "bg-opacity-80 "
+      }`}
+    >
       <div className="flex flex-col sm:flex-row max-w-6xl mx-auto items-center p-2 sm:p-4">
         <div className="flex flex-auto self-start">
           <Link to="/" onClick={closeNavMenu}>
