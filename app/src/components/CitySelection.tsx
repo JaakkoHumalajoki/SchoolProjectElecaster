@@ -108,7 +108,7 @@ const CitySelection = (props: Props): JSX.Element => {
   }
 
   return (
-    <div className="card-sm flex xs:flex-col lg:flex-row space-x-4 xs:space-x-0 xs:space-y-2 xs:px-4 justify-between xs:justify-start lg:items-center">
+    <div className="card-sm flex space-x-4 justify-between items-center">
       <h3 className="text-lg font-bold">Select city</h3>
       <div>
         <select
