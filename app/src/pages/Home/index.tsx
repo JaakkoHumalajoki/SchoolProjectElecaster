@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 
 export default (): JSX.Element => {
   return (
-    <div className="mx-auto my-32 max-w-2xl space-y-8 text-center flex flex-col rounded-lg bg-white bg-opacity-20 p-12">
+    <div className="mx-auto my-32 max-w-lg space-y-8 text-center flex flex-col">
       <h3 className="m-2 text-4xl font-bold">
         Real-time data about weather and electricity
       </h3>

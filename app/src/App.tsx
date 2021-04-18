@@ -1,9 +1,4 @@
-import React, { useState, useEffect, useRef } from "react"
-
-// eslint-disable-next-line
-// @ts-ignore
-import CLOUDS2 from "vanta/dist/vanta.clouds2.min"
-import * as THREE from "three"
+import React, { useState } from "react"
 
 import Highcharts from "highcharts"
 import HighchartsStock from "highcharts/highstock"
@@ -38,9 +33,6 @@ export default function App(): JSX.Element {
     startTime: tenDaysPast,
     endTime: weekFromNow,
   })
-  const [vantaEffect, setVantaEffect] = useState<any>(0)
-  const vantaRef = useRef(null)
-
   const weatherService = new WeatherService(city, timeRange)
   const electricityService = new ElectricityService(timeRange)
 
@@ -60,26 +52,6 @@ export default function App(): JSX.Element {
     weatherService.timeRange = newRange
   }
 
-  useEffect(() => {
-    if (!vantaEffect) {
-      setVantaEffect(
-        CLOUDS2({
-          el: vantaRef.current,
-          scale: 1.0,
-          skyColor: 0x6dc5fc,
-          cloudColor: 0x8197c0,
-          forceAnimate: true,
-          speed: 0.5,
-          texturePath: "./noise.png",
-          THREE,
-        })
-      )
-    }
-    return () => {
-      if (vantaEffect) vantaEffect.destroy()
-    }
-  }, [vantaEffect])
-
   const routing = useRoutes(
     routes(
       city,
@@ -91,5 +63,5 @@ export default function App(): JSX.Element {
     )
   )
 
-  return <div ref={vantaRef}>{routing}</div>
+  return <div>{routing}</div>
 }
