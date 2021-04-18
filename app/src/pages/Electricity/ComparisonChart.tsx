@@ -178,6 +178,14 @@ const ComparisonChart = (props: Props): JSX.Element => {
   return (
     <div className="card-lg">
       <HighchartsReact highcharts={Highcharts} options={options} />
+      <div>
+        <p>
+          Total electricity production and consumption and then in detail by
+          nuclear, wind and hydro. The total data also includes all other
+          electricity production sources in Finland (eg coal, gas).
+        </p>
+        <p>The total consumption data also includes imported electricity</p>
+      </div>
     </div>
   )
 }
