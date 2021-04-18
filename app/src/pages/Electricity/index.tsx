@@ -51,6 +51,19 @@ const ElectricityPage = (props: Props): JSX.Element => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeRange])
 
+  if (electricityData === emptyElectricityData) {
+    return (
+      <div>
+        <div className="topControls">
+          <TimeSelection timeRange={timeRange} onTimeChange={onTimeChange} />
+        </div>
+        <div className="card-lg grid place-content-center">
+          <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-32 w-32 m-10" />
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div>
       <div className="topControls">
