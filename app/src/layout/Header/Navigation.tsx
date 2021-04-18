@@ -7,22 +7,6 @@ interface MenuProps {
   closeNavMenu: () => void
 }
 
-// const StyledNavLink = ({
-//   to: location,
-//   children: text,
-// }: NavProps): JSX.Element => (
-//   <li className="list-none">
-//     <NavLink
-//       end
-//       to={location}
-//       className="_navlink border-b-2 border-black border-opacity-0"
-//       activeClassName="border-opacity-100"
-//     >
-//       {text}
-//     </NavLink>
-//   </li>
-// )
-
 interface LinkProps {
   children: string
   menuOpen: boolean

@@ -129,14 +129,16 @@ const ForecastChart = (props: Props): JSX.Element => {
   return (
     <div className="card-lg">
       <HighchartsReact highcharts={Highcharts} options={options} />
-      <p>
-        This data is the electricity forecast predictions, which can show values
-        up to 5 days into the future.
-      </p>
-      <p>
-        While looking at past dates, the values are the predictions as they were
-        before correct measurements were done.
-      </p>
+      <div className="description-box">
+        <p>
+          This data is the electricity forecast predictions, which can show
+          values up to 5 days into the future.
+        </p>
+        <p>
+          While looking at past dates, the values are the predictions as they
+          were before correct measurements were done.
+        </p>
+      </div>
     </div>
   )
 }

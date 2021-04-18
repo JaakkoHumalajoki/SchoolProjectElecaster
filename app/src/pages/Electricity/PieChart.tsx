@@ -87,7 +87,9 @@ const PieChart = (props: Props): JSX.Element => {
   return (
     <div className="card-lg">
       <HighchartsReact highcharts={Highcharts} options={options} />
-      <p>Energy types by percentage, averaged over the entire data range.</p>
+      <div className="description-box">
+        <p>Energy types by percentage, averaged over the entire data range.</p>
+      </div>
     </div>
   )
 }
