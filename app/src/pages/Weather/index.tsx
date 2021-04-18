@@ -59,7 +59,7 @@ const WeatherPage = (props: Props): JSX.Element => {
   }, [city, timeRange])
 
   return (
-    <div>
+    <div className="flex-grow">
       <div className="pageHeader m-5">
         <h1>Weather</h1>
         <h2>All about the weather ☁️</h2>
