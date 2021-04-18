@@ -88,7 +88,7 @@ const AnalysisPage = (props: Props): JSX.Element => {
   }, [city, timeRange])
 
   return (
-    <div className="flex-grow">
+    <div className="w-full flex-grow">
       <div className="pageHeader">
         <h1>Analysis</h1>
         <h2>Take a deeper look into our data 🔎</h2>

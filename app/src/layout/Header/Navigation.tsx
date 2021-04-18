@@ -76,7 +76,7 @@ export default ({
   return (
     <nav className="flex flex-col">
       <button
-        className="sm:hidden p-2 absolute right-4"
+        className="sm:hidden absolute right-4"
         type="button"
         onClick={toggleNavMenu}
         onKeyDown={(e) => {

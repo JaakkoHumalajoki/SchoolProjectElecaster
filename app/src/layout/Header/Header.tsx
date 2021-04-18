@@ -16,7 +16,7 @@ export default (): JSX.Element => {
       <div className="navbar">
         <div className="flex flex-auto">
           <Link to="/" onClick={closeNavMenu}>
-            <span className="text-4xl font-black border-b-2 border-transparent hover:border-black hoverAnimation">
+            <span className="text-2xl sm:text-4xl font-black border-b-2 border-transparent hover:border-black hoverAnimation">
               Elecaster
             </span>
           </Link>
