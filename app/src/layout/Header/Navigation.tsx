@@ -40,7 +40,11 @@ const NavLinks = ({
                 : "hover:border-black"
             }`}
           >
-            <NavLink to={link.toLowerCase()} onClick={closeMenu}>
+            <NavLink
+              to={link.toLowerCase()}
+              onClick={closeMenu}
+              style={{ display: "inline-block", width: "100%" }}
+            >
               {link}
             </NavLink>
           </li>
@@ -75,7 +79,7 @@ export default ({
   return (
     <nav className="flex w-full sm:w-auto">
       <button
-        className="sm:hidden p-2 absolute right-1 top-1"
+        className="sm:hidden p-2 absolute right-0 top-0"
         type="button"
         onClick={toggleNavMenu}
         onKeyDown={(e) => {
