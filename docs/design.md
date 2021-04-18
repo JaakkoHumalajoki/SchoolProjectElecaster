@@ -115,6 +115,10 @@ Components kansiosta löytyy jaetut alikomponentit, joita käytetään useammall
 
 Design ratkaisuista puhuttaessa on hyvä aloittaa Reactista. React on niin suuri osa sitä, miten asioita tehdään. Sovelluksessa käytetään funktionaalisia komponentteja. Teknisesti sovelluksessa ne ovat TypeScript funktiota, jotka käännettään JavaScript funktioiksi. Vaikka ne ovat funktioita, niillä voi olla tila, niin kuin luokilla. React ei kuitenkaan käytä periyttämistä, vaan [kokoonpanoa](https://reactjs.org/docs/composition-vs-inheritance.html) (eng. composition). Dokumentaatio aiheesta [Thinking in React](https://reactjs.org/docs/thinking-in-react.html) kertoo Reactin tavasta toteuttaa käyttöliitymät syvemmin, kuin tässä ehtii avaamaan. Yksi asia mistä voisi vielä mainita, on Reactin ylhäältä alas datan kulkeminen, jota on sovellettu aiemmassa kappaleessa page componentin muodossa. Data virtaa alaspäin alikomponentteihin ylemmistä komponenteista. Asiasta enemmän selitetty Reactin dokumentaatiossa [Lifting state up](https://reactjs.org/docs/lifting-state-up.html) ja [The Data Flows Down](https://reactjs.org/docs/state-and-lifecycle.html#the-data-flows-down).
 
+Fingrid ja FMI servicet on toteutettu singletoneina, joita aplikaation kaikki sivut käyttävät yhtenäisesti. Näin palveluiden alustamiseen ei tarvitse käyttää turhaa aikaa jokaisella sivunvaihdolla ja sama data voidaan jakaa useammalle sivulle yhden haun jälkeen.
+
+Highcharts-kaavioiden luomiseen olisi voinut harkita jonkinlaisen yläluokan ja periyttämisen käyttöä, mutta loppujen lopuksi jokainen kaavio on liian monella tapaa hiukan erilainen jotta niitä olisi voinut järkevällä tasolla yhdistää. Kaavioilla on yhteisessä käytössä commonOptions-objekti, joka määrittää kaikille kaavioille yhteiset asetukset, joihin jokainen kaavio lisää omat erityisasetuksensa.
+
 ### SOLID patternit
 
 **Single responsiblity**
