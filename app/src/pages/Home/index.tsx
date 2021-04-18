@@ -3,10 +3,10 @@ import { Link } from "react-router-dom"
 
 export default (): JSX.Element => {
   return (
-    <div className="flex flex-col self-center mx-auto my-32 max-w-lg space-y-8 text-center">
-      <h3 className="m-2 text-4xl font-bold">
+    <div className="flex flex-col self-center mx-auto my-32 max-w-2xl space-y-12 text-center">
+      <h1 className="m-2 text-4xl sm:text-6xl font-bold">
         Real-time data about weather and electricity
-      </h3>
+      </h1>
       <div className="flex flex-col xs:flex-row self-center space-y-4 xs:space-y-0 xs:space-x-6">
         <Link to="weather">
           <button
