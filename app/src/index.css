@@ -88,6 +88,14 @@ tr {
   z-index: 10;
 }
 
+footer > div > div > p {
+  @apply text-gray-700 m-0.5 text-sm font-light;
+}
+
+footer > div > div > a {
+  @apply font-light text-lg text-gray-700;
+}
+
 body {
   height: 100%;
   overflow-x: hidden;
