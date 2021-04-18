@@ -47,7 +47,7 @@
 }
 
 .topControls {
-  @apply flex flex-col p-4 card-lg xs:flex-row shadow-md;
+  @apply flex w-full flex-col lg:flex-row;
 }
 
 .loader {
