@@ -87,51 +87,45 @@ const AnalysisPage = (props: Props): JSX.Element => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [city, timeRange])
 
-  if (
-    weatherData === emptyWeatherData ||
-    electricityData === emptyElectricityData
-  ) {
-    return (
-      <div>
-        <div className="topControls">
-          <CitySelection city={city} onCityChange={onCityChange} />
-          <TimeSelection timeRange={timeRange} onTimeChange={onTimeChange} />
-        </div>
-        <div className="card-lg grid place-content-center">
-          <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-32 w-32 m-10" />
-        </div>
-      </div>
-    )
-  }
-
   return (
     <div>
       <div className="topControls">
         <CitySelection city={city} onCityChange={onCityChange} />
         <TimeSelection timeRange={timeRange} onTimeChange={onTimeChange} />
       </div>
-      <HistoryChart
-        consumptionData={electricityData.history.consumption.total}
-        productionData={electricityData.history.production.total}
-        nuclearData={electricityData.history.production.nuclear}
-        hydroData={electricityData.history.production.hydro}
-        windData={electricityData.history.production.wind}
-        weatherData={weatherData.history}
-      />
-      <EnergyComparisonChart
-        consumptionHistory={electricityData.history.consumption.total}
-        productionHistory={electricityData.history.production.total}
-        windHistory={electricityData.history.production.wind}
-        consumptionForecast={electricityData.forecast.consumption.total}
-        productionForecast={electricityData.forecast.production.total}
-        windForecast={electricityData.forecast.production.wind}
-      />
-      <ForecastChart
-        consumptionForecast={electricityData.forecast.consumption.total}
-        productionForecast={electricityData.forecast.production.total}
-        windForecast={electricityData.forecast.production.wind}
-        forecastData={weatherData.forecast}
-      />
+      {weatherData === emptyWeatherData ||
+      electricityData === emptyElectricityData ? (
+        <div>
+          <div className="card-lg grid place-content-center">
+            <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-32 w-32 m-10" />
+          </div>
+        </div>
+      ) : (
+        <div>
+          <HistoryChart
+            consumptionData={electricityData.history.consumption.total}
+            productionData={electricityData.history.production.total}
+            nuclearData={electricityData.history.production.nuclear}
+            hydroData={electricityData.history.production.hydro}
+            windData={electricityData.history.production.wind}
+            weatherData={weatherData.history}
+          />
+          <EnergyComparisonChart
+            consumptionHistory={electricityData.history.consumption.total}
+            productionHistory={electricityData.history.production.total}
+            windHistory={electricityData.history.production.wind}
+            consumptionForecast={electricityData.forecast.consumption.total}
+            productionForecast={electricityData.forecast.production.total}
+            windForecast={electricityData.forecast.production.wind}
+          />
+          <ForecastChart
+            consumptionForecast={electricityData.forecast.consumption.total}
+            productionForecast={electricityData.forecast.production.total}
+            windForecast={electricityData.forecast.production.wind}
+            forecastData={weatherData.forecast}
+          />
+        </div>
+      )}
     </div>
   )
 }
