@@ -8,7 +8,7 @@ import ErrorBoundary from "../ErrorBoundary"
 
 export default (): JSX.Element => {
   return (
-    <div className="min-h-screen mx-auto flex flex-col h-screen w-screen">
+    <div className="min-h-screen mx-auto flex flex-col h-screen w-screen overflow-y-scroll">
       <Header />
       <main className="w-full max-w-6xl mx-auto flex-grow">
         <ErrorBoundary>
