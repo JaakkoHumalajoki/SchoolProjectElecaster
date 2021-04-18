@@ -93,8 +93,10 @@ class WeatherService implements WeatherData {
         timeRange.startTime
       )}&endtime=${this.dateToFmiString(timeRange.endTime)}&${
         this.city.fmisid
-          ? `fmisid=${this.city.fmisid}`
-          : `place=${this.city.name}`
+          ? `fmisid=${this.city.fmisid}&place=${encodeURIComponent(
+              this.city.name.toLowerCase()
+            )}`
+          : `place=${encodeURIComponent(this.city.name.toLowerCase())}`
       }`
     )
   }
