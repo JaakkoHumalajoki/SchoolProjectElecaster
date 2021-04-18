@@ -58,28 +58,27 @@ const WeatherPage = (props: Props): JSX.Element => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [city, timeRange])
 
-  if (weatherData === emptyWeatherData) {
-    return (
-      <div>
+  return (
+    <div>
+      <div className="card-lg">
+        <h1 className="pageHeader">Weather</h1>
         <div className="topControls">
           <CitySelection city={city} onCityChange={onCityChange} />
           <TimeSelection timeRange={timeRange} onTimeChange={onTimeChange} />
         </div>
-        <div className="card-lg grid place-content-center">
-          <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-32 w-32 m-10" />
+      </div>
+      {weatherData === emptyWeatherData ? (
+        <div>
+          <div className="card-lg grid place-content-center">
+            <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-32 w-32 m-10" />
+          </div>
         </div>
-      </div>
-    )
-  }
-
-  return (
-    <div>
-      <div className="topControls">
-        <CitySelection city={city} onCityChange={onCityChange} />
-        <TimeSelection timeRange={timeRange} onTimeChange={onTimeChange} />
-      </div>
-      <WeatherHistoryChart historyData={weatherData.history} />
-      <WeatherForecastChart forecastData={weatherData.forecast} />
+      ) : (
+        <div>
+          <WeatherHistoryChart historyData={weatherData.history} />
+          <WeatherForecastChart forecastData={weatherData.forecast} />
+        </div>
+      )}
     </div>
   )
 }

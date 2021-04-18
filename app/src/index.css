@@ -62,8 +62,8 @@
   @apply text-2xl m-1.5 !important;
 }
 
-h1 {
-  @apply text-7xl font-bold text-center;
+.pageHeader {
+  @apply text-6xl font-bold text-center m-5 mt-0;
 }
 
 h3 {
