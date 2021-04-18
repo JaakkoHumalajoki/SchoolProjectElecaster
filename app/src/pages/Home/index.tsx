@@ -11,7 +11,7 @@ export default (): JSX.Element => {
         <Link to="weather">
           <button
             type="button"
-            className="btn-rounded-lg text-gray-500 bg-white hover:bg-gray-700 hover:text-white hoverAnimation"
+            className="btn-lg text-gray-500 bg-white hover:bg-gray-700 hover:text-white hoverAnimation"
           >
             Weather
           </button>
@@ -19,7 +19,7 @@ export default (): JSX.Element => {
         <Link to="electricity">
           <button
             type="button"
-            className="btn-rounded-lg text-white bg-gray-500 hover:bg-gray-700 hoverAnimation"
+            className="btn-lg text-white bg-gray-500 hover:bg-gray-700 hoverAnimation"
           >
             Electricity
           </button>

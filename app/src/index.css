@@ -30,8 +30,16 @@
   @apply items-center space-x-2 text-xl;
 }
 
-.btn-rounded-lg {
-  @apply m-2 p-4 w-52 text-lg rounded-md ring-2 ring-inset ring-gray-600 ring-opacity-50;
+.btn {
+  @apply ring-2 ring-offset-2 ring-gray-600;
+}
+
+.btn-sm {
+  @apply btn h-9 w-24 rounded-sm;
+}
+
+.btn-lg {
+  @apply btn h-14 w-52 text-lg rounded-md;
 }
 
 .chartContainer {
