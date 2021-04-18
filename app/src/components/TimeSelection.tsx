@@ -51,11 +51,11 @@ const TimeSelection = (props: Props): JSX.Element => {
   }
 
   return (
-    <div className="card-sm flex flex-wrap sm:flex-row space-x-2 justify-between items-center flex-grow">
+    <div className="card-sm flex flex-col xs:flex-wrap xs:flex-row space-x-2 justify-between items-center flex-grow">
       <h3 className="text-lg font-bold self-start xs:self-center">
         Search range
       </h3>
-      <div className="flex flex-col xs:flex-row space-y-2 xs:space-y-0 xs:space-x-2">
+      <div className="flex flex-col self-end xs:self-auto xs:flex-row space-y-2 xs:space-y-0 xs:space-x-2">
         <div className="flex justify-between items-center space-x-2 self-end">
           <h4 className="text-lg">Start</h4>
           <input
