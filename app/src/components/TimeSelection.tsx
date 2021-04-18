@@ -51,9 +51,11 @@ const TimeSelection = (props: Props): JSX.Element => {
   }
 
   return (
-    <div className="card-sm flex xs:flex-col sm:flex-row md:flex-col lg:flex-row space-x-4 xs:space-x-0 xs:space-y-2 md:space-y-0 xs:px-4 justify-between lg:items-center flex-grow">
-      <h3 className="text-lg font-bold">Search range</h3>
-      <div className="flex flex-col md:flex-row sm:space-y-2 md:space-y-0 md:space-x-4">
+    <div className="card-sm flex flex-wrap sm:flex-row space-x-2 justify-between items-center flex-grow">
+      <h3 className="text-lg font-bold self-start xs:self-center">
+        Search range
+      </h3>
+      <div className="flex flex-col xs:flex-row space-y-2 xs:space-y-0 xs:space-x-2">
         <div className="flex justify-between items-center space-x-2 self-end">
           <h4 className="text-lg">Start</h4>
           <input
@@ -73,7 +75,7 @@ const TimeSelection = (props: Props): JSX.Element => {
           />
         </div>
         <button
-          className="btn-sm h-8 self-end md:self-center ring-red-300 text-gray-500 bg-white hover:bg-gray-700 hover:text-white hoverAnimation"
+          className="btn-sm h-10 self-end xs:self-center ring-red-300 text-gray-500 bg-white hover:bg-gray-700 hover:text-white hoverAnimation"
           type="button"
           onClick={handleButtonClick}
         >

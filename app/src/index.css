@@ -11,11 +11,11 @@
 }
 
 .card-sm {
-  @apply card p-2 m-2 rounded-md;
+  @apply card p-2 my-2 lg:m-2 lg:rounded-md;
 }
 
 .card-lg {
-  @apply card p-4 my-4 sm:mx-4 sm:rounded-lg;
+  @apply card p-4 my-4 lg:mx-4 lg:rounded-lg;
 }
 
 .navlink {
@@ -31,15 +31,15 @@
 }
 
 .btn {
-  @apply ring-2 ring-offset-2 ring-gray-600;
+  @apply ring-2 ring-inset ring-gray-600;
 }
 
 .btn-sm {
-  @apply btn h-9 w-24 rounded-sm;
+  @apply btn h-10 w-24 rounded-sm;
 }
 
 .btn-lg {
-  @apply btn h-14 w-52 text-lg rounded-md;
+  @apply btn h-14 w-52 text-lg rounded-md shadow-md;
 }
 
 .hoverAnimation {
@@ -47,7 +47,7 @@
 }
 
 .topControls {
-  @apply flex flex-col p-4 card-lg xs:flex-row shadow-md;
+  @apply flex w-full flex-col lg:flex-row;
 }
 
 .description-box {
@@ -367,7 +367,6 @@ body {
   0% {
     transform: rotate(0deg);
   }
-
   100% {
     transform: rotate(360deg);
   }
