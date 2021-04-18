@@ -218,7 +218,7 @@ const EnergyComparisonChart = (props: Props): JSX.Element => {
   }
 
   return (
-    <div className="chartContainer">
+    <div className="card-lg">
       <HighchartsReact highcharts={Highcharts} options={options} />
       <p>
         Chart for comparing the difference between electricity forecast

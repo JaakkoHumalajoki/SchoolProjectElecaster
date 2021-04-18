@@ -184,7 +184,7 @@ const ForecastChart = (props: Props): JSX.Element => {
   }
 
   return (
-    <div className="chartContainer">
+    <div className="card-lg">
       <HighchartsReact highcharts={Highcharts} options={options} />
       <p>
         This data is the electricity & weather forecast predictions, which can

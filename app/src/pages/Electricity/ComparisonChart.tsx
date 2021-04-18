@@ -190,12 +190,8 @@ const ComparisonChart = (props: Props): JSX.Element => {
   }
 
   return (
-    <div>
-      <HighchartsReact
-        highcharts={Highcharts}
-        options={options}
-        containerProps={{ className: "chartContainer" }}
-      />
+    <div className="card-lg">
+      <HighchartsReact highcharts={Highcharts} options={options} />
     </div>
   )
 }
