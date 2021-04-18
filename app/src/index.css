@@ -3,19 +3,19 @@
 @tailwind utilities;
 
 .card {
-  @apply m-4 p-4 bg-white rounded-lg;
+  @apply bg-white border-2;
+}
+
+.card-xs {
+  @apply card p-2 rounded-sm;
 }
 
 .card-sm {
-  @apply card shadow-sm;
-}
-
-.card-md {
-  @apply card shadow-md;
+  @apply card p-2 m-2 rounded-md;
 }
 
 .card-lg {
-  @apply card shadow-lg;
+  @apply card p-4 my-4 sm:mx-4 sm:rounded-lg;
 }
 
 .navlink {
