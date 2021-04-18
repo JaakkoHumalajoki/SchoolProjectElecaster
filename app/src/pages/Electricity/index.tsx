@@ -52,9 +52,12 @@ const ElectricityPage = (props: Props): JSX.Element => {
   }, [timeRange])
 
   return (
-    <div>
+    <div className="w-full flex-grow">
+      <div className="pageHeader">
+        <h1>Electricity</h1>
+        <h2>The magical force of the electrons ⚡</h2>
+      </div>
       <div className="card-lg">
-        <h1 className="pageHeader">Electricity</h1>
         <div className="topControls">
           <TimeSelection timeRange={timeRange} onTimeChange={onTimeChange} />
         </div>
