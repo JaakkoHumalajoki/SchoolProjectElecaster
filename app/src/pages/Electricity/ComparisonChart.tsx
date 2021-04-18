@@ -30,7 +30,7 @@ export interface Props {
 
 /**
  * Displays a Highcharts graph to compare energy consumption and
- * production values.
+ * production history statistics
  * @param props Props
  * @returns React element
  */

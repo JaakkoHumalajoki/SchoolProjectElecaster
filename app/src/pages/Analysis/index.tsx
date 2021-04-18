@@ -37,6 +37,13 @@ export interface Props {
   electricityService: ElectricityService
 }
 
+/**
+ * AnalysisPage is responsible for showing all content for the analysis tab.
+ * AnalysisPage holds both weather and electricity data in state and updates them
+ * whenever city selection or selected time range changes.
+ * @param props Props
+ * @returns React element
+ */
 const AnalysisPage = (props: Props): JSX.Element => {
   const {
     city,

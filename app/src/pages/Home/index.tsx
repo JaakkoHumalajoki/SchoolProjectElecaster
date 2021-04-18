@@ -1,6 +1,9 @@
 import React from "react"
 import { Link } from "react-router-dom"
 
+/**
+ * Landing page for the app, shows links to other views of the page
+ */
 export default (): JSX.Element => {
   return (
     <div className="flex flex-col self-center mx-auto my-32 max-w-2xl space-y-12 text-center">

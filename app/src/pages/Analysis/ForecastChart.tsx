@@ -27,7 +27,7 @@ export interface Props {
 
 /**
  * Displays a Highcharts graph to compare electricity and
- * weather data in analysis page
+ * weather forecast data in analysis page
  * @param props Props
  * @returns React element
  */

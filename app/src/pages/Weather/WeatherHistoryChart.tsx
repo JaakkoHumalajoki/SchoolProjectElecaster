@@ -13,14 +13,13 @@ import {
  */
 export interface Props {
   /**
-   * All history data for currently selected city
+   * All weather history data for currently selected city & time
    */
   historyData: WeatherDataPoint[]
 }
 
 /**
- * Displays a Highcharts graph to display weather data for
- * selected city
+ * Displays a Highcharts graph to display weather history data
  * @param props Props
  * @returns React element
  */

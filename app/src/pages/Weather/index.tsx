@@ -36,6 +36,8 @@ export interface Props {
 
 /**
  * WeatherPage is responsible for showing all content for the weather tab.
+ * WeatherPage holds weather data in state and updates it whenever city selection
+ * or selected time range changes.
  * @param props Props
  * @returns React element
  */

@@ -13,14 +13,13 @@ import {
  */
 export interface Props {
   /**
-   * All weather data for currently selected city
+   * All weather forecast data for currently selected city & time
    */
   forecastData: WeatherDataPoint[]
 }
 
 /**
- * Displays a Highcharts graph to display weather data for
- * selected city
+ * Displays a Highcharts graph to display weather forecast data
  * @param props Props
  * @returns React element
  */
