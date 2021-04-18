@@ -1,6 +1,7 @@
 import React from "react"
 import Highcharts from "highcharts/highstock"
 import HighchartsReact from "highcharts-react-official"
+import { commonOptions } from "../../common"
 
 /**
  * Props interface for ForecastChart component
@@ -30,24 +31,13 @@ const ForecastChart = (props: Props): JSX.Element => {
   const { consumptionForecast, productionForecast, windForecast } = props
 
   const options: Highcharts.Options = {
+    ...commonOptions,
     title: {
       text: "Energy production & consumption forecast",
     },
-    chart: {
-      height: "600px",
-    },
-    time: {
-      useUTC: false,
-    },
-    navigator: {
-      enabled: true,
-      maskFill: "rgba(0, 82, 156, 0.3)",
-      series: { color: "rgba(0, 82, 156, 0.3)" },
-      adaptToUpdatedData: true,
-    },
-    xAxis: {
-      type: "datetime",
-      crosshair: true,
+    tooltip: {
+      ...commonOptions.tooltip,
+      valueDecimals: 0,
     },
     yAxis: [
       {
@@ -74,10 +64,6 @@ const ForecastChart = (props: Props): JSX.Element => {
         },
       },
     ],
-    tooltip: {
-      valueDecimals: 0,
-      shared: true,
-    },
     series: [
       {
         type: "line",
@@ -141,16 +127,18 @@ const ForecastChart = (props: Props): JSX.Element => {
   }
 
   return (
-    <div className="chartContainer">
+    <div className="card-lg">
       <HighchartsReact highcharts={Highcharts} options={options} />
-      <p>
-        This data is the electricity forecast predictions, which can show values
-        up to 5 days into the future.
-      </p>
-      <p>
-        While looking at past dates, the values are the predictions as they were
-        before correct measurements were done.
-      </p>
+      <div className="description-box">
+        <p>
+          This data is the electricity forecast predictions, which can show
+          values up to 5 days into the future.
+        </p>
+        <p>
+          While looking at past dates, the values are the predictions as they
+          were before correct measurements were done.
+        </p>
+      </div>
     </div>
   )
 }

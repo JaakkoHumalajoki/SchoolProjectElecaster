@@ -36,6 +36,8 @@ export interface Props {
 
 /**
  * WeatherPage is responsible for showing all content for the weather tab.
+ * WeatherPage holds weather data in state and updates it whenever city selection
+ * or selected time range changes.
  * @param props Props
  * @returns React element
  */
@@ -59,11 +61,29 @@ const WeatherPage = (props: Props): JSX.Element => {
   }, [city, timeRange])
 
   return (
-    <div>
-      <CitySelection city={city} onCityChange={onCityChange} />
-      <TimeSelection timeRange={timeRange} onTimeChange={onTimeChange} />
-      <WeatherHistoryChart historyData={weatherData.history} />
-      <WeatherForecastChart forecastData={weatherData.forecast} />
+    <div className="w-full flex-grow">
+      <div className="pageHeader m-5">
+        <h1>Weather</h1>
+        <h2>All about the weather ☁️</h2>
+      </div>
+      <div className="card-lg">
+        <div className="topControls">
+          <CitySelection city={city} onCityChange={onCityChange} />
+          <TimeSelection timeRange={timeRange} onTimeChange={onTimeChange} />
+        </div>
+      </div>
+      {weatherData === emptyWeatherData ? (
+        <div>
+          <div className="card-lg grid place-content-center">
+            <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-32 w-32 m-10" />
+          </div>
+        </div>
+      ) : (
+        <div>
+          <WeatherHistoryChart historyData={weatherData.history} />
+          <WeatherForecastChart forecastData={weatherData.forecast} />
+        </div>
+      )}
     </div>
   )
 }

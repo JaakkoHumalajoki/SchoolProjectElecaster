@@ -37,6 +37,13 @@ export interface Props {
   electricityService: ElectricityService
 }
 
+/**
+ * AnalysisPage is responsible for showing all content for the analysis tab.
+ * AnalysisPage holds both weather and electricity data in state and updates them
+ * whenever city selection or selected time range changes.
+ * @param props Props
+ * @returns React element
+ */
 const AnalysisPage = (props: Props): JSX.Element => {
   const {
     city,
@@ -88,31 +95,50 @@ const AnalysisPage = (props: Props): JSX.Element => {
   }, [city, timeRange])
 
   return (
-    <div>
-      <CitySelection city={city} onCityChange={onCityChange} />
-      <TimeSelection timeRange={timeRange} onTimeChange={onTimeChange} />
-      <HistoryChart
-        consumptionData={electricityData.history.consumption.total}
-        productionData={electricityData.history.production.total}
-        nuclearData={electricityData.history.production.nuclear}
-        hydroData={electricityData.history.production.hydro}
-        windData={electricityData.history.production.wind}
-        weatherData={weatherData.history}
-      />
-      <EnergyComparisonChart
-        consumptionHistory={electricityData.history.consumption.total}
-        productionHistory={electricityData.history.production.total}
-        windHistory={electricityData.history.production.wind}
-        consumptionForecast={electricityData.forecast.consumption.total}
-        productionForecast={electricityData.forecast.production.total}
-        windForecast={electricityData.forecast.production.wind}
-      />
-      <ForecastChart
-        consumptionForecast={electricityData.forecast.consumption.total}
-        productionForecast={electricityData.forecast.production.total}
-        windForecast={electricityData.forecast.production.wind}
-        forecastData={weatherData.forecast}
-      />
+    <div className="w-full flex-grow">
+      <div className="pageHeader">
+        <h1>Analysis</h1>
+        <h2>Take a deeper look into our data 🔎</h2>
+      </div>
+      <div className="card-lg">
+        <div className="topControls">
+          <CitySelection city={city} onCityChange={onCityChange} />
+          <TimeSelection timeRange={timeRange} onTimeChange={onTimeChange} />
+        </div>
+      </div>
+      {weatherData === emptyWeatherData ||
+      electricityData === emptyElectricityData ? (
+        <div>
+          <div className="card-lg grid place-content-center">
+            <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-32 w-32 m-10" />
+          </div>
+        </div>
+      ) : (
+        <div>
+          <HistoryChart
+            consumptionData={electricityData.history.consumption.total}
+            productionData={electricityData.history.production.total}
+            nuclearData={electricityData.history.production.nuclear}
+            hydroData={electricityData.history.production.hydro}
+            windData={electricityData.history.production.wind}
+            weatherData={weatherData.history}
+          />
+          <EnergyComparisonChart
+            consumptionHistory={electricityData.history.consumption.total}
+            productionHistory={electricityData.history.production.total}
+            windHistory={electricityData.history.production.wind}
+            consumptionForecast={electricityData.forecast.consumption.total}
+            productionForecast={electricityData.forecast.production.total}
+            windForecast={electricityData.forecast.production.wind}
+          />
+          <ForecastChart
+            consumptionForecast={electricityData.forecast.consumption.total}
+            productionForecast={electricityData.forecast.production.total}
+            windForecast={electricityData.forecast.production.wind}
+            forecastData={weatherData.forecast}
+          />
+        </div>
+      )}
     </div>
   )
 }

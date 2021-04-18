@@ -7,28 +7,11 @@ interface MenuProps {
   closeNavMenu: () => void
 }
 
-// const StyledNavLink = ({
-//   to: location,
-//   children: text,
-// }: NavProps): JSX.Element => (
-//   <li className="list-none">
-//     <NavLink
-//       end
-//       to={location}
-//       className="_navlink border-b-2 border-black border-opacity-0"
-//       activeClassName="border-opacity-100"
-//     >
-//       {text}
-//     </NavLink>
-//   </li>
-// )
-
 interface LinkProps {
   children: string
   menuOpen: boolean
   closeMenu: () => void
 }
-
 const NavLinks = ({
   children,
   menuOpen,
@@ -44,20 +27,24 @@ const NavLinks = ({
         onClick={closeMenu}
       />
       <ul
-        className={`items-center text-xl sm:flex sm:flex-row sm:relative sm:inset-0 sm:space-y-0 sm:border-none sm:shadow-none ${
-          menuOpen
-            ? "flex-col absolute top-16 right-4 py-2 z-10 border-2 border-gray-200 bg-white shadow-md"
-            : "hidden"
+        className={`items-center text-xl w-full sm:flex sm:flex-row sm:relative sm:inset-0 sm:space-y-0 sm:border-none sm:shadow-none ${
+          menuOpen ? "flex-col mt-2" : "hidden"
         }`}
       >
         {children.split(" ").map((link) => (
           <li
             key={link}
-            className={`list-none text-right p-2 border-b-2 border-transparent hoverAnimation ${
-              menuOpen ? "hover:bg-gray-200" : "hover:border-black"
+            className={`list-none text-center p-2 border-b-2 border-transparent hoverAnimation ${
+              menuOpen
+                ? "hover:bg-gray-400 hover:bg-opacity-40"
+                : "hover:border-black"
             }`}
           >
-            <NavLink to={link.toLowerCase()} onClick={closeMenu}>
+            <NavLink
+              to={link.toLowerCase()}
+              onClick={closeMenu}
+              style={{ display: "inline-block", width: "100%" }}
+            >
               {link}
             </NavLink>
           </li>
@@ -90,9 +77,9 @@ export default ({
   closeNavMenu,
 }: MenuProps): JSX.Element => {
   return (
-    <nav className="flex flex-col">
+    <nav className="flex w-full sm:w-auto">
       <button
-        className="sm:hidden p-2 absolute right-4"
+        className="sm:hidden p-2 absolute right-0 top-0"
         type="button"
         onClick={toggleNavMenu}
         onKeyDown={(e) => {

@@ -52,26 +52,44 @@ const ElectricityPage = (props: Props): JSX.Element => {
   }, [timeRange])
 
   return (
-    <div>
-      <TimeSelection timeRange={timeRange} onTimeChange={onTimeChange} />
-      <ComparisonChart
-        consumptionData={electricityData.history.consumption.total}
-        productionData={electricityData.history.production.total}
-        nuclearData={electricityData.history.production.nuclear}
-        hydroData={electricityData.history.production.hydro}
-        windData={electricityData.history.production.wind}
-      />
-      <ForecastChart
-        consumptionForecast={electricityData.forecast.consumption.total}
-        productionForecast={electricityData.forecast.production.total}
-        windForecast={electricityData.forecast.production.wind}
-      />
-      <PieChart
-        productionData={electricityData.history.production.total}
-        nuclearData={electricityData.history.production.nuclear}
-        hydroData={electricityData.history.production.hydro}
-        windData={electricityData.history.production.wind}
-      />
+    <div className="w-full flex-grow">
+      <div className="pageHeader">
+        <h1>Electricity</h1>
+        <h2>The magical force of the electrons ⚡</h2>
+      </div>
+      <div className="card-lg">
+        <div className="topControls">
+          <TimeSelection timeRange={timeRange} onTimeChange={onTimeChange} />
+        </div>
+      </div>
+      {electricityData === emptyElectricityData ? (
+        <div>
+          <div className="card-lg grid place-content-center">
+            <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-32 w-32 m-10" />
+          </div>
+        </div>
+      ) : (
+        <div>
+          <ComparisonChart
+            consumptionData={electricityData.history.consumption.total}
+            productionData={electricityData.history.production.total}
+            nuclearData={electricityData.history.production.nuclear}
+            hydroData={electricityData.history.production.hydro}
+            windData={electricityData.history.production.wind}
+          />
+          <ForecastChart
+            consumptionForecast={electricityData.forecast.consumption.total}
+            productionForecast={electricityData.forecast.production.total}
+            windForecast={electricityData.forecast.production.wind}
+          />
+          <PieChart
+            productionData={electricityData.history.production.total}
+            nuclearData={electricityData.history.production.nuclear}
+            hydroData={electricityData.history.production.hydro}
+            windData={electricityData.history.production.wind}
+          />
+        </div>
+      )}
     </div>
   )
 }

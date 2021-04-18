@@ -12,13 +12,17 @@ export default (): JSX.Element => {
   }
 
   return (
-    <header>
-      <div className="navbar">
-        <div className="flex flex-auto">
+    <header
+      className={`border-2 bg-white fixed w-full z-20 ${
+        navMenuOpen ? "bg-opacity-100" : "bg-opacity-80 "
+      }`}
+    >
+      <div className="flex flex-col sm:flex-row max-w-6xl mx-auto items-center p-2 sm:p-4">
+        <div className="flex flex-auto self-start">
           <Link to="/" onClick={closeNavMenu}>
-            <h1 className="text-4xl font-black pb-2 border-b-2 border-transparent hover:border-black hoverAnimation">
+            <span className="text-2xl sm:text-4xl font-black border-b-2 border-transparent hover:border-black hoverAnimation">
               Elecaster
-            </h1>
+            </span>
           </Link>
         </div>
         <Navigation {...{ navMenuOpen, toggleNavMenu, closeNavMenu }} />

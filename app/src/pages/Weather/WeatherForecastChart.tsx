@@ -5,6 +5,7 @@ import {
   calculateAverage,
   calculateMinimum,
   calculateMaximum,
+  commonOptions,
 } from "../../common"
 
 /**
@@ -12,14 +13,13 @@ import {
  */
 export interface Props {
   /**
-   * All weather data for currently selected city
+   * All weather forecast data for currently selected city & time
    */
   forecastData: WeatherDataPoint[]
 }
 
 /**
- * Displays a Highcharts graph to display weather data for
- * selected city
+ * Displays a Highcharts graph to display weather forecast data
  * @param props Props
  * @returns React element
  */
@@ -69,27 +69,12 @@ const ComparisonChart = (props: Props): JSX.Element => {
   }
 
   const options: Highcharts.Options = {
+    ...commonOptions,
     title: {
       text: "10 day weather forecast",
     },
-    chart: {
-      height: "600px",
-    },
-    time: {
-      useUTC: false,
-    },
-    navigator: {
-      enabled: true,
-      maskFill: "rgba(0, 82, 156, 0.3)",
-      series: { color: "rgba(0, 82, 156, 0.3)" },
-      adaptToUpdatedData: true,
-    },
-    legend: {
-      enabled: false,
-    },
     xAxis: {
-      type: "datetime",
-      crosshair: true,
+      ...commonOptions.xAxis,
       events: {
         setExtremes(e) {
           setSelectedRangeMin(e.min)
@@ -129,10 +114,6 @@ const ComparisonChart = (props: Props): JSX.Element => {
         allowDecimals: false,
       },
     ],
-    tooltip: {
-      valueDecimals: 1,
-      shared: true,
-    },
     series: [
       {
         type: "line",
@@ -199,13 +180,31 @@ const ComparisonChart = (props: Props): JSX.Element => {
   }
 
   return (
-    <div className="chartContainer">
+    <div className="card-lg">
       <HighchartsReact highcharts={Highcharts} options={options} />
-      <h2>Analysis for highlighted time range</h2>
-      <p>Average temperature: {tempAvg} °C</p>
-      <p>maximum temperature: {tempMax} °C</p>
-      <p>Minimum temperature: {tempMin} °C</p>
-      <p>Maximum wind speed: {windMax} m/s</p>
+      <div className="description-box">
+        <h3>Analysis for highlighted time range</h3>
+        <table className="infotable">
+          <tbody>
+            <tr>
+              <td>Average temperature:</td>
+              <td>{tempAvg} °C</td>
+            </tr>
+            <tr>
+              <td>maximum temperature:</td>
+              <td>{tempMax} °C</td>
+            </tr>
+            <tr>
+              <td>Minimum temperature:</td>
+              <td>{tempMin} °C</td>
+            </tr>
+            <tr>
+              <td>Maximum wind speed:</td>
+              <td>{windMax} m/s</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   )
 }

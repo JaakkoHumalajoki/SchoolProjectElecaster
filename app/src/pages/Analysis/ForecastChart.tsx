@@ -1,6 +1,7 @@
 import React from "react"
 import Highcharts from "highcharts/highstock"
 import HighchartsReact from "highcharts-react-official"
+import { commonOptions } from "../../common"
 
 /**
  * Props interface for ForecastChart component
@@ -26,7 +27,7 @@ export interface Props {
 
 /**
  * Displays a Highcharts graph to compare electricity and
- * weather data in analysis page
+ * weather forecast data in analysis page
  * @param props Props
  * @returns React element
  */
@@ -39,24 +40,9 @@ const ForecastChart = (props: Props): JSX.Element => {
   } = props
 
   const options: Highcharts.Options = {
+    ...commonOptions,
     title: {
       text: "Energy & weather forecast analysis",
-    },
-    chart: {
-      height: "600px",
-    },
-    time: {
-      useUTC: false,
-    },
-    navigator: {
-      enabled: true,
-      maskFill: "rgba(0, 82, 156, 0.3)",
-      series: { color: "rgba(0, 82, 156, 0.3)" },
-      adaptToUpdatedData: true,
-    },
-    xAxis: {
-      type: "datetime",
-      crosshair: true,
     },
     yAxis: [
       {
@@ -76,10 +62,6 @@ const ForecastChart = (props: Props): JSX.Element => {
         lineWidth: 2,
       },
     ],
-    tooltip: {
-      valueDecimals: 0,
-      shared: true,
-    },
     series: [
       {
         type: "line",
@@ -184,7 +166,7 @@ const ForecastChart = (props: Props): JSX.Element => {
   }
 
   return (
-    <div className="chartContainer">
+    <div className="card-lg">
       <HighchartsReact highcharts={Highcharts} options={options} />
       <p>
         This data is the electricity & weather forecast predictions, which can
