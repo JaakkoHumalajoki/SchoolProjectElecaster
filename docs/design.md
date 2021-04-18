@@ -21,31 +21,55 @@ Alla linkit Figmassa toteutettuihin prototyyppeihin sovelluksen työpöytä- ja 
 
 Arkkitehtuuri oli pitkälti suunniteltu etukäteen. Tämä oli mahdollista kokemuksen ansioista, joka oli jo olemassa Reactilla suunnitelluista web sovellukisista. Pienessä sovelluksessa voi ennalta tiedostaa sopivan rakenteen, toisin kuin suuremmassa sovelluksessa. Myös teknologiavalinnoilla on ansionsa projektin yksinkertaisuuteen. Reactia käytettäessä käyttöliittymän tekeminen on suhteellisen helppoa. Näin ollen logiikka ja ohjelmointityö, mitä vaaditaan käyttöliittymän suunnittelluun on verrattain pientä, verrattuna esimerkiksi C++:aan Qt:lla. React antaa viitekehyksen, jonka käyttäminen välttää monet kompastuskivet, kuten datan tilaan liittyvät asiat käyttöliittymän kannalta. Reactin komponenttiajattelu kannustaa myös modulaariseen ajatteluun, vaikka ei se takaa vielä modulaarisuutta. Vielä yksi syy yksinkertaiseen arkkitehtuuriin on valmiiden kirjastojen käyttäminen, joita Reactin ja web ekosysteemin ansioista on olemassa. Näistä esimerkkinä mainittakoon Highcharts, joka tarjosi yksinkertaisen sisäisen rajapinnan kuvaajien tekemiseksi. Tarkemmat tiedot kolmannen osapuolien kirjastoista löytyvät [alempaa](#kolmannen-osapuolen-kirjastot-ja-työkalut).
 
-### Web sovelluksen toimintaperiaate
+## Kolmannen osapuolen kirjastot ja työkalut
 
-Kuten aluksi mainittiin, sovellus hakee ajon aikana datan API:sta, ja näin ollen minkäänlaiselle backendille ei ole tarvetta. Tiedostimme, että mikäli on tarvetta tallentaa jotain tietoa myöhemmässä vaiheessa, voidaan siihen käyttää selaimen välimuistia. Mikäli web sovellukset ovat tuntemattomia, seuraava kuvaaja auttaa hahmottamaan, kuinka tämä sovellus käytännössä toimii.
+Alla on listattu kirjastoja ja työkaluja, joita olemme suunnitelleet käytettäväksi projektin toteutukseen.
+
+- [React](https://reactjs.org/)
+  - Koko applikaation "aivot"
+  - Hallitsee koko käyttölittymää
+- [React router](https://reactrouter.com/)
+  - Helpottaa käyttäjän navigointia käyttöliittymässä
+  - Pitää URLn synkronoituna näkymän kanssa
+- [Highcharts](https://www.npmjs.com/package/highcharts-react-official)
+  - Datan visualisointi ja filtteröinti
+  - Interaktiivinen
+  - "Make your data come alive"
+- [Tailwind CSS](https://tailwindcss.com/)
+  - Visuaalinen ilme
+  - Käyttöliittymän asettelu ja skaalaus
+  - Responsiivisuus (mobiilinäkymä)
+- [Axios](https://github.com/axios/axios)
+  - Datan noutaminen ja parsiminen
+- Gitlab
+  - Projektinhallinta
+  - CI/CD
+
+### Sovelluksen toimintaperiaate
+
+Kuten aluksi mainittiin, sovellus hakee ajon aikana datan API:sta, ja näin ollen minkäänlaiselle backendille ei ole tarvetta. Mikäli on tarvetta tallentaa jotain tietoa myöhemmässä vaiheessa, voidaan siihen käyttää selaimen välimuistia. Seuraava kuvaaja auttaa hahmottamaan, kuinka tämä sovellus käytännössä toimii.
 
 ![Web sovelluksen toimintaperiaate](./web-sovelluksen-perusteet.png)
 
-Ensiksi Netlifyn serveri (kutsutaan hostiksi) lähettää sovelluksen tietokoneellesi, jonka selain ajaa tietopaketin tultua perille. Teknisesti sanottuna olemme toteuttaneet sovelluksemme SPA (Single page app) tyylisesti, eli perinteiseen web kehitykseen verrattuna lähetetään vain yksi HTML tiedosto, jonka jälkeen JavaScript (JS), muokkaa näkymää. Perinteisesti selaimen vaihtaessa osoitetta URI kentässä, ollaan haettu uusi HTML tiedosto, jossa on ollut uudet näkymään liittyvät tiedot. SPA sovelluksessa näkymä vaihtuu käyttäjän suorittaessa toimintoja, mutta uutta kutsua ei tehdä, ellei haluta näyttää dynaamista sisältö käyttäjälle erikseen. Tässä sovelluksessa dynaamista sisältöä on FMI:n ja Fingridin tarjoama data, jota visualisoidaan kuvaajina näytöllä.
+Vieraillessasi sivulla palvelin lähettää sovelluksen tietokoneellesi, jonka selain ajaa tietopaketin tultua perille. Teknisesti sanottuna olemme toteuttaneet sovelluksemme SPA (Single page app) tyylisesti, eli perinteiseen web kehitykseen verrattuna lähetetään vain yksi HTML tiedosto, jonka jälkeen JavaScriptillä muokataan käyttäjän näkymää. Tässä sovelluksessa dynaamista sisältöä on FMI:n ja Fingridin tarjoama data, jota visualisoidaan kuvaajina näytöllä.
 
 ### Sovelluksen kansiorakenne
 
 App kansiosta löytyy sovellus kokonaisuudessaan sisältäen kaiken konfiguraation sun muut asiat, mitkä liittyvät sovelluksen kehitykseen. Alla selitettynä kansiorakenne. Sovelluksen pohja on luotu [Create React Appin](https://create-react-app.dev/) avulla ja siitä on lähetty laajentamaan.
 
 ```
-├── public # Tärkein tiedosto on index.html, joka on se ainut html tiedosto, mikä lähetetään SPA sovellusta tehdessä.
-├── src # Sovelluksen koodi. Tästä lisää alempana
-├── .eslintignore # Vertaa .gitignore. Sama asia staattiselle tarkastusohjelmalle
-├── .eslintrc # Staattisen tarkastusohjelman konfiguraatio
-├── .prettierignore # Vertaa .gitignore. Sama asia formatointiohjelmalle
-├── .prettierrc # Koodin formatointiohjelma.
-├── craco.config.js # Konfiguraatiohelvetin yksi palasista. Lisää kustomointimahdollisuuksia CRA:lle.
-├── package-lock.json # Sovelluksen kirjastojen riippuvuksien tarkat versiot ja riippuvuudet.
-├── package.json # Projektin tärkeimmät tiedot liittyen riippuvuuksiin yms.
-├── tailwind.config.js # Tailwindin konfiguraatio
-├── tsconfig.json # TypeScriptin konfiguraatio
-├── tsdoc.json # TypeDocin eli dokumentaatiogeneraattorin konfiguraatio
+├── public                       # Tärkein tiedosto on index.html, joka on se ainut html tiedosto, mikä lähetetään SPA sovellusta tehdessä.
+├── src                          # Sovelluksen koodi. Tästä lisää alempana
+├── .eslintignore                # Vertaa .gitignore. Sama asia staattiselle tarkastusohjelmalle
+├── .eslintrc                    # Staattisen tarkastusohjelman konfiguraatio
+├── .prettierignore              # Vertaa .gitignore. Sama asia formatointiohjelmalle
+├── .prettierrc                  # Koodin formatointiohjelma.
+├── craco.config.js              # Konfiguraatiohelvetin yksi palasista. Lisää kustomointimahdollisuuksia CRA:lle.
+├── package-lock.json            # Sovelluksen kirjastojen riippuvuksien tarkat versiot ja riippuvuudet.
+├── package.json                 # Projektin tärkeimmät tiedot liittyen riippuvuuksiin yms.
+├── tailwind.config.js           # Tailwindin konfiguraatio
+├── tsconfig.json                # TypeScriptin konfiguraatio
+├── tsdoc.json                   # TypeDocin eli dokumentaatiogeneraattorin konfiguraatio
 ```
 
 ### Sovelluksen UI:n rakenne
@@ -59,14 +83,14 @@ Sovellusta tehdessä pyrittiin löytämään intuitiivista rakennetta, joka autt
 Aiemmin mainittiin, että /app/src löytyy sovelluksen varsinainen koodi. Tämän kansion rakenne on seuraavanlainen.
 
 ```
-├── components # Yhtenäisiä komponentteja. "Rakennuspalikoita", joita käytetään enemmän kuin yhdellä sivulla.
-├── layout # Sovelluksen layout, selitetty yllä
-├── pages # "Sivut". Sovelluksen sisältö. Katso sovelluksen headeristä löytyvä navigaatiopalkki.
-│   ├── Analysis # Jokainen sivun kansio sisältää sivun komponentit, joista muodostuu sivu (index.tsx).
+├── components             # Yhtenäisiä komponentteja. "Rakennuspalikoita", joita käytetään enemmän kuin yhdellä sivulla.
+├── layout                 # Sovelluksen layout, selitetty yllä
+├── pages                  # "Sivut". Sovelluksen sisältö. Katso sovelluksen headeristä löytyvä navigaatiopalkki.
+│   ├── Analysis           # Jokainen sivun kansio sisältää sivun komponentit, joista muodostuu sivu (index.tsx).
 │   ├── Electricy
 │   ├── Home
 │   └── Weather
-├── services # Sovelluksen datan hakeminen eriytetty omaksi moduuliksi
+├── services               # Sovelluksen datan hakeminen eriytetty omaksi moduuliksi
 ```
 
 Tarkemmat tiedot yksittäisistä tiedostoista löytyvät sivupalkista --->
@@ -81,7 +105,9 @@ Katkoviivalla on kuvattu kansioita, joista löytyy saman tyylisiä moduuleja/tie
 
 Data kulkee service moduulin läpi, joka tekee kyselyt ja käsittelee datan sovellukselle sopivaan muotoon. Sovelluksessa on tällä hetkellä kaksi serviceä, FMI ja Fingrid.
 
-Pages kansiosta löytyy aiemmin mainitut sivut, jotka näyttäytyvät käyttäjälle ruudulla. Jokainen sivu on oma kansionsa, josta löytyy page komponentti. Tämä on siis jokaisen sivun juuri komponentti, joka kokoaa yhteen alikomponentteja. Sovelluksen datan tila elää page komponentissa. Kun käyttäjä tekee muutoksia käyttöliittymässä, page komponentti kertoo alikomponenteille tilan muutoksesta, jotka uudelleen renderöityvät vastaamaan uutta tilaa. Alikomponentteja on kahta eri tyyppiä, jaettuja alikomponentteja ja sivukohtaisia alikomponentteja. Jaettu alikomponentti on yksinkertaisesti komponentti, jota käytetään useammalla sivulla. Sivukohtainen alikomponentti, joka löytyy sivun kansiosta, on itsenäinen komponentti, jota ei käytetä millään muulla sivulla. Syy jaottelulle on yksinkertainen. Mikäli halutaan käyttää samaa komponenttia useammalla sivulla, pidetään se eri paikassa, kuin komponentit, joita ei haluta jakaa muiden sivujen kanssa. Hyötynä tässä jaottelussa on selkeä vastuunjako siitä, että jos tekee muutoksia komponenttiin, tietää sen mahdolliset vaikutukset.
+Pages kansiosta löytyy aiemmin mainitut sivut, jotka näyttäytyvät käyttäjälle ruudulla. Jokainen sivu on oma kansionsa, josta löytyy page komponentti. Tämä on siis jokaisen sivun juuri komponentti, joka kokoaa yhteen alikomponentteja. Sovelluksen datan tila elää page komponentissa. Kun käyttäjä tekee muutoksia käyttöliittymässä, page komponentti kertoo alikomponenteille tilan muutoksesta, jotka uudelleen renderöityvät vastaamaan uutta tilaa. Alikomponentteja on kahta eri tyyppiä, jaettuja alikomponentteja ja sivukohtaisia alikomponentteja. 
+
+Jaettu alikomponentti on yksinkertaisesti komponentti, jota käytetään useammalla sivulla. Sivukohtainen alikomponentti, joka löytyy sivun kansiosta, on itsenäinen komponentti, jota ei käytetä millään muulla sivulla. Syy jaottelulle on yksinkertainen. Mikäli halutaan käyttää samaa komponenttia useammalla sivulla, pidetään se eri paikassa, kuin komponentit, joita ei haluta jakaa muiden sivujen kanssa. Hyötynä tässä jaottelussa on selkeä vastuunjako siitä, että jos tekee muutoksia komponenttiin, tietää sen mahdolliset vaikutukset.
 
 Components kansiosta löytyy jaetut alikomponentit, joita käytetään useammalla sivulla.
 
@@ -89,15 +115,73 @@ Components kansiosta löytyy jaetut alikomponentit, joita käytetään useammall
 
 Design ratkaisuista puhuttaessa on hyvä aloittaa Reactista. React on niin suuri osa sitä, miten asioita tehdään. Sovelluksessa käytetään funktionaalisia komponentteja. Teknisesti sovelluksessa ne ovat TypeScript funktiota, jotka käännettään JavaScript funktioiksi. Vaikka ne ovat funktioita, niillä voi olla tila, niin kuin luokilla. React ei kuitenkaan käytä periyttämistä, vaan [kokoonpanoa](https://reactjs.org/docs/composition-vs-inheritance.html) (eng. composition). Dokumentaatio aiheesta [Thinking in React](https://reactjs.org/docs/thinking-in-react.html) kertoo Reactin tavasta toteuttaa käyttöliitymät syvemmin, kuin tässä ehtii avaamaan. Yksi asia mistä voisi vielä mainita, on Reactin ylhäältä alas datan kulkeminen, jota on sovellettu aiemmassa kappaleessa page componentin muodossa. Data virtaa alaspäin alikomponentteihin ylemmistä komponenteista. Asiasta enemmän selitetty Reactin dokumentaatiossa [Lifting state up](https://reactjs.org/docs/lifting-state-up.html) ja [The Data Flows Down](https://reactjs.org/docs/state-and-lifecycle.html#the-data-flows-down).
 
-Mitä tulee GoF Design Patterneihin tai SOLID periaatteisiin, on todella hankalaa suoraan verrata niitä web devaamiseen, puhumattakaan web devaamiseen Reactilla. Myös JavaScriptillä on oma vaikutuksensa tähän, tai tässä tapauksessa TypeScript, joka on tyypitetty JS.
+### SOLID patternit
 
-> Being a SOLID JavaScript Developer isn’t as straight forward as in other languages. JavaScript is a loosely typed language. Some consider it a functional language. Others consider it an object oriented language. Some think its both. And some think that having classes in JavaScript is just plain wrong.
->
-> [Dor Tuz](https://thefullstack.xyz/solid-javascript/)
+**Single responsiblity**
 
-Toisinsanoen JS:llä koodaaminen tuo paljon vastuuta, jonka mukana tulee paljon valtaa (Tarkoituksella toisin päin, koska niin [maailma toimii](https://medium.com/thrive-global/this-75-year-harvard-study-reveals-the-secret-to-happiness-and-success-3cf0002510fe)). Rajoitamme kuitenkin tätä valtaa käyttämällä TypeScriptiä tyypityksen lisäämiseksi. Näin ollen teemme vähemmän typeriä virheitä oletuksen muodossa.
+Data kulku ylhäältä alaspäin sopiikin hienosti SOLID patterneistä tuttuun Single-Responsiblity patterniin. Reactissa komponentit välittävät tilansa (state) alikomponenteilleen ja alikomponentit päätävät tämän perusteella toiminnastaan. Alikomponenteille ylhäältä päin tuleva tila on vain luettavissa, ne eivät voi muuttaa dataa alempaa.
 
-Sen sijaan, että yritetään väkisin saada GoF tai SOLID periaatteet mahtumaan tähän projektiin, kerromme mielummin periaatteista, joista projekti on muodostunut.
+**Open-closed**
+
+Jokainen chart komponentti käsittelee saamansa datan ja visualisoi sen parhaansa mukaan. Uuden datan lisääminen chartiin on helppoa, lisää vain uuden datan komponentin tilaan.
+
+**Liskov Substitution ja Interface segregation**
+
+Tiedostossa global.d.ts on määritelty rajapintoja sekä tyyppejä, joihin applikaation osat nojaavat. Esimerkkinä sääpalvelu toteuttaa rajapinnan `WeatherData`, joka puolestaan tarjoaa listoja sään tilasta eri ajankohtina `WeatherDataPoint` rajapinnan muodossa.
+
+**Dependency inversion**
+
+Applikaatiossamme esimerkiksi aikavälin esittäminen UI:ssa ja palveluiden tilassa tarjoaa `TimeRange`-rajapinta. Datapalvelut tietävät mitä aikaväliä käyttäjä haluaa tarkastella tämän kautta.
+
+## Rajapinnat ja palvelut
+
+Applikaation globaalit rajapinnat ovat määriteltynä tiedostossa `global.d.ts`. Lisäksi applikaatiossa on lukuisia muita rajapintoja, joita komponentit hyödyntävät sisäisesti.
+
+Kaksi palvelua `ElectricityService` ja `WeatherService` suorittavat Fingridin ja FMI:n datan hakemiseen.
+
+## Itsearviointi
+
+### Plussat
+  - Todella hyvä prototyyppi
+  - Oikea kirjasto datan visualisointiin
+  - Oikea työkalu ongelmaan (selainympäristö)
+  - Laajennettavuus
+  - Typescript: interfacet ja tyypitys
+  - Hyvä arkkitehtuuri
+  - Tiimin vastuunjako eri osa-alueille
+
+### Miinukset
+  - Servicen interfacen muuttuminen projektin kehittyessä, johtuen heikkolaatuisista API:eista.
+  - käytettävien API:en heikko laatu. Alla muutama esimerkki monista ongelmista.
+    - FMI: historia vain XML muodossa, dokumentaatio hukassa/ei ajantasalla. Epäjohdonmukaiset rajapinnat (sekä JSON, että XML sekaisin). Typeriä rajoitteita (vain 168 tuntia kerrallaan / request ?!?!!?!?!). Säätiedon historian puutteellisuus, pilvisyys ja tuulen historia puuttuvat kähes kokonaan.
+    - Fingrid: Jokainen datatyyppi täytyy noutaa palvelimelta erikseen (yksi aikaväli / 9 pyyntöä). Dokumentaatio vanhentunutta ja sekavaa. Palvelin asettaa "no-cache,must-revalidate" jokaiseen pyyntöön vaikka käyttäjälle olisi hyödyllistä jättää data selaimen välimuistiin.
+
+### Kysymyset
+
+**In the mid-term submission you only had a partially implemented application. Now, that
+you have implemented all functional requirements, evaluate how well the design you
+originally made served your purpose, and what kind of changes you had to make.**
+
+Ohjelman toteuttaminen on mennyt "niin kuin Strömssä". Ohjelmaa on rakennettu iteratiivisesti tekemällä perus runko aluksi, jonka jälkeen on laajennettu toiminallisuuksia tämän päälle. Missän vaiheessa ei ole jouduttu tekemään merkittäävää refaktorointia arkkitehtuuriin tai designiin, vaan on voitu jatkaa ominaisuuksien tekemistä alusta loppuun asti vanhan päälle. Kaikki Refactor kommitit ovat liittyneet vain interfaceiden tai servicien muutoksiin, tai uudelleennimeämiseen. Kokonaisrakenne on kuitenkin säilynyt samana.
+
+Ohjelma on yksinkertainen, joten yksinkertainen arkkitehtuuri palvelee tarkoitustansa hyvin. Myös datan parsiminen frontissa on säästänyt overheadia, verrattuna backendin toteuttamiseen. Tätä on toki vaikeaa arvioida, kuinka paljon ylimääräistä työtä olisi backendin tekeminen tuonut mukanaan.
+
+**How well have you been able to stick to your original design and how well have you been able to implement features based on your original plan.**
+
+Ohjelmiston pääasiallinen arkkitehtuuri ei muuttunut alkuperäisestä suunnitelmasta. Ohjelman sisältämät rajapinnat ovat taas projektin aikana kasvaneet ja eläneet komponenttien tarpeen mukaan, mutta myös rajapintojen rajoitteiden takia.
+
+Yleisesti ottaen ohjelman implementointi on ollut melko kivutonta. Designin puolesta ei ole tullut ongelmia implementointiin.
+
+Suurin ongelma projektissa on johtunut siitä, että API:t ovat ollet heikkolaatuisia, joten rajapintoja ei pystynyt suunnitelemaan etukäteen. Tämä johti siihen, että ohjelmassa jouduttiin tekemään hieman turhaa työtä refaktoroinnin muodossa.
+
+**What changes you needed to make the original design to implement the all features**
+
+None. Ohjelman toteutus on vastannut aluksi suunniteltua.
+
+
+## Filosofiaa ohjelmistokehityksen kulisseissa
+
+<details><summary>Asiaa React devaamisesta vielä pintaa syvemmin</summary>
 
 Uncle Bob on kova jätkä. Hän on toki todella kiistelty henkilö, koska ilmaisee asiat kärjistäen. Hänen Clean Code kirjassa on kuitenkin periaatteita, missä on paljon perää. Näiden pohjalta on tullut paljon asioita, mihin ei kiinnitetä tarpeeksi huomiota.
 
@@ -154,70 +238,4 @@ like this?” tasolle. Muuten tästä syntyisi jo kirjan verran asiaa. Kokonaisk
 >
 > [Principles behind the Agile Manifesto](http://agilemanifesto.org/principles.html)
 
-## Rajapinnat ja palvelut
-
-Kaksi palvelua Fingridin ja FMI:n datan hakemiseen. Ne tarjoavat palvelua componenteille. Data flow on kuvattu Big Picturessa aiemmin. Tarkemmat interface määrittelyt löytyvät kommentteina koodista global.d.ts tyyppimäärittelytiedostosta. Siellä on määritelty globaaliin nimiavaruuteen interfacet, koska niitä käytetään useammalla sivulla. Esimerkiksi sääpalvelua käytetään weather sivun lisäksi analysis sivulla.
-
-## Itsearviointi
-
-### Plussat
-  - Todella hyvä prototyyppi
-  - Oikea kirjasto datan visualisointiin
-  - Oikea työkalu ongelmaan (selainympäristö)
-  - Laajennettavuus
-  - Typescript: interfacet ja tyypitys
-  - Hyvä arkkitehtuuri
-  - Tiimin vastuunjako eri osa-alueille
-
-### Miinukset
-  - Servicen interfacen muuttuminen projektin kehittyessä, johtuen heikkolaatuisista API:eista.
-  - käytettävien API:en heikko laatu. Alla muutama esimerkki monista ongelmista.
-    - FMI: historia vain XML muodossa, dokumentaatio hukassa/ei ajantasalla. Epäjohdonmukaiset rajapinnat (sekä JSON, että XML sekaisin). Typeriä rajoitteita (vain 168 tuntia kerrallaan / request ?!?!!?!?!). Säätiedon historian puutteellisuus, pilvisyys ja tuulen historia puuttuvat kähes kokonaan.
-    - Fingrid: Jokainen datatyyppi täytyy noutaa palvelimelta erikseen (yksi aikaväli / 9 pyyntöä). Dokumentaatio vanhentunutta ja sekavaa. Palvelin asettaa "no-cache,must-revalidate" jokaiseen pyyntöön vaikka käyttäjälle olisi hyödyllistä jättää data selaimen välimuistiin.
-
-### Kysymyset
-
-**In the mid-term submission you only had a partially implemented application. Now, that
-you have implemented all functional requirements, evaluate how well the design you
-originally made served your purpose, and what kind of changes you had to make.**
-
-Ohjelman toteuttaminen on mennyt "niin kuin Strömssä". Ohjelmaa on rakennettu iteratiivisesti tekemällä perus runko aluksi, jonka jälkeen on laajennettu toiminallisuuksia tämän päälle. Missän vaiheessa ei ole jouduttu tekemään merkittäävää refaktorointia arkkitehtuuriin tai designiin, vaan on voitu jatkaa ominaisuuksien tekemistä alusta loppuun asti vanhan päälle. Kaikki Refactor kommitit ovat liittyneet vain interfaceiden tai servicien muutoksiin, tai uudelleennimeämiseen. Kokonaisrakenne on kuitenkin säilynyt samana.
-
-Ohjelma on yksinkertainen, joten yksinkertainen arkkitehtuuri palvelee tarkoitustansa hyvin. Myös datan parsiminen frontissa on säästänyt overheadia, verrattuna backendin toteuttamiseen. Tätä on toki vaikeaa arvioida, kuinka paljon ylimääräistä työtä olisi backendin tekeminen tuonut mukanaan.
-
-**How well have you been able to stick to your original design and how well have you been able to implement features based on your original plan.**
-
-Ohjelmiston pääasiallinen arkkitehtuuri ei muuttunut alkuperäisestä suunnitelmasta. Ohjelman sisältämät rajapinnat ovat taas projektin aikana kasvaneet ja eläneet komponenttien tarpeen mukaan, mutta myös rajapintojen rajoitteiden takia.
-
-Yleisesti ottaen ohjelman implementointi on ollut melko kivutonta. Designin puolesta ei ole tullut ongelmia implementointiin.
-
-Suurin ongelma projektissa on johtunut siitä, että API:t ovat ollet heikkolaatuisia, joten rajapintoja ei pystynyt suunnitelemaan etukäteen. Tämä johti siihen, että ohjelmassa jouduttiin tekemään hieman turhaa työtä refaktoroinnin muodossa.
-
-**What changes you needed to make the original design to implement the all features**
-
-None. Ohjelman toteutus on vastannut aluksi suunniteltua.
-
-
-## Kolmannen osapuolen kirjastot ja työkalut
-
-Alla on listattu kirjastoja ja työkaluja, joita olemme suunnitelleet käytettäväksi projektin toteutukseen.
-
-- [React](https://reactjs.org/)
-  - Koko applikaation "aivot"
-  - Hallitsee koko käyttölittymää
-- [React router](https://reactrouter.com/)
-  - Helpottaa käyttäjän navigointia käyttöliittymässä
-  - Pitää URLn synkronoituna näkymän kanssa
-- [Highcharts](https://www.npmjs.com/package/highcharts-react-official)
-  - Datan visualisointi ja filtteröinti
-  - Interaktiivinen
-  - "Make your data come alive"
-- [Tailwind CSS](https://tailwindcss.com/)
-  - Visuaalinen ilme
-  - Käyttöliittymän asettelu ja skaalaus
-  - Responsiivisuus (mobiilinäkymä)
-- [Axios](https://github.com/axios/axios)
-  - Datan noutaminen ja parsiminen
-- Gitlab
-  - Projektinhallinta
-  - CI/CD
+</details>
