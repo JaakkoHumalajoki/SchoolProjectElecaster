@@ -42,10 +42,6 @@
   @apply btn h-14 w-52 text-lg rounded-md;
 }
 
-.chartContainer {
-  @apply card-lg;
-}
-
 .hoverAnimation {
   @apply transition duration-100 ease-in-out;
 }

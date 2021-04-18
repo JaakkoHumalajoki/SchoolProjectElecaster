@@ -199,7 +199,7 @@ const ComparisonChart = (props: Props): JSX.Element => {
   }
 
   return (
-    <div className="chartContainer">
+    <div className="card-lg">
       <HighchartsReact highcharts={Highcharts} options={options} />
       <h2>Analysis for highlighted time range</h2>
       <p>Average temperature: {tempAvg} °C</p>
