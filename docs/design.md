@@ -19,7 +19,7 @@ Alla linkit Figmassa toteutettuihin prototyyppeihin sovelluksen työpöytä- ja 
 
 ## Arkkitehtuuri
 
-Arkkitehtuuri oli pitkälti suunniteltu etukäteen. Tämä oli mahdollista kokemuksen ansioista, joka oli jo olemassa Reactilla suunnitelluista web sovellukisista. Pienessä sovelluksessa voi ennalta tiedostaa sopivan rakenteen, toisin kuin suuremmassa sovelluksessa. Myös teknologiavalinnoilla on ansionsa projektin yksinkertaisuuteen. Reactia käytettäessä käyttöliittymän tekeminen on suhteellisen helppoa. Näin ollen logiikka ja ohjelmointityö, mitä vaaditaan käyttöliittymän suunnittelluun on verrattain pientä, verrattuna esimerkiksi C++:aan Qt:lla. React antaa viitekehyksen, jonka käyttäminen välttää monet kompastuskivet, kuten datan tilaan liittyvät asiat käyttöliittymän kannalta. Reactin komponenttiajattelu kannustaa myös modulaariseen ajatteluun, vaikka ei se takaa vielä modulaarisuutta. Vielä yksi syy yksinkertaiseen arkkitehtuuriin on valmiiden kirjastojen käyttäminen, joita Reactin ja web ekosysteemin ansioista on olemassa. Näistä esimerkkinä mainittakoon Highcharts, joka tarjosi yksinkertaisen sisäisen rajapinnan kuvaajien tekemiseksi. Tarkemmat tiedot kolmannen osapuolien kirjastoista löytyvät [alempaa](#kolmannen-osapuolen-kirjastot-ja-työkalut).
+Arkkitehtuuri oli pitkälti suunniteltu etukäteen. Tämä oli mahdollista kokemuksen ansioista, joka oli jo olemassa Reactilla suunnitelluista web sovelluksista. Pienessä sovelluksessa voi ennalta tiedostaa sopivan rakenteen, toisin kuin suuremmassa sovelluksessa. Myös teknologiavalinnoilla on ansionsa projektin yksinkertaisuuteen. Reactia käytettäessä käyttöliittymän tekeminen on suhteellisen helppoa. Näin ollen logiikka ja ohjelmointityö, mitä vaaditaan käyttöliittymän suunnittelluun on verrattain pientä, verrattuna esimerkiksi C++:aan Qt:lla. React antaa viitekehyksen, jonka käyttäminen välttää monet kompastuskivet, kuten datan tilaan liittyvät asiat käyttöliittymän kannalta. Reactin komponenttiajattelu kannustaa myös modulaariseen ajatteluun, vaikka ei se takaa vielä modulaarisuutta. Vielä yksi syy yksinkertaiseen arkkitehtuuriin on valmiiden kirjastojen käyttäminen, joita Reactin ja web ekosysteemin ansioista on olemassa. Näistä esimerkkinä mainittakoon Highcharts, joka tarjosi yksinkertaisen sisäisen rajapinnan kuvaajien tekemiseksi. Tarkemmat tiedot kolmannen osapuolien kirjastoista löytyvät [alempaa](#kolmannen-osapuolen-kirjastot-ja-työkalut).
 
 ## Kolmannen osapuolen kirjastot ja työkalut
 
@@ -74,7 +74,7 @@ App kansiosta löytyy sovellus kokonaisuudessaan sisältäen kaiken konfiguraati
 
 ### Sovelluksen UI:n rakenne
 
-Sovellusta tehdessä pyrittiin löytämään intuitiivista rakennetta, joka auttaa hahmottamaan vastuualueet selkeästi. Sovelluksessa on yksi layout, joka vastaa näkymän rakenteesta riippumatta mikä näkymä on kyseessä. Näkymää kutsumme sivuksi, koska sivun vaihtaminen on intuitiivinen käsite web sovelluksissa (vrt. sana nettisivu). Layoutin rakenne on myös web sovelluksista tuttu. Header, joka toimii otsikkona ja navigaatiopalkkina, "Sivu", joka renderöi jokaiseen näkymään sisällön ja Footer, joka on myös web sovellukista tuttu käsite. Footerissa näytetään usein vähemmän relevanttia yleistietoa sovelluksesta.
+Sovellusta tehdessä pyrittiin löytämään intuitiivista rakennetta, joka auttaa hahmottamaan vastuualueet selkeästi. Sovelluksessa on yksi layout, joka vastaa näkymän rakenteesta riippumatta mikä näkymä on kyseessä. Näkymää kutsumme sivuksi, koska sivun vaihtaminen on intuitiivinen käsite web sovelluksissa (vrt. sana nettisivu). Layoutin rakenne on myös web-sovelluksista tuttu. Header, joka toimii otsikkona ja navigaatiopalkkina, "Sivu", joka renderöi jokaiseen näkymään sisällön ja Footer, joka on myös web sovelluksista tuttu käsite. Footerissa näytetään usein vähemmän relevanttia yleistietoa sovelluksesta.
 
 ![Sovelluksen näkymän rakenne](./sovelluksen-rakenne.png)
 
@@ -105,7 +105,7 @@ Katkoviivalla on kuvattu kansioita, joista löytyy saman tyylisiä moduuleja/tie
 
 Data kulkee service moduulin läpi, joka tekee kyselyt ja käsittelee datan sovellukselle sopivaan muotoon. Sovelluksessa on tällä hetkellä kaksi serviceä, FMI ja Fingrid.
 
-Pages kansiosta löytyy aiemmin mainitut sivut, jotka näyttäytyvät käyttäjälle ruudulla. Jokainen sivu on oma kansionsa, josta löytyy page komponentti. Tämä on siis jokaisen sivun juuri komponentti, joka kokoaa yhteen alikomponentteja. Sovelluksen datan tila elää page komponentissa. Kun käyttäjä tekee muutoksia käyttöliittymässä, page komponentti kertoo alikomponenteille tilan muutoksesta, jotka uudelleen renderöityvät vastaamaan uutta tilaa. Alikomponentteja on kahta eri tyyppiä, jaettuja alikomponentteja ja sivukohtaisia alikomponentteja. 
+Pages kansiosta löytyy aiemmin mainitut sivut, jotka näyttäytyvät käyttäjälle ruudulla. Jokainen sivu on oma kansionsa, josta löytyy page komponentti. Tämä on siis jokaisen sivun juurikomponentti, joka kokoaa yhteen alikomponentteja. Sovelluksen datan tila elää page-komponentissa. Kun käyttäjä tekee muutoksia käyttöliittymässä, page komponentti kertoo alikomponenteille tilan muutoksesta, jotka uudelleenrenderöityvät vastaamaan uutta tilaa. Alikomponentteja on kahta eri tyyppiä, jaettuja alikomponentteja ja sivukohtaisia alikomponentteja. 
 
 Jaettu alikomponentti on yksinkertaisesti komponentti, jota käytetään useammalla sivulla. Sivukohtainen alikomponentti, joka löytyy sivun kansiosta, on itsenäinen komponentti, jota ei käytetä millään muulla sivulla. Syy jaottelulle on yksinkertainen. Mikäli halutaan käyttää samaa komponenttia useammalla sivulla, pidetään se eri paikassa, kuin komponentit, joita ei haluta jakaa muiden sivujen kanssa. Hyötynä tässä jaottelussa on selkeä vastuunjako siitä, että jos tekee muutoksia komponenttiin, tietää sen mahdolliset vaikutukset.
 
@@ -115,7 +115,7 @@ Components kansiosta löytyy jaetut alikomponentit, joita käytetään useammall
 
 Design ratkaisuista puhuttaessa on hyvä aloittaa Reactista. React on niin suuri osa sitä, miten asioita tehdään. Sovelluksessa käytetään funktionaalisia komponentteja. Teknisesti sovelluksessa ne ovat TypeScript funktiota, jotka käännettään JavaScript funktioiksi. Vaikka ne ovat funktioita, niillä voi olla tila, niin kuin luokilla. React ei kuitenkaan käytä periyttämistä, vaan [kokoonpanoa](https://reactjs.org/docs/composition-vs-inheritance.html) (eng. composition). Dokumentaatio aiheesta [Thinking in React](https://reactjs.org/docs/thinking-in-react.html) kertoo Reactin tavasta toteuttaa käyttöliitymät syvemmin, kuin tässä ehtii avaamaan. Yksi asia mistä voisi vielä mainita, on Reactin ylhäältä alas datan kulkeminen, jota on sovellettu aiemmassa kappaleessa page componentin muodossa. Data virtaa alaspäin alikomponentteihin ylemmistä komponenteista. Asiasta enemmän selitetty Reactin dokumentaatiossa [Lifting state up](https://reactjs.org/docs/lifting-state-up.html) ja [The Data Flows Down](https://reactjs.org/docs/state-and-lifecycle.html#the-data-flows-down).
 
-Fingrid ja FMI servicet on toteutettu singletoneina, joita aplikaation kaikki sivut käyttävät yhtenäisesti. Näin palveluiden alustamiseen ei tarvitse käyttää turhaa aikaa jokaisella sivunvaihdolla ja sama data voidaan jakaa useammalle sivulle yhden haun jälkeen.
+Fingrid ja FMI servicet on toteutettu singletoneina, joita applikaation kaikki sivut käyttävät yhtenäisesti. Näin palveluiden alustamiseen ei tarvitse käyttää turhaa aikaa jokaisella sivunvaihdolla ja sama data voidaan jakaa useammalle sivulle yhden haun jälkeen.
 
 Highcharts-kaavioiden luomiseen olisi voinut harkita jonkinlaisen yläluokan ja periyttämisen käyttöä, mutta loppujen lopuksi jokainen kaavio on liian monella tapaa hiukan erilainen jotta niitä olisi voinut järkevällä tasolla yhdistää. Kaavioilla on yhteisessä käytössä commonOptions-objekti, joka määrittää kaikille kaavioille yhteiset asetukset, joihin jokainen kaavio lisää omat erityisasetuksensa.
 
@@ -166,7 +166,7 @@ Kaksi palvelua `ElectricityService` ja `WeatherService` suorittavat Fingridin ja
 you have implemented all functional requirements, evaluate how well the design you
 originally made served your purpose, and what kind of changes you had to make.**
 
-Ohjelman toteuttaminen on mennyt "niin kuin Strömssä". Ohjelmaa on rakennettu iteratiivisesti tekemällä perus runko aluksi, jonka jälkeen on laajennettu toiminallisuuksia tämän päälle. Missän vaiheessa ei ole jouduttu tekemään merkittäävää refaktorointia arkkitehtuuriin tai designiin, vaan on voitu jatkaa ominaisuuksien tekemistä alusta loppuun asti vanhan päälle. Kaikki Refactor kommitit ovat liittyneet vain interfaceiden tai servicien muutoksiin, tai uudelleennimeämiseen. Kokonaisrakenne on kuitenkin säilynyt samana.
+Ohjelman toteuttaminen on mennyt "niin kuin Strömssä". Ohjelmaa on rakennettu iteratiivisesti tekemällä perusrunko aluksi, jonka jälkeen on laajennettu toiminallisuuksia tämän päälle. Missän vaiheessa ei ole jouduttu tekemään merkittäävää refaktorointia arkkitehtuuriin tai designiin, vaan on voitu jatkaa ominaisuuksien tekemistä alusta loppuun asti vanhan päälle. Kaikki Refactor kommitit ovat liittyneet vain interfaceiden tai servicien muutoksiin, tai uudelleennimeämiseen. Kokonaisrakenne on kuitenkin säilynyt samana.
 
 Ohjelma on yksinkertainen, joten yksinkertainen arkkitehtuuri palvelee tarkoitustansa hyvin. Myös datan parsiminen frontissa on säästänyt overheadia, verrattuna backendin toteuttamiseen. Tätä on toki vaikeaa arvioida, kuinka paljon ylimääräistä työtä olisi backendin tekeminen tuonut mukanaan.
 
@@ -176,7 +176,7 @@ Ohjelmiston pääasiallinen arkkitehtuuri ei muuttunut alkuperäisestä suunnite
 
 Yleisesti ottaen ohjelman implementointi on ollut melko kivutonta. Designin puolesta ei ole tullut ongelmia implementointiin.
 
-Suurin ongelma projektissa on johtunut siitä, että API:t ovat ollet heikkolaatuisia, joten rajapintoja ei pystynyt suunnitelemaan etukäteen. Tämä johti siihen, että ohjelmassa jouduttiin tekemään hieman turhaa työtä refaktoroinnin muodossa.
+Suurin ongelma projektissa on johtunut siitä, että API:t ovat olleet heikkolaatuisia, joten rajapintoja ei pystynyt suunnitelemaan etukäteen. Tämä johti siihen, että ohjelmassa jouduttiin tekemään hieman turhaa työtä refaktoroinnin muodossa.
 
 **What changes you needed to make the original design to implement the all features**
 
