@@ -52,9 +52,25 @@ export const emptyWeatherData: Pick<WeatherData, "forecast" | "history"> = {
 export const commonOptions: Highcharts.Options = {
   chart: {
     height: "600px",
+    zoomKey: "shift",
+    zoomType: "x",
   },
   time: {
     useUTC: false,
+  },
+  boost: {
+    enabled: true,
+    seriesThreshold: 25,
+  },
+  plotOptions: {
+    line: {
+      marker: {
+        enabled: false,
+      },
+    },
+  },
+  title: {
+    useHTML: true,
   },
   navigator: {
     enabled: true,
