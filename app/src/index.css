@@ -63,7 +63,15 @@
 }
 
 .pageHeader {
-  @apply text-6xl font-bold text-center m-5 mt-0;
+  @apply font-bold text-gray-800 tracking-widest text-center m-5 mt-0;
+}
+
+div.pageHeader > h1 {
+  @apply text-6xl pt-4 pb-2;
+}
+
+div.pageHeader > h2 {
+  @apply text-xl pb-6 mt-1;
 }
 
 h3 {

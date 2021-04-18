@@ -89,8 +89,11 @@ const AnalysisPage = (props: Props): JSX.Element => {
 
   return (
     <div>
+      <div className="pageHeader">
+        <h1>Analysis</h1>
+        <h2>Take a deeper look into our data 🔎</h2>
+      </div>
       <div className="card-lg">
-        <h1 className="pageHeader">Analysis</h1>
         <div className="topControls">
           <CitySelection city={city} onCityChange={onCityChange} />
           <TimeSelection timeRange={timeRange} onTimeChange={onTimeChange} />

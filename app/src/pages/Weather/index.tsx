@@ -60,8 +60,11 @@ const WeatherPage = (props: Props): JSX.Element => {
 
   return (
     <div>
+      <div className="pageHeader m-5">
+        <h1>Weather</h1>
+        <h2>All about the weather ☁️</h2>
+      </div>
       <div className="card-lg">
-        <h1 className="pageHeader">Weather</h1>
         <div className="topControls">
           <CitySelection city={city} onCityChange={onCityChange} />
           <TimeSelection timeRange={timeRange} onTimeChange={onTimeChange} />
