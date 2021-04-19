@@ -77,7 +77,7 @@ The assignment is defined as follows:
 
 Documentation built for every commit is stored at [https://docs--elecaster.netlify.app/](https://docs--elecaster.netlify.app/)
 
-Design document can be found from /docs/design.md
+Design document can be found from [docs](/docs/design.md)
 
 ### Prototypes
 
