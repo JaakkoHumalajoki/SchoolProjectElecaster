@@ -7,7 +7,7 @@ import { Link } from "react-router-dom"
 export default (): JSX.Element => {
   return (
     <div className="flex flex-col self-center mx-auto max-w-2xl space-y-12 text-center">
-      <h1 className="m-2 text-4xl sm:text-6xl font-bold">
+      <h1 className="m-2 text-4xl sm:text-6xl font-bold text-gray-900">
         Real-time data about weather and electricity
       </h1>
       <div className="flex flex-col xs:flex-row self-center space-y-4 xs:space-y-0 xs:space-x-6">
