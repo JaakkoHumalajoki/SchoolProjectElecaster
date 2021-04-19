@@ -105,7 +105,7 @@ Katkoviivalla on kuvattu kansioita, joista löytyy saman tyylisiä moduuleja/tie
 
 Data kulkee service moduulin läpi, joka tekee kyselyt ja käsittelee datan sovellukselle sopivaan muotoon. Sovelluksessa on tällä hetkellä kaksi serviceä, FMI ja Fingrid.
 
-Pages kansiosta löytyy aiemmin mainitut sivut, jotka näyttäytyvät käyttäjälle ruudulla. Jokainen sivu on oma kansionsa, josta löytyy page komponentti. Tämä on siis jokaisen sivun juurikomponentti, joka kokoaa yhteen alikomponentteja. Sovelluksen datan tila elää page-komponentissa. Kun käyttäjä tekee muutoksia käyttöliittymässä, page komponentti kertoo alikomponenteille tilan muutoksesta, jotka uudelleenrenderöityvät vastaamaan uutta tilaa. Alikomponentteja on kahta eri tyyppiä, jaettuja alikomponentteja ja sivukohtaisia alikomponentteja. 
+Pages kansiosta löytyy aiemmin mainitut sivut, jotka näyttäytyvät käyttäjälle ruudulla. Jokainen sivu on oma kansionsa, josta löytyy page komponentti. Tämä on siis jokaisen sivun juurikomponentti, joka kokoaa yhteen alikomponentteja. Sovelluksen datan tila elää page-komponentissa. Kun käyttäjä tekee muutoksia käyttöliittymässä, page komponentti kertoo alikomponenteille tilan muutoksesta, jotka uudelleenrenderöityvät vastaamaan uutta tilaa. Alikomponentteja on kahta eri tyyppiä, jaettuja alikomponentteja ja sivukohtaisia alikomponentteja.
 
 Jaettu alikomponentti on yksinkertaisesti komponentti, jota käytetään useammalla sivulla. Sivukohtainen alikomponentti, joka löytyy sivun kansiosta, on itsenäinen komponentti, jota ei käytetä millään muulla sivulla. Syy jaottelulle on yksinkertainen. Mikäli halutaan käyttää samaa komponenttia useammalla sivulla, pidetään se eri paikassa, kuin komponentit, joita ei haluta jakaa muiden sivujen kanssa. Hyötynä tässä jaottelussa on selkeä vastuunjako siitä, että jos tekee muutoksia komponenttiin, tietää sen mahdolliset vaikutukset.
 
@@ -146,19 +146,21 @@ Kaksi palvelua `ElectricityService` ja `WeatherService` suorittavat Fingridin ja
 ## Itsearviointi
 
 ### Plussat
-  - Todella hyvä prototyyppi
-  - Oikea kirjasto datan visualisointiin
-  - Oikea työkalu ongelmaan (selainympäristö)
-  - Laajennettavuus
-  - Typescript: interfacet ja tyypitys
-  - Hyvä arkkitehtuuri
-  - Tiimin vastuunjako eri osa-alueille
+
+- Todella hyvä prototyyppi
+- Oikea kirjasto datan visualisointiin
+- Oikea työkalu ongelmaan (selainympäristö)
+- Laajennettavuus
+- Typescript: interfacet ja tyypitys
+- Hyvä arkkitehtuuri
+- Tiimin vastuunjako eri osa-alueille
 
 ### Miinukset
-  - Servicen interfacen muuttuminen projektin kehittyessä, johtuen heikkolaatuisista API:eista.
-  - käytettävien API:en heikko laatu. Alla muutama esimerkki monista ongelmista.
-    - FMI: historia vain XML muodossa, dokumentaatio hukassa/ei ajantasalla. Epäjohdonmukaiset rajapinnat (sekä JSON, että XML sekaisin). Typeriä rajoitteita (vain 168 tuntia kerrallaan / request ?!?!!?!?!). Säätiedon historian puutteellisuus, pilvisyys ja tuulen historia puuttuvat kähes kokonaan.
-    - Fingrid: Jokainen datatyyppi täytyy noutaa palvelimelta erikseen (yksi aikaväli / 9 pyyntöä). Dokumentaatio vanhentunutta ja sekavaa. Palvelin asettaa "no-cache,must-revalidate" jokaiseen pyyntöön vaikka käyttäjälle olisi hyödyllistä jättää data selaimen välimuistiin.
+
+- Servicen interfacen muuttuminen projektin kehittyessä, johtuen heikkolaatuisista API:eista.
+- käytettävien API:en heikko laatu. Alla muutama esimerkki monista ongelmista.
+  - FMI: historia vain XML muodossa, dokumentaatio hukassa/ei ajantasalla. Epäjohdonmukaiset rajapinnat (sekä JSON, että XML sekaisin). Typeriä rajoitteita (vain 168 tuntia kerrallaan / request ?!?!!?!?!). Säätiedon historian puutteellisuus, pilvisyys ja tuulen historia puuttuvat kähes kokonaan.
+  - Fingrid: Jokainen datatyyppi täytyy noutaa palvelimelta erikseen (yksi aikaväli / 9 pyyntöä). Dokumentaatio vanhentunutta ja sekavaa. Palvelin asettaa "no-cache,must-revalidate" jokaiseen pyyntöön vaikka käyttäjälle olisi hyödyllistä jättää data selaimen välimuistiin.
 
 ### Kysymyset
 
@@ -182,10 +184,9 @@ Suurin ongelma projektissa on johtunut siitä, että API:t ovat olleet heikkolaa
 
 None. Ohjelman toteutus on vastannut aluksi suunniteltua.
 
-
 ## Filosofiaa ohjelmistokehityksen kulisseissa
 
-<details><summary>Asiaa React devaamisesta vielä pintaa syvemmin</summary>
+<details><summary>Asiaa devaamisesta vielä pintaa syvemmin</summary>
 
 Uncle Bob on kova jätkä. Hän on toki todella kiistelty henkilö, koska ilmaisee asiat kärjistäen. Hänen Clean Code kirjassa on kuitenkin periaatteita, missä on paljon perää. Näiden pohjalta on tullut paljon asioita, mihin ei kiinnitetä tarpeeksi huomiota.
 
