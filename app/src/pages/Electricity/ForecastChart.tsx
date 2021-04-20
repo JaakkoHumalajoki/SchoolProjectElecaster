@@ -35,6 +35,32 @@ const ForecastChart = (props: Props): JSX.Element => {
     title: {
       text: "Energy production & consumption forecast",
     },
+    xAxis: {
+      ...commonOptions.xAxis,
+      plotLines: [
+        {
+          value: new Date().getTime(),
+          color: "#c3c3c3",
+          width: 2,
+          id: "today",
+          label: {
+            text: "Current time",
+            style: {
+              color: "#555",
+            },
+            rotation: 0,
+            align: "left",
+          },
+        },
+      ],
+      plotBands: [
+        {
+          color: "#f8f8f8",
+          from: 0,
+          to: new Date().getTime(),
+        },
+      ],
+    },
     tooltip: {
       ...commonOptions.tooltip,
       valueDecimals: 0,

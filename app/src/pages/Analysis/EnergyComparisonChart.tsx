@@ -58,6 +58,34 @@ const EnergyComparisonChart = (props: Props): JSX.Element => {
       ...commonOptions.tooltip,
       valueDecimals: 0,
     },
+    xAxis: {
+      ...commonOptions.xAxis,
+      plotLines: [
+        {
+          value: new Date().getTime(),
+          color: "#c3c3c3",
+          width: 2,
+          id: "today",
+          label: {
+            text: "Current time",
+            style: {
+              color: "#555",
+              y: 50,
+            },
+            rotation: 0,
+            align: "left",
+          },
+          zIndex: 10,
+        },
+      ],
+      plotBands: [
+        {
+          color: "#f8f8f8",
+          from: 0,
+          to: new Date().getTime(),
+        },
+      ],
+    },
     yAxis: [
       {
         title: {

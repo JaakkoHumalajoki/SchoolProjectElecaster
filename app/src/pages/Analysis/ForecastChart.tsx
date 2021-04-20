@@ -44,6 +44,33 @@ const ForecastChart = (props: Props): JSX.Element => {
     title: {
       text: "Energy & weather forecast analysis",
     },
+    xAxis: {
+      ...commonOptions.xAxis,
+      plotLines: [
+        {
+          value: new Date().getTime(),
+          color: "#c3c3c3",
+          width: 2,
+          id: "today",
+          label: {
+            text: "Current time",
+            style: {
+              color: "#555",
+            },
+            rotation: 0,
+            align: "left",
+          },
+          zIndex: 10,
+        },
+      ],
+      plotBands: [
+        {
+          color: "#f8f8f8",
+          from: 0,
+          to: new Date().getTime(),
+        },
+      ],
+    },
     yAxis: [
       {
         title: {
@@ -138,7 +165,7 @@ const ForecastChart = (props: Props): JSX.Element => {
           ],
         },
         tooltip: {
-          valueSuffix: " C",
+          valueSuffix: " °C",
         },
       },
       {
