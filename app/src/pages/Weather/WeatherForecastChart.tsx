@@ -132,7 +132,7 @@ const ComparisonChart = (props: Props): JSX.Element => {
           ],
         },
         tooltip: {
-          valueSuffix: " C",
+          valueSuffix: " °C",
         },
       },
       {
