@@ -57,6 +57,8 @@ Create `.env` with the following content inside the `./app`-direcory. Replace th
 REACT_APP_FINGRID_API_KEY=xxxxxxxxxx
 ```
 
+*(On Windows Explorer you need to name the file `.env.` first and then Explorer will rename it to `.env` when you save the file)*
+
 #### 2. Install dependecies
 
 with your shell, run (**inside the app directory**)
