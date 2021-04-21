@@ -47,6 +47,15 @@ export default function App(): JSX.Element {
       alert("End date must be after start date")
       return
     }
+    if (
+      newRange.startTime.getTime() + 181 * 24 * 60 * 60 * 1000 <
+      newRange.endTime.getTime()
+    ) {
+      // eslint-disable-next-line no-alert
+      alert("Maximum timerange is 180 days, please select smaller timerange")
+      return
+    }
+
     setTimeRange(newRange)
     electricityService.setTimeRange(newRange)
     weatherService.timeRange = newRange
