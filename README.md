@@ -1,3 +1,11 @@
+# summary
+
+Elecaster was a Tampere University course project in the spring of 2021 where we had free reign to choose our own technology stack for the given task. Our group of 4 students decided to do the project as a web app using React, TypeScript, Highcharts, Tailwind and Axios. Further information about the task and the original documents can be read in the sections below. The project was handled using GitLab, which doesn't allow access without login permits. This is why I copied the project code here, since we had agreed on making the project into something we could showcase in our portfolios. 
+
+On GitLab we used Issue board as a task management tool, to handle who was working on what features. For project communication we used Teams, and we held weekly / biweekly scrum meetings to discuss our progress and sprint goals. During the project, I was mainly responsible for Frontend coding, and created most of the React components and handled showing data with Highcharts.
+
+The app is currently still up and running at [https://elecaster.netlify.app/](https://elecaster.netlify.app/), although some piece of the backend API seems to have broken over the last year. The API was very convoluted and outdated even back then, so it is unsurprising that they may have changed or removed it.
+
 # _Elecaster_ - 0xc0ff3e software design project
 
 This is Tampere University course COMP.SE.110-2020-2021-1 Software Design course repository.
